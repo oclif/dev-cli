@@ -4,11 +4,15 @@
   "author": "Jeff Dickey @jdxcode",
   "anycli": {
     "commands": "./lib/commands",
+    "bin": "anycli-dev",
     "plugins": [
       "@anycli/plugin-help",
       "@anycli/plugin-not-found",
       "@anycli/plugin-version"
     ]
+  },
+  "bin": {
+    "anycli-dev": "./bin/run"
   },
   "bugs": "https://github.com/anycli/dev-cli/issues",
   "dependencies": {
@@ -42,6 +46,7 @@
     "node": ">=8.0.0"
   },
   "files": [
+    "/bin",
     "/lib"
   ],
   "homepage": "https://github.com/anycli/dev-cli",
