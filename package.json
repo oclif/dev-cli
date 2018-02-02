@@ -22,12 +22,14 @@
     "@anycli/plugin-help": "^0.4.0",
     "@anycli/plugin-not-found": "^0.1.10",
     "@anycli/plugin-version": "^0.1.20",
-    "cli-ux": "^3.3.13"
+    "cli-ux": "^3.3.13",
+    "fs-extra": "^5.0.0"
   },
   "devDependencies": {
     "@anycli/test": "^0.10.3",
     "@anycli/tslint": "^0.2.2",
     "@types/chai": "^4.1.2",
+    "@types/fs-extra": "^5.0.0",
     "@types/lodash": "^4.14.100",
     "@types/mocha": "^2.2.48",
     "@types/nock": "^9.1.2",
