@@ -22,7 +22,7 @@ export default class Manifest extends Command {
       plugin.manifest.version = process.env.ANYCLI_NEXT_VERSION
     }
     if (this.options.flags.out) {
-      await fs.outputJSON(this.options.flags.out, plugin)
+      await fs.outputJSON(this.options.flags.out, plugin.manifest)
     } else {
       cli.styledJSON(plugin.manifest)
     }
