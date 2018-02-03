@@ -1,3 +1,12 @@
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/anycli/dev-cli/compare/b3381061be634c27bfdf504de604a467876aad51...v0.1.4) (2018-02-03)
+
+
+### Bug Fixes
+
+* updated config ([92d035f](https://github.com/anycli/dev-cli/commit/92d035f))
+* updated deps ([5ba0813](https://github.com/anycli/dev-cli/commit/5ba0813))
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/anycli/dev-cli/compare/ad1c899a6249fddb0533a4055b870b3727063f25...v0.1.3) (2018-02-02)
 
