@@ -18,7 +18,7 @@
   "dependencies": {
     "@anycli/command": "^1.2.2",
     "@anycli/config": "^1.0.17",
-    "@anycli/plugin-help": "^0.5.0",
+    "@anycli/plugin-help": "^0.6.0",
     "@anycli/plugin-not-found": "^0.1.14",
     "@anycli/plugin-version": "^0.1.32",
     "cli-ux": "^3.3.13",
