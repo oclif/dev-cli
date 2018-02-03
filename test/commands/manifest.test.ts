@@ -13,6 +13,6 @@ describe('manifest', () => {
     expect(commands.manifest).to.include({
       title: 'generates plugin manifest json'
     })
-    expect(ctx.stdout).to.equal('wrote manifest to /Users/jdickey/src/github.com/anycli/dev-cli/.anycli.manifest.json\n')
+    expect(ctx.stdout).to.match(/wrote manifest to .*\.anycli.manifest.json/)
   })
 })
