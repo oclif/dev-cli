@@ -1,6 +1,6 @@
-import {Command, Config} from '@anycli/command'
-import cli from 'cli-ux'
-import * as fs from 'fs-extra'
+import {Command} from '@anycli/command'
+import * as Config from '@anycli/config'
+import * as fs from 'fs'
 import * as path from 'path'
 
 export default class Manifest extends Command {
@@ -18,7 +18,7 @@ export default class Manifest extends Command {
       plugin.manifest.version = process.env.ANYCLI_NEXT_VERSION
     }
     const file = path.join(plugin.root, '.anycli.manifest.json')
-    await fs.outputJSON(file, plugin.manifest)
-    cli.info(`wrote manifest to ${file}`)
+    fs.writeFileSync(file, JSON.stringify(plugin.manifest))
+    this.log(`wrote manifest to ${file}`)
   }
 }
