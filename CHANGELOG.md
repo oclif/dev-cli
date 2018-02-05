@@ -1,3 +1,11 @@
+<a name="0.1.6"></a>
+## [0.1.6](https://github.com/anycli/dev-cli/compare/662f3865586bd6e7d2a80bf72c9f5115b02abf89...v0.1.6) (2018-02-05)
+
+
+### Bug Fixes
+
+* remove unneded deps ([6723525](https://github.com/anycli/dev-cli/commit/6723525))
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/anycli/dev-cli/compare/b49a761fc65741d71397dc19d8a1ddfad794699e...v0.1.5) (2018-02-03)
 
