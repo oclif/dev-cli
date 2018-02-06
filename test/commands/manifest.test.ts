@@ -11,7 +11,7 @@ describe('manifest', () => {
   .it('outputs plugins', ctx => {
     const {commands} = fs.readJSONSync('.anycli.manifest.json') as Config.Manifest
     expect(commands.manifest).to.include({
-      title: 'generates plugin manifest json'
+      description: 'generates plugin manifest json'
     })
     expect(ctx.stdout).to.match(/wrote manifest to .*\.anycli.manifest.json/)
   })
