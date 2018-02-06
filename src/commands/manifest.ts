@@ -1,3 +1,5 @@
+// tslint:disable no-implicit-dependencies
+
 import {Command} from '@anycli/command'
 import * as Config from '@anycli/config'
 import * as fs from 'fs'
@@ -12,8 +14,14 @@ export default class Manifest extends Command {
   async run() {
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
-    const plugin = new Config.Plugin({root, type: 'dev', ignoreManifest: true})
+    let plugin = new Config.Plugin({root, type: 'dev', ignoreManifest: true})
     if (!plugin) throw new Error('plugin not found')
+    if (!plugin.valid) {
+      delete Config.Plugin.loadedPlugins[plugin.root]
+      const {PluginLegacy} = require('@anycli/plugin-legacy')
+      delete plugin.name
+      plugin = new PluginLegacy(this.config, plugin)
+    }
     if (process.env.ANYCLI_NEXT_VERSION) {
       plugin.manifest.version = process.env.ANYCLI_NEXT_VERSION
     }
