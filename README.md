@@ -1,7 +1,7 @@
 @anycli/dev-cli
 ===============
 
-
+helpers for anycli CLIs
 
 [![Version](https://img.shields.io/npm/v/@anycli/dev-cli.svg)](https://npmjs.org/package/@anycli/dev-cli)
 [![CircleCI](https://circleci.com/gh/anycli/dev-cli/tree/master.svg?style=svg)](https://circleci.com/gh/anycli/dev-cli/tree/master)

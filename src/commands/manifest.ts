@@ -6,7 +6,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 export default class Manifest extends Command {
-  static title = 'generates plugin manifest json'
+  static description = 'generates plugin manifest json'
   static args = [
     {name: 'path', description: 'path to plugin', default: '.'}
   ]
