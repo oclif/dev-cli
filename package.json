@@ -1,6 +1,6 @@
 {
   "name": "@anycli/dev-cli",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "author": "Jeff Dickey @jdxcode",
   "anycli": {
     "commands": "./lib/commands",

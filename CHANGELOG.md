@@ -1,3 +1,11 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/anycli/dev-cli/compare/feb3c0fc41037cd0f2810aefaf594a20bf0d0322...v0.2.0) (2018-02-06)
+
+
+### Features
+
+* add legacy support ([cd64309](https://github.com/anycli/dev-cli/commit/cd64309))
+
 <a name="0.1.7"></a>
 ## [0.1.7](https://github.com/anycli/dev-cli/compare/6723525df64568220de5e15ed8fd8dadc771ac0b...v0.1.7) (2018-02-06)
 
