@@ -1,3 +1,11 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/anycli/dev-cli/compare/cd643092e72139444fd8fbec50ff9e6c555019f6...v0.2.1) (2018-02-06)
+
+
+### Bug Fixes
+
+* delete manifest if it exists ([79d6aa0](https://github.com/anycli/dev-cli/commit/79d6aa0))
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/anycli/dev-cli/compare/feb3c0fc41037cd0f2810aefaf594a20bf0d0322...v0.2.0) (2018-02-06)
 
