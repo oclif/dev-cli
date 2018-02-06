@@ -166,7 +166,7 @@ USAGE
       commandPath = commandPath.replace(/\.js$/, '.ts')
     }
     repo = repo.url.split('+')[1].replace(/\.git$/, '')
-    return `_See code: [${plugin.name}](${repo}/blob/master/${commandPath})_`
+    return `_See code: [${plugin.name}](${repo}/blob/v${plugin.version}/${commandPath})_`
     // return `_From plugin: [${plugin.name}](${plugin.pjson.homepage})_`
   }
 }
