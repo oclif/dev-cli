@@ -1,3 +1,17 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/anycli/dev-cli/compare/9a1d6cf4ec93ece7b2ad3d18b37a5a98a1b291c2...v0.3.0) (2018-02-06)
+
+
+### Bug Fixes
+
+* fixed test ([23fd20e](https://github.com/anycli/dev-cli/commit/23fd20e))
+
+
+### Features
+
+* added multi readme ([63f1385](https://github.com/anycli/dev-cli/commit/63f1385))
+* readme generator work ([fa21751](https://github.com/anycli/dev-cli/commit/fa21751))
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/anycli/dev-cli/compare/79d6aa03636b02568bc9c5803c467d36721d4ec2...v0.2.2) (2018-02-06)
 
