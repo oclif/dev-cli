@@ -1,3 +1,11 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/anycli/dev-cli/compare/79d6aa03636b02568bc9c5803c467d36721d4ec2...v0.2.2) (2018-02-06)
+
+
+### Bug Fixes
+
+* bust cache ([9a1d6cf](https://github.com/anycli/dev-cli/commit/9a1d6cf))
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/anycli/dev-cli/compare/cd643092e72139444fd8fbec50ff9e6c555019f6...v0.2.1) (2018-02-06)
 
