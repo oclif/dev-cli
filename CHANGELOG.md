@@ -1,3 +1,11 @@
+<a name="0.1.7"></a>
+## [0.1.7](https://github.com/anycli/dev-cli/compare/6723525df64568220de5e15ed8fd8dadc771ac0b...v0.1.7) (2018-02-06)
+
+
+### Bug Fixes
+
+* use [@anycli](https://github.com/anycli)/errors ([feb3c0f](https://github.com/anycli/dev-cli/commit/feb3c0f))
+
 <a name="0.1.6"></a>
 ## [0.1.6](https://github.com/anycli/dev-cli/compare/662f3865586bd6e7d2a80bf72c9f5115b02abf89...v0.1.6) (2018-02-05)
 
