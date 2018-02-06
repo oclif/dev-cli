@@ -12,6 +12,7 @@ export default class Manifest extends Command {
   ]
 
   async run() {
+    try { fs.unlinkSync('.anycli.manifest.json') } catch {}
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
     let plugin = new Config.Plugin({root, type: 'dev', ignoreManifest: true})
