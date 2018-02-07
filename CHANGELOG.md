@@ -1,3 +1,11 @@
+<a name="0.3.6"></a>
+## [0.3.6](https://github.com/anycli/dev-cli/compare/aaf17b5a133d67e61f34339a1b8e4644c77c2305...v0.3.6) (2018-02-07)
+
+
+### Bug Fixes
+
+* fixing legacy requires ([432a5f4](https://github.com/anycli/dev-cli/commit/432a5f4))
+
 <a name="0.3.5"></a>
 ## [0.3.5](https://github.com/anycli/dev-cli/compare/7525062ee240be6ca830086112c25ce9613092dd...v0.3.5) (2018-02-07)
 

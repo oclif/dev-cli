@@ -32,7 +32,7 @@ $ npm install -g @anycli/dev-cli
 $ anycli-dev COMMAND
 running command...
 $ anycli-dev (-v|--version|version)
-@anycli/dev-cli/0.3.4 (linux-x64) node-v9.5.0
+@anycli/dev-cli/0.3.5 (linux-x64) node-v9.5.0
 $ anycli-dev --help [COMMAND]
 USAGE
   $ anycli-dev COMMAND [OPTIONS]
@@ -60,7 +60,7 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.4/src/commands/manifest.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.5/src/commands/manifest.ts)_
 
 ## readme
 
@@ -74,5 +74,5 @@ OPTIONS
   --multi  create a different markdown page for each topic
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.4/src/commands/readme.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.5/src/commands/readme.ts)_
 <!-- commandsstop -->
