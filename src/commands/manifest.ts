@@ -15,7 +15,7 @@ export default class Manifest extends Command {
     try { fs.unlinkSync('.anycli.manifest.json') } catch {}
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
-    let plugin = new Config.Plugin({root, type: 'dev', ignoreManifest: true})
+    let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true})
     if (!plugin) throw new Error('plugin not found')
     if (!plugin.valid) {
       const {PluginLegacy} = require('@anycli/plugin-legacy')
