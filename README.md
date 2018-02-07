@@ -32,7 +32,7 @@ $ npm install -g @anycli/dev-cli
 $ anycli-dev COMMAND
 running command...
 $ anycli-dev (-v|--version|version)
-@anycli/dev-cli/0.3.1 (linux-x64) node-v9.5.0
+@anycli/dev-cli/0.3.2 (linux-x64) node-v9.5.0
 $ anycli-dev --help [COMMAND]
 USAGE
   $ anycli-dev COMMAND [OPTIONS]
@@ -40,9 +40,5 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-# Command Topics
-
-* [anycli-dev manifest](docs/manifest.md)
-* [anycli-dev readme](docs/readme.md)
-
+# Commands
 <!-- commandsstop -->
