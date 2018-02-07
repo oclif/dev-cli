@@ -32,7 +32,7 @@ $ npm install -g @anycli/dev-cli
 $ anycli-dev COMMAND
 running command...
 $ anycli-dev (-v|--version|version)
-@anycli/dev-cli/0.3.7 (linux-x64) node-v9.5.0
+@anycli/dev-cli/0.3.8 (linux-x64) node-v9.5.0
 $ anycli-dev --help [COMMAND]
 USAGE
   $ anycli-dev COMMAND [OPTIONS]
@@ -60,7 +60,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@anycli/plugin-help](https://github.com/anycli/plugin-help/blob/v0.7.0/src/commands/help.ts)_
+_See code: [@anycli/plugin-help](https://github.com/anycli/plugin-help/blob/v0.7.2/src/commands/help.ts)_
 
 ## manifest
 
@@ -78,7 +78,7 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.7/src/commands/manifest.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.8/src/commands/manifest.ts)_
 
 ## readme
 
@@ -99,5 +99,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.7/src/commands/readme.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.8/src/commands/readme.ts)_
 <!-- commandsstop -->

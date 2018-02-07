@@ -1,3 +1,11 @@
+<a name="0.3.9"></a>
+## [0.3.9](https://github.com/anycli/dev-cli/compare/79b0796c62b93b3e252854b87824e6093ac6e2ae...v0.3.9) (2018-02-07)
+
+
+### Bug Fixes
+
+* updated deps ([9d0fb57](https://github.com/anycli/dev-cli/commit/9d0fb57))
+
 <a name="0.3.8"></a>
 ## [0.3.8](https://github.com/anycli/dev-cli/compare/ace795c22190d9ac1967648cbb4a710767dfd544...v0.3.8) (2018-02-07)
 
