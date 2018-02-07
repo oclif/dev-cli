@@ -21,7 +21,6 @@
     "@anycli/plugin-help": "^0.6.9",
     "lodash.template": "^4.4.0",
     "normalize-package-data": "^2.4.0",
-    "require-relative": "^0.8.7",
     "require-resolve": "^0.0.2"
   },
   "devDependencies": {
