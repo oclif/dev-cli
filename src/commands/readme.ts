@@ -21,14 +21,16 @@ export default class Readme extends Command {
     const {flags} = this.parse(Readme)
     const config = Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
     try {
-      let p = require.resolve('@anycli/plugin-legacy')
-      config.plugins.push(new Config.Plugin({root: p}))
+      // @ts-ignore
+      let p = require.resolve('@anycli/plugin-legacy', {paths: [process.cwd()]})
+      config.plugins.push(new Config.Plugin({root: p, type: 'core'}))
     } catch {}
     await config.runHook('init', {id: 'readme', argv: this.argv})
     let readme = await fs.readFile('README.md', 'utf8')
     let commands = config.commands
     commands = commands.filter(c => !c.hidden)
     commands = commands.filter(c => c.pluginType === 'core')
+    this.debug('commands:', commands.map(c => c.id).length)
     commands = uniqBy(commands, c => c.id)
     commands = sortBy(commands, c => c.id)
     // if (readme.includes('<!-- toc -->')) {
@@ -128,6 +130,7 @@ USAGE
   }
 
   renderCommand(config: Config.IConfig, c: Config.Command, commands: Config.Command[], level: number = 2): string {
+    this.debug('rendering command', c.id)
     let title = template({config})(c.description || '').split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: 120})
     const header = () => '#'.repeat(level) + ` ${c.id}`
