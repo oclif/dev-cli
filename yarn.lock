@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@anycli/command@^1.2.17", "@anycli/command@^1.2.18", "@anycli/command@^1.2.19":
+"@anycli/command@^1.2.18", "@anycli/command@^1.2.19":
   version "1.2.19"
   resolved "https://registry.yarnpkg.com/@anycli/command/-/command-1.2.19.tgz#11a2f35a2438c4ae96026d28d4974ea8947d59b3"
   dependencies:
     "@anycli/parser" "^3.2.6"
 
-"@anycli/config@^1.3.44":
-  version "1.3.44"
-  resolved "https://registry.yarnpkg.com/@anycli/config/-/config-1.3.44.tgz#096d280b50b1237c238e362b24ede2224f1b0c34"
+"@anycli/config@^1.3.45":
+  version "1.3.45"
+  resolved "https://registry.yarnpkg.com/@anycli/config/-/config-1.3.45.tgz#c92c96bab9fcb5b1347d85ef1dbeb93324f31182"
 
 "@anycli/errors@^0.2.2":
   version "0.2.2"
@@ -38,11 +38,11 @@
     widest-line "^2.0.0"
     wrap-ansi "^3.0.1"
 
-"@anycli/plugin-legacy@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@anycli/plugin-legacy/-/plugin-legacy-0.1.3.tgz#351453f36526caaed5d6540373595f78a6229447"
+"@anycli/plugin-legacy@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@anycli/plugin-legacy/-/plugin-legacy-0.1.4.tgz#1c33a11567ce77e5215bead8959788917ce6b0ca"
   dependencies:
-    "@anycli/command" "^1.2.17"
+    "@anycli/command" "^1.2.19"
     "@heroku-cli/color" "^1.1.3"
     "@heroku-cli/command" "^8.0.0-anycli.1"
     ansi-escapes "^3.0.0"
