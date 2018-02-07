@@ -1,3 +1,14 @@
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/anycli/dev-cli/compare/23fd20e8e64bacac6eadf51e8526936ea971ad18...v0.3.1) (2018-02-07)
+
+
+### Bug Fixes
+
+* updated config ([730e2ac](https://github.com/anycli/dev-cli/commit/730e2ac))
+* use git tag for command links ([09ba83e](https://github.com/anycli/dev-cli/commit/09ba83e))
+* yarn link ([b3db28e](https://github.com/anycli/dev-cli/commit/b3db28e))
+* yarn link ([49fcca4](https://github.com/anycli/dev-cli/commit/49fcca4))
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/anycli/dev-cli/compare/9a1d6cf4ec93ece7b2ad3d18b37a5a98a1b291c2...v0.3.0) (2018-02-06)
 

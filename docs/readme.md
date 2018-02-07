@@ -4,7 +4,7 @@ anycli-dev readme
 helpers for anycli CLIs
 # Commands
 
-* [anycli-dev readme](#readme)
+* [anycli-dev readme [OPTIONS]](#readme)
 ## readme
 
 adds commands to readme
@@ -21,4 +21,4 @@ ALIASES
   $ anycli-dev d
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/master/src/commands/readme.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.0/src/commands/readme.ts)_
