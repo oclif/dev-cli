@@ -12,7 +12,13 @@ const normalize = require('normalize-package-data')
 const requireResolve = require('require-resolve')
 
 export default class Readme extends Command {
-  static description = 'adds commands to readme'
+  static description = `adds commands to README.md in current directory
+
+The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
+<!-- install -->
+<!-- usage -->
+<!-- commands -->
+`
   static flags = {
     multi: flags.boolean({description: 'create a different markdown page for each topic'})
   }
@@ -49,8 +55,7 @@ export default class Readme extends Command {
       if (readme.includes(`<!-- ${tag}stop -->`)) {
         readme = readme.replace(new RegExp(`<!-- ${tag} -->(.|\n)*<!-- ${tag}stop -->`, 'm'), `<!-- ${tag} -->`)
       }
-    } else {
-      readme += `\n<!-- ${tag} -->`
+      this.log(`replacing <!-- ${tag} --> in README.md`)
     }
     return readme.replace(`<!-- ${tag} -->`, `<!-- ${tag} -->\n${body}\n<!-- ${tag}stop -->`)
   }
