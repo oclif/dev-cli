@@ -16,6 +16,7 @@ export default class Manifest extends Command {
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
     let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true})
+    await plugin.load()
     if (!plugin) throw new Error('plugin not found')
     if (!plugin.valid) {
       // @ts-ignore

@@ -25,11 +25,13 @@ The readme must have any of the following tags inside of it for it to be replace
 
   async run() {
     const {flags} = this.parse(Readme)
-    const config = Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
+    const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
     try {
       // @ts-ignore
       let p = require.resolve('@anycli/plugin-legacy', {paths: [process.cwd()]})
-      config.plugins.push(new Config.Plugin({root: p, type: 'core'}))
+      let plugin = new Config.Plugin({root: p, type: 'core'})
+      await plugin.load()
+      config.plugins.push(plugin)
     } catch {}
     await config.runHook('init', {id: 'readme', argv: this.argv})
     let readme = await fs.readFile('README.md', 'utf8')
