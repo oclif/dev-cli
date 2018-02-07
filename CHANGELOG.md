@@ -1,3 +1,11 @@
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/anycli/dev-cli/compare/31269cdda865fbd52e6a8cf9bf42b9f14b444430...v0.3.4) (2018-02-07)
+
+
+### Bug Fixes
+
+* fixed readme output ([7525062](https://github.com/anycli/dev-cli/commit/7525062))
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/anycli/dev-cli/compare/71826403f423a13fe8d99b7f45dfcc76bdd301c5...v0.3.3) (2018-02-07)
 

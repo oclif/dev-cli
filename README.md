@@ -32,7 +32,7 @@ $ npm install -g @anycli/dev-cli
 $ anycli-dev COMMAND
 running command...
 $ anycli-dev (-v|--version|version)
-@anycli/dev-cli/0.3.2 (linux-x64) node-v9.5.0
+@anycli/dev-cli/0.3.3 (linux-x64) node-v9.5.0
 $ anycli-dev --help [COMMAND]
 USAGE
   $ anycli-dev COMMAND [OPTIONS]
@@ -41,4 +41,38 @@ USAGE
 <!-- usagestop -->
 <!-- commands -->
 # Commands
+
+* [anycli-dev manifest [PATH] [OPTIONS]](#manifest)
+* [anycli-dev readme [OPTIONS]](#readme)
+## manifest
+
+generates plugin manifest json
+
+```
+USAGE
+  $ anycli-dev manifest [PATH] [OPTIONS]
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+OPTIONS
+  --help     show CLI help
+  --version  show CLI version
+```
+
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.3/src/commands/manifest.ts)_
+
+## readme
+
+adds commands to readme
+
+```
+USAGE
+  $ anycli-dev readme [OPTIONS]
+
+OPTIONS
+  --multi  create a different markdown page for each topic
+```
+
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.3/src/commands/readme.ts)_
 <!-- commandsstop -->
