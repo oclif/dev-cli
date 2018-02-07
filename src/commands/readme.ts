@@ -16,8 +16,6 @@ export default class Readme extends Command {
     multi: flags.boolean({description: 'create a different markdown page for each topic'})
   }
 
-  static aliases = ['c', 'd']
-
   async run() {
     const {flags} = this.parse(Readme)
     const config = Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
@@ -151,7 +149,7 @@ USAGE
   commandCode(config: Config.IConfig, c: Config.Command): string | undefined {
     let pluginName = c.pluginName
     if (!pluginName) return
-    let plugin = config.plugins.concat([config]).find(p => p.name === c.pluginName)
+    let plugin = config.plugins.find(p => p.name === c.pluginName)
     if (!plugin) return
     normalize(plugin.pjson)
     let repo = plugin.pjson.repository

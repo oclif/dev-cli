@@ -18,7 +18,6 @@ export default class Manifest extends Command {
     let plugin = new Config.Plugin({root, type: 'dev', ignoreManifest: true})
     if (!plugin) throw new Error('plugin not found')
     if (!plugin.valid) {
-      delete Config.Plugin.loadedPlugins[plugin.root]
       const {PluginLegacy} = require('@anycli/plugin-legacy')
       delete plugin.name
       plugin = new PluginLegacy(this.config, plugin)
