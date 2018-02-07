@@ -21,4 +21,4 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.0/src/commands/manifest.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.1/src/commands/manifest.ts)_

@@ -1,3 +1,13 @@
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/anycli/dev-cli/compare/b3db28e7f3cfc9e6819498004ade17d36ff1745d...v0.3.2) (2018-02-07)
+
+
+### Bug Fixes
+
+* fixed reference to self ([3163d01](https://github.com/anycli/dev-cli/commit/3163d01))
+* unlink if linked ([3d4e1b7](https://github.com/anycli/dev-cli/commit/3d4e1b7))
+* use local dev-cli ([7182640](https://github.com/anycli/dev-cli/commit/7182640))
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/anycli/dev-cli/compare/23fd20e8e64bacac6eadf51e8526936ea971ad18...v0.3.1) (2018-02-07)
 

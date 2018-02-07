@@ -21,4 +21,4 @@ ALIASES
   $ anycli-dev d
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.0/src/commands/readme.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.1/src/commands/readme.ts)_
