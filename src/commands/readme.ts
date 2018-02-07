@@ -158,7 +158,7 @@ USAGE
     let commandsDir = plugin.pjson.anycli.commands
     if (!repo || !repo.url || !commandsDir) return
     commandsDir = commandsDir.replace(/\.\//, '')
-    if (plugin.name === config.name) pluginName = path.join(__dirname, '../..')
+    if (plugin.name === this.config.name) pluginName = path.join(__dirname, '../..')
     let commandPath = require.resolve(`${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`)
     commandPath = commandPath.replace(path.dirname(require.resolve(`${pluginName}/package.json`)) + '/', '')
     if (plugin.pjson.devDependencies.typescript) {
