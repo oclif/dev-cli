@@ -38,7 +38,7 @@ jobs:
       - restore_cache: *restore_cache
       - run: yarn global add @anycli/semantic-release@1 semantic-release@12
       - run: yarn --frozen-lockfile
-      - run: yarn link
+      - run: yarn run build && yarn unlink && yarn link
       - run: |
           export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
           semantic-release -e @anycli/semantic-release
