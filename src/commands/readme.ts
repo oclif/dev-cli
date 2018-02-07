@@ -6,7 +6,7 @@ import Help from '@anycli/plugin-help'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 
-import {compact, sortBy, template, uniqBy} from '../util'
+import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
 
@@ -122,7 +122,7 @@ USAGE
     return [
       '# Commands\n',
       ...commands.map(c => {
-        return `* [${config.bin} ${c.id}](#${c.id.replace(/:/g, '')})`
+        return `* [${config.bin} ${this.commandUsage(c)}](#${c.id.replace(/:/g, '')})`
       }),
       ...rootCommands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
@@ -168,5 +168,24 @@ USAGE
     repo = repo.url.split('+')[1].replace(/\.git$/, '')
     return `_See code: [${plugin.name}](${repo}/blob/v${plugin.version}/${commandPath})_`
     // return `_From plugin: [${plugin.name}](${plugin.pjson.homepage})_`
+  }
+
+  commandUsage(command: Config.Command): string {
+    const arg = (arg: Config.Command.Arg) => {
+      let name = arg.name.toUpperCase()
+      if (arg.required) return `${name}`
+      return `[${name}]`
+    }
+    const defaultUsage = () => {
+      const flags = Object.entries(command.flags)
+      .filter(([, v]) => !v.hidden)
+      return compact([
+        command.id,
+        command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
+        flags.length && '[OPTIONS]',
+      ]).join(' ')
+    }
+    let usages = castArray(command.usage)
+    return usages.length === 0 ? defaultUsage() : usages[0]
   }
 }
