@@ -24,6 +24,7 @@ export default class Manifest extends Command {
       const {PluginLegacy} = require(p)
       delete plugin.name
       plugin = new PluginLegacy(this.config, plugin)
+      await plugin.load()
     }
     if (process.env.ANYCLI_NEXT_VERSION) {
       plugin.manifest.version = process.env.ANYCLI_NEXT_VERSION
