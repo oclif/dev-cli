@@ -9,6 +9,7 @@ import * as path from 'path'
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
+const requireResolve = require('require-resolve')
 
 export default class Readme extends Command {
   static description = 'adds commands to readme'
@@ -155,17 +156,19 @@ USAGE
     let repo = plugin.pjson.repository
     let commandsDir = plugin.pjson.anycli.commands
     if (!repo || !repo.url || !commandsDir) return
-    commandsDir = commandsDir.replace(/\.\//, '')
     if (plugin.name === config.name) pluginName = process.cwd()
-    let commandPath = require.resolve(`${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`)
-    commandPath = commandPath.replace(path.dirname(require.resolve(`${pluginName}/package.json`)) + '/', '')
+    let commandPath = `${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`
+    let resolved = requireResolve(commandPath, plugin.root)
+    if (!resolved) {
+      process.emitWarning(`command not found commandPath: ${commandPath} root: ${plugin.root}`)
+    }
+    commandPath = resolved.src.replace(resolved.pkg.root + '/', '')
     if (plugin.pjson.devDependencies.typescript) {
       commandPath = commandPath.replace(/^lib\//, 'src/')
       commandPath = commandPath.replace(/\.js$/, '.ts')
     }
     repo = repo.url.split('+')[1].replace(/\.git$/, '')
     return `_See code: [${plugin.name}](${repo}/blob/v${plugin.version}/${commandPath})_`
-    // return `_From plugin: [${plugin.name}](${plugin.pjson.homepage})_`
   }
 
   commandUsage(command: Config.Command): string {
