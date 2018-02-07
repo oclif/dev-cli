@@ -88,7 +88,7 @@ USAGE
 
   multiCommands(config: Config.IConfig, commands: Config.Command[]): string {
     let topics = config.topics
-    topics = topics.filter(t => !t.hidden)
+    topics = topics.filter(t => !t.hidden && !t.name.includes(':'))
     topics = topics.filter(t => commands.find(c => c.id.startsWith(t.name)))
     topics = sortBy(topics, t => t.name)
     topics = uniqBy(topics, t => t.name)
@@ -117,7 +117,7 @@ USAGE
       `${config.bin} ${topic.name}`,
       '='.repeat(`${config.bin} ${topic.name}`.length),
       '',
-      config.pjson.anycli.description || config.pjson.description,
+      topic.description,
       this.commands(config, commands),
     ].join('\n').trim() + '\n'
     fs.outputFileSync(file, doc)
