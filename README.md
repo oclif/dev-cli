@@ -32,7 +32,7 @@ $ npm install -g @anycli/dev-cli
 $ anycli-dev COMMAND
 running command...
 $ anycli-dev (-v|--version|version)
-@anycli/dev-cli/0.3.5 (linux-x64) node-v9.5.0
+@anycli/dev-cli/0.3.6 (linux-x64) node-v9.5.0
 $ anycli-dev --help [COMMAND]
 USAGE
   $ anycli-dev COMMAND [OPTIONS]
@@ -60,11 +60,11 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.5/src/commands/manifest.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.6/src/commands/manifest.ts)_
 
 ## readme
 
-adds commands to readme
+adds commands to README.md in current directory
 
 ```
 USAGE
@@ -72,7 +72,14 @@ USAGE
 
 OPTIONS
   --multi  create a different markdown page for each topic
+
+DESCRIPTION
+
+  The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
+  <!-- install -->
+  <!-- usage -->
+  <!-- commands -->
 ```
 
-_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.5/src/commands/readme.ts)_
+_See code: [@anycli/dev-cli](https://github.com/anycli/dev-cli/blob/v0.3.6/src/commands/readme.ts)_
 <!-- commandsstop -->

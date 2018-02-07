@@ -1,3 +1,13 @@
+<a name="0.3.7"></a>
+## [0.3.7](https://github.com/anycli/dev-cli/compare/432a5f465376d1de0652836caa7215d5ba4e37df...v0.3.7) (2018-02-07)
+
+
+### Bug Fixes
+
+* bump config ([ace795c](https://github.com/anycli/dev-cli/commit/ace795c))
+* fixed topics ([077e502](https://github.com/anycli/dev-cli/commit/077e502))
+* some docs ([3de5e5e](https://github.com/anycli/dev-cli/commit/3de5e5e))
+
 <a name="0.3.6"></a>
 ## [0.3.6](https://github.com/anycli/dev-cli/compare/aaf17b5a133d67e61f34339a1b8e4644c77c2305...v0.3.6) (2018-02-07)
 
