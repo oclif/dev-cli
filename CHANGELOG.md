@@ -1,3 +1,12 @@
+<a name="0.3.10"></a>
+## [0.3.10](https://github.com/anycli/dev-cli/compare/9d0fb5760e377aa26b795194a068dca1cfae22bf...v0.3.10) (2018-02-07)
+
+
+### Bug Fixes
+
+* bump deps ([0695878](https://github.com/anycli/dev-cli/commit/0695878))
+* load legacy plugins ([96076bd](https://github.com/anycli/dev-cli/commit/96076bd))
+
 <a name="0.3.9"></a>
 ## [0.3.9](https://github.com/anycli/dev-cli/compare/79b0796c62b93b3e252854b87824e6093ac6e2ae...v0.3.9) (2018-02-07)
 
