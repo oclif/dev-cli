@@ -1,7 +1,7 @@
 {
   "name": "@anycli/dev-cli",
   "description": "helpers for anycli CLIs",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "Jeff Dickey @jdxcode",
   "anycli": {
     "commands": "./lib/commands",

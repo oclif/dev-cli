@@ -1,3 +1,11 @@
+<a name="0.3.5"></a>
+## [0.3.5](https://github.com/anycli/dev-cli/compare/7525062ee240be6ca830086112c25ce9613092dd...v0.3.5) (2018-02-07)
+
+
+### Bug Fixes
+
+* improve finding source code path ([aaf17b5](https://github.com/anycli/dev-cli/commit/aaf17b5))
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/anycli/dev-cli/compare/31269cdda865fbd52e6a8cf9bf42b9f14b444430...v0.3.4) (2018-02-07)
 
