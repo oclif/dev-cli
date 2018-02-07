@@ -58,7 +58,7 @@
     "lint": "concurrently -p command \"tsc -p test --noEmit\" \"tslint -p test -t stylish\"",
     "postpublish": "rm .anycli.manifest.json",
     "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build && anycli-dev manifest && anycli-dev readme --multi",
+    "prepublishOnly": "yarn run build && node ./bin/run manifest && node ./bin/run readme --multi",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
   "types": "lib/index.d.ts"
