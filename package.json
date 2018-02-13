@@ -60,7 +60,7 @@
     "lint": "concurrently -p command \"tsc -p test --noEmit\" \"tslint -p test -t stylish\"",
     "postpublish": "rm .oclif.manifest.json",
     "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build && node ./bin/run manifest && node ./bin/run readme",
+    "prepublishOnly": "yarn run build && node ./bin/run manifest && node ./bin/run readme && git add README.md",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
   "types": "lib/index.d.ts"
