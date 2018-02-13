@@ -3,13 +3,6 @@
   "description": "helpers for oclif CLIs",
   "version": "0.3.15",
   "author": "Jeff Dickey @jdxcode",
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "oclif-dev",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
-  },
   "bin": {
     "oclif-dev": "./bin/run"
   },
@@ -55,6 +48,13 @@
   ],
   "license": "MIT",
   "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "oclif-dev",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
   "repository": "oclif/dev-cli",
   "scripts": {
     "build": "rm -rf lib && tsc",

@@ -33,8 +33,8 @@
     supports-color "^5.1.0"
 
 "@heroku-cli/command@^8.0.0-anycli.1":
-  version "8.0.0-anycli.1"
-  resolved "https://registry.yarnpkg.com/@heroku-cli/command/-/command-8.0.0-anycli.1.tgz#ee50e8f21e47a83806c5ab8312f20a8858bebb9e"
+  version "8.0.0-oclif.2"
+  resolved "https://registry.yarnpkg.com/@heroku-cli/command/-/command-8.0.0-oclif.2.tgz#7126b4cb1276cf31a2cf2700b2077a0b9a980ed1"
   dependencies:
     cli-ux "^3.3.18"
     debug "^3.1.0"
@@ -46,13 +46,7 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@heroku/linewrap/-/linewrap-1.0.0.tgz#a9d4e99f0a3e423a899b775f5f3d6747a1ff15c6"
 
-"@oclif/command@^1.2.20":
-  version "1.2.20"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.20.tgz#1330834cae3147c3319d91fba89f24576e493e5f"
-  dependencies:
-    "@oclif/parser" "^3.2.8"
-
-"@oclif/command@^1.2.22":
+"@oclif/command@^1.2.20", "@oclif/command@^1.2.22":
   version "1.2.22"
   resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.22.tgz#7bdda016381d45cc4d2e3b8c14fc056f96146368"
   dependencies:
