@@ -1,3 +1,11 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/oclif/dev-cli/compare/v1.0.1...v1.0.2) (2018-02-13)
+
+
+### Bug Fixes
+
+* added version script ([7fe8937](https://github.com/oclif/dev-cli/commit/7fe8937))
+
 <a name="0.3.16"></a>
 ## [0.3.16](https://github.com/oclif/dev-cli/compare/3a978f4335ee06d88b92a4e2ef2e7c1ca7b7e8e2...v0.3.16) (2018-02-13)
 
