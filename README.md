@@ -13,5 +13,91 @@ helpers for oclif CLIs
 [![License](https://img.shields.io/npm/l/@oclif/dev-cli.svg)](https://github.com/oclif/dev-cli/blob/master/package.json)
 
 <!-- install -->
+# Installing @oclif/dev-cli
+
+with yarn:
+```
+$ yarn global add @oclif/dev-cli
+```
+
+or with npm:
+```
+$ npm install -g @oclif/dev-cli
+```
+<!-- installstop -->
 <!-- usage -->
+# Usage
+
+```sh-session
+$ oclif-dev COMMAND
+running command...
+$ oclif-dev (-v|--version|version)
+@oclif/dev-cli/0.3.10 (darwin-x64) node-v9.5.0
+$ oclif-dev --help [COMMAND]
+USAGE
+  $ oclif-dev COMMAND [OPTIONS]
+...
+```
+<!-- usagestop -->
 <!-- commands -->
+# Commands
+
+* [oclif-dev help [COMMAND] [OPTIONS]](#help)
+* [oclif-dev manifest [PATH] [OPTIONS]](#manifest)
+* [oclif-dev readme [OPTIONS]](#readme)
+## help
+
+display help for oclif-dev
+
+```
+USAGE
+  $ oclif-dev help [COMMAND] [OPTIONS]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v0.7.3/src/commands/help.ts)_
+
+## manifest
+
+generates plugin manifest json
+
+```
+USAGE
+  $ oclif-dev manifest [PATH] [OPTIONS]
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+OPTIONS
+  --help     show CLI help
+  --version  show CLI version
+```
+
+_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.10/src/commands/manifest.ts)_
+
+## readme
+
+adds commands to README.md in current directory
+
+```
+USAGE
+  $ oclif-dev readme [OPTIONS]
+
+OPTIONS
+  --multi  create a different markdown page for each topic
+
+DESCRIPTION
+
+  The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
+  <!-- install -->
+  <!-- usage -->
+  <!-- commands -->
+```
+
+_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.10/src/commands/readme.ts)_
+<!-- commandsstop -->
