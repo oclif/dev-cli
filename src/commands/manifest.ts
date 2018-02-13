@@ -26,8 +26,8 @@ export default class Manifest extends Command {
       plugin = new PluginLegacy(this.config, plugin)
       await plugin.load()
     }
-    if (process.env.ANYCLI_NEXT_VERSION) {
-      plugin.manifest.version = process.env.ANYCLI_NEXT_VERSION
+    if (process.env.OCLIF_NEXT_VERSION) {
+      plugin.manifest.version = process.env.OCLIF_NEXT_VERSION
     }
     const file = path.join(plugin.root, '.oclif.manifest.json')
     fs.writeFileSync(file, JSON.stringify(plugin.manifest))
