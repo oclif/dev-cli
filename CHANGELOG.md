@@ -1,3 +1,11 @@
+<a name="0.3.12"></a>
+## [0.3.12](https://github.com/oclif/dev-cli/compare/v0.3.11...v0.3.12) (2018-02-13)
+
+
+### Bug Fixes
+
+* set next version ([49135a9](https://github.com/oclif/dev-cli/commit/49135a9))
+
 <a name="0.3.10"></a>
 ## [0.3.10](https://github.com/anycli/dev-cli/compare/9d0fb5760e377aa26b795194a068dca1cfae22bf...v0.3.10) (2018-02-07)
 
