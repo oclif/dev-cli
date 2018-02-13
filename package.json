@@ -15,10 +15,10 @@
   },
   "bugs": "https://github.com/oclif/dev-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.2.19",
+    "@oclif/command": "^1.2.21",
     "@oclif/config": "^1.3.45",
     "@oclif/errors": "^1.0.1",
-    "@oclif/plugin-help": "^0.7.2",
+    "@oclif/plugin-help": "^0.7.4",
     "lodash.template": "^4.4.0",
     "normalize-package-data": "^2.4.0",
     "require-resolve": "^0.0.2"
