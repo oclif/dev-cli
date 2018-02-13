@@ -1,4 +1,4 @@
-import {expect, test} from '@anycli/test'
+import {expect, test} from '@oclif/test'
 import * as fs from 'fs-extra'
 
 const readme = fs.readFileSync('README.md', 'utf8')

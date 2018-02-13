@@ -1,8 +1,8 @@
 // tslint:disable no-implicit-dependencies
 
-import {Command, flags} from '@anycli/command'
-import * as Config from '@anycli/config'
-import Help from '@anycli/plugin-help'
+import {Command, flags} from '@oclif/command'
+import * as Config from '@oclif/config'
+import Help from '@oclif/plugin-help'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 
@@ -28,7 +28,7 @@ The readme must have any of the following tags inside of it for it to be replace
     const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
     try {
       // @ts-ignore
-      let p = require.resolve('@anycli/plugin-legacy', {paths: [process.cwd()]})
+      let p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
       let plugin = new Config.Plugin({root: p, type: 'core'})
       await plugin.load()
       config.plugins.push(plugin)
@@ -164,7 +164,7 @@ USAGE
     if (!plugin) return
     normalize(plugin.pjson)
     let repo = plugin.pjson.repository
-    let commandsDir = plugin.pjson.anycli.commands
+    let commandsDir = plugin.pjson.oclif.commands
     if (!repo || !repo.url || !commandsDir) return
     if (plugin.name === config.name) pluginName = process.cwd()
     let commandPath = `${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`
