@@ -52,9 +52,9 @@
   dependencies:
     "@oclif/parser" "^3.2.8"
 
-"@oclif/command@^1.2.21":
-  version "1.2.21"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.21.tgz#73bd84fd2207df2ad414dcf91e3eebe7f944a95a"
+"@oclif/command@^1.2.22":
+  version "1.2.22"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.22.tgz#7bdda016381d45cc4d2e3b8c14fc056f96146368"
   dependencies:
     "@oclif/parser" "^3.2.8"
 
@@ -98,11 +98,10 @@
   dependencies:
     fancy-test "^1.0.1"
 
-"@oclif/tslint@^0.2.7":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@oclif/tslint/-/tslint-0.2.9.tgz#804c64b4ed92fa4087276295cdafbcdc78485f3a"
+"@oclif/tslint@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@oclif/tslint/-/tslint-0.2.10.tgz#39b8ed295a1f4e3f597c1c1ca2167eaa0bbc5b38"
   dependencies:
-    tslint "^5.9.1"
     tslint-xo "^0.6.0"
 
 "@types/chai@^4.1.2":
