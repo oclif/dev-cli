@@ -32,7 +32,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/0.3.12 (linux-x64) node-v9.5.0
+@oclif/dev-cli/0.3.13 (linux-x64) node-v9.5.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND [OPTIONS]
@@ -60,7 +60,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v0.7.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v0.7.4/src/commands/help.ts)_
 
 ## manifest
 
@@ -78,7 +78,7 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.12/src/commands/manifest.ts)_
+_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.13/src/commands/manifest.ts)_
 
 ## readme
 
@@ -99,5 +99,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.12/src/commands/readme.ts)_
+_See code: [@oclif/dev-cli](https://github.com/oclif/dev-cli/blob/v0.3.13/src/commands/readme.ts)_
 <!-- commandsstop -->

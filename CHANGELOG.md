@@ -1,3 +1,11 @@
+<a name="0.3.14"></a>
+## [0.3.14](https://github.com/oclif/dev-cli/compare/179019c9a80944e764714debcc06236c3f3d4fde...v0.3.14) (2018-02-13)
+
+
+### Bug Fixes
+
+* oclif rename ([7a727af](https://github.com/oclif/dev-cli/commit/7a727af))
+
 <a name="0.3.13"></a>
 ## [0.3.13](https://github.com/oclif/dev-cli/compare/49135a9ca2c73690f2d33d195d06f4ab0a97c501...v0.3.13) (2018-02-13)
 
