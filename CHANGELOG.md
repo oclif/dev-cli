@@ -1,3 +1,11 @@
+<a name="0.3.16"></a>
+## [0.3.16](https://github.com/oclif/dev-cli/compare/3a978f4335ee06d88b92a4e2ef2e7c1ca7b7e8e2...v0.3.16) (2018-02-13)
+
+
+### Bug Fixes
+
+* updated legacy ([15fa7aa](https://github.com/oclif/dev-cli/commit/15fa7aa))
+
 <a name="0.3.15"></a>
 ## [0.3.15](https://github.com/oclif/dev-cli/compare/7a727affb534f28dd9e7655119e52a5eb20e3fe9...v0.3.15) (2018-02-13)
 
