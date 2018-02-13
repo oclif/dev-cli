@@ -17,7 +17,7 @@
     "require-resolve": "^0.0.2"
   },
   "devDependencies": {
-    "@anycli/plugin-legacy": "^0.1.4",
+    "@oclif/plugin-legacy": "^1.0.0",
     "@oclif/test": "^1.0.0",
     "@oclif/tslint": "^1.0.0",
     "@types/chai": "^4.1.2",

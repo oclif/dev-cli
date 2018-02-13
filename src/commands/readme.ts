@@ -9,7 +9,6 @@ import * as path from 'path'
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
-const requireResolve = require('require-resolve')
 
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
@@ -166,13 +165,7 @@ USAGE
     let repo = plugin.pjson.repository
     let commandsDir = plugin.pjson.oclif.commands
     if (!repo || !repo.url || !commandsDir) return
-    if (plugin.name === config.name) pluginName = process.cwd()
-    let commandPath = `${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`
-    let resolved = requireResolve(commandPath, plugin.root)
-    if (!resolved) {
-      process.emitWarning(`command not found commandPath: ${commandPath} root: ${plugin.root}`)
-    }
-    commandPath = resolved.src.replace(resolved.pkg.root + '/', '')
+    let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
     if (plugin.pjson.devDependencies.typescript) {
       commandPath = commandPath.replace(/^lib\//, 'src/')
       commandPath = commandPath.replace(/\.js$/, '.ts')

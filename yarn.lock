@@ -2,27 +2,6 @@
 # yarn lockfile v1
 
 
-"@anycli/command@^1.2.19":
-  version "1.2.19"
-  resolved "https://registry.yarnpkg.com/@anycli/command/-/command-1.2.19.tgz#11a2f35a2438c4ae96026d28d4974ea8947d59b3"
-  dependencies:
-    "@anycli/parser" "^3.2.6"
-
-"@anycli/parser@^3.2.6":
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/@anycli/parser/-/parser-3.2.6.tgz#bbd119a80709099179a9f11af0dc44b68c54575b"
-
-"@anycli/plugin-legacy@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@anycli/plugin-legacy/-/plugin-legacy-0.1.4.tgz#1c33a11567ce77e5215bead8959788917ce6b0ca"
-  dependencies:
-    "@anycli/command" "^1.2.19"
-    "@heroku-cli/color" "^1.1.3"
-    "@heroku-cli/command" "^8.0.0-anycli.1"
-    ansi-escapes "^3.0.0"
-    debug "^3.1.0"
-    semver "^5.5.0"
-
 "@heroku-cli/color@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@heroku-cli/color/-/color-1.1.3.tgz#f5f3bb043c3c5c78888135a89633227cfca04b2b"
@@ -32,7 +11,7 @@
     strip-ansi "^4.0.0"
     supports-color "^5.1.0"
 
-"@heroku-cli/command@^8.0.0-anycli.1":
+"@heroku-cli/command@^8.0.0-oclif.2":
   version "8.0.0-oclif.2"
   resolved "https://registry.yarnpkg.com/@heroku-cli/command/-/command-8.0.0-oclif.2.tgz#7126b4cb1276cf31a2cf2700b2077a0b9a980ed1"
   dependencies:
@@ -46,15 +25,15 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@heroku/linewrap/-/linewrap-1.0.0.tgz#a9d4e99f0a3e423a899b775f5f3d6747a1ff15c6"
 
-"@oclif/command@^1.2.20", "@oclif/command@^1.2.22":
-  version "1.2.22"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.22.tgz#7bdda016381d45cc4d2e3b8c14fc056f96146368"
+"@oclif/command@^1.2.20", "@oclif/command@^1.2.21", "@oclif/command@^1.2.22":
+  version "1.2.23"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.2.23.tgz#12bd96c3b4839a712f364d9aa36e463ba870d906"
   dependencies:
     "@oclif/parser" "^3.2.8"
 
 "@oclif/config@^1.3.45":
-  version "1.3.47"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.3.47.tgz#7e7cf7ab0634edd60bd1675260ac588e6f6521fe"
+  version "1.3.48"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.3.48.tgz#ec89b51ca424854cb0f5ce1afb7747f4113ef1e4"
 
 "@oclif/errors@^1.0.1":
   version "1.0.1"
@@ -82,6 +61,17 @@
     widest-line "^2.0.0"
     wrap-ansi "^3.0.1"
 
+"@oclif/plugin-legacy@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-legacy/-/plugin-legacy-1.0.0.tgz#5c20c83d45144c6727b373d4bc276cc69b2e8d22"
+  dependencies:
+    "@heroku-cli/color" "^1.1.3"
+    "@heroku-cli/command" "^8.0.0-oclif.2"
+    "@oclif/command" "^1.2.21"
+    ansi-escapes "^3.0.0"
+    debug "^3.1.0"
+    semver "^5.5.0"
+
 "@oclif/screen@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-1.0.1.tgz#2e67c95911977a5badfff9b500e6e00dae40869c"
@@ -93,8 +83,8 @@
     fancy-test "^1.0.1"
 
 "@oclif/tslint@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@oclif/tslint/-/tslint-1.0.0.tgz#40c18cbe86c1975ebabad1726149105555297a1e"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@oclif/tslint/-/tslint-1.0.1.tgz#ef68459638548e3a3a06fd6da60025fe33f4bcb8"
   dependencies:
     tslint-xo "^0.6.0"
 
