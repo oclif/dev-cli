@@ -166,13 +166,18 @@ USAGE
     let repo = plugin.pjson.repository
     let commandsDir = plugin.pjson.oclif.commands
     if (!repo || !repo.url || !commandsDir) return
-    if (plugin.name === config.name) pluginName = process.cwd()
-    let commandPath = `${pluginName}/${commandsDir}/${c.id.replace(/:/g, '/')}`
+    let commandPath = `${commandsDir}/${c.id.replace(/:/g, '/')}`
+    if (plugin.name === config.name) {
+      commandPath = path.resolve(commandPath)
+    } else {
+      commandPath = `${pluginName}/${commandPath}`
+    }
     let resolved = requireResolve(commandPath, plugin.root)
     if (!resolved) {
       process.emitWarning(`command not found commandPath: ${commandPath} root: ${plugin.root}`)
+      return
     }
-    commandPath = resolved.src.replace(resolved.pkg.root + '/', '')
+    commandPath = resolved.src.replace(plugin.root + path.sep, '')
     if (plugin.pjson.devDependencies.typescript) {
       commandPath = commandPath.replace(/^lib\//, 'src/')
       commandPath = commandPath.replace(/\.js$/, '.ts')
