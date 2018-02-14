@@ -1,3 +1,11 @@
+<a name="1.2.4"></a>
+## [1.2.4](https://github.com/oclif/dev-cli/compare/10e6e5e1db71660370d97d11149ad762df10353b...v1.2.4) (2018-02-14)
+
+
+### Bug Fixes
+
+* trim description ([aeedc05](https://github.com/oclif/dev-cli/commit/aeedc05))
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/oclif/dev-cli/compare/02ed25bfe19585594fcf288f84949cddc5f6ba66...v1.2.3) (2018-02-14)
 
