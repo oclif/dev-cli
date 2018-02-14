@@ -1,3 +1,11 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/oclif/dev-cli/compare/7fe89373192e4d9d8c55ae6d98917d9d61fb2233...v1.1.0) (2018-02-14)
+
+
+### Features
+
+* add usage to command headers ([224679b](https://github.com/oclif/dev-cli/commit/224679b))
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/oclif/dev-cli/compare/v1.0.1...v1.0.2) (2018-02-13)
 
