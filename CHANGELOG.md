@@ -1,3 +1,11 @@
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/oclif/dev-cli/compare/02ed25bfe19585594fcf288f84949cddc5f6ba66...v1.2.3) (2018-02-14)
+
+
+### Bug Fixes
+
+* improve docs ([10e6e5e](https://github.com/oclif/dev-cli/commit/10e6e5e))
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/oclif/dev-cli/compare/6cd9f08221f45dc2fa9ecce0a25b350e3ef00664...v1.2.2) (2018-02-14)
 
