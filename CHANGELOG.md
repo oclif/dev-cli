@@ -1,3 +1,11 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/oclif/dev-cli/compare/1b6f61b1ac2d10bad49e4dfb4ef937dd4451f242...v1.2.1) (2018-02-14)
+
+
+### Bug Fixes
+
+* fixed label for own commands ([499f5bb](https://github.com/oclif/dev-cli/commit/499f5bb))
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/oclif/dev-cli/compare/224679be9421fb0159f51ea1c499e7f9e06012e8...v1.2.0) (2018-02-14)
 
