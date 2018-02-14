@@ -143,7 +143,7 @@ USAGE
 
   renderCommand(config: Config.IConfig, c: Config.Command, commands: Config.Command[], level: number = 2): string {
     this.debug('rendering command', c.id)
-    let title = template({config})(c.description || '').split('\n')[0]
+    let title = template({config})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: 120})
     const header = () => '#'.repeat(level) + ` ${this.commandUsage(c)}`
     const subcommands = (): string | undefined => {
