@@ -139,7 +139,7 @@ USAGE
     this.debug('rendering command', c.id)
     let title = template({config})(c.description || '').split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: 120})
-    const header = () => '#'.repeat(level) + ` ${c.id}`
+    const header = () => '#'.repeat(level) + ` ${this.commandUsage(c)}`
     const subcommands = (): string | undefined => {
       return commands
       .filter(sc => sc.id.startsWith(c.id) && sc.id !== c.id)
