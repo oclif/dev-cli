@@ -1,3 +1,11 @@
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/oclif/dev-cli/compare/6cd9f08221f45dc2fa9ecce0a25b350e3ef00664...v1.2.2) (2018-02-14)
+
+
+### Bug Fixes
+
+* fixed anchor links ([02ed25b](https://github.com/oclif/dev-cli/commit/02ed25b))
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/oclif/dev-cli/compare/1b6f61b1ac2d10bad49e4dfb4ef937dd4451f242...v1.2.1) (2018-02-14)
 

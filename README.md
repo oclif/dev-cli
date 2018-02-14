@@ -13,9 +13,9 @@ helpers for oclif CLIs
 [![License](https://img.shields.io/npm/l/@oclif/dev-cli.svg)](https://github.com/oclif/dev-cli/blob/master/package.json)
 
 <!-- toc -->
-* [Install](#Install)
-* [Usage](#Usage)
-* [Commands](#Commands)
+* [Install](#install)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 <!-- install -->
 # Install
@@ -37,7 +37,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.2.0 (linux-x64) node-v9.5.0
+@oclif/dev-cli/1.2.1 (linux-x64) node-v9.5.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND [OPTIONS]
@@ -83,7 +83,7 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.0/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.1/src/commands/manifest.ts)_
 
 ## readme [OPTIONS]
 
@@ -104,5 +104,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.0/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.1/src/commands/readme.ts)_
 <!-- commandsstop -->
