@@ -178,7 +178,11 @@ USAGE
       commandPath = commandPath.replace(/\.js$/, '.ts')
     }
     repo = repo.url.split('+')[1].replace(/\.git$/, '')
-    return `_See code: [${plugin.name}](${repo}/blob/v${plugin.version}/${commandPath})_`
+    let label = plugin.name
+    if (config.name === plugin.name) {
+      label = commandPath
+    }
+    return `_See code: [${label}](${repo}/blob/v${plugin.version}/${commandPath})_`
   }
 
   commandUsage(command: Config.Command): string {
