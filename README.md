@@ -12,6 +12,7 @@ helpers for oclif CLIs
 [![Downloads/week](https://img.shields.io/npm/dw/@oclif/dev-cli.svg)](https://npmjs.org/package/@oclif/dev-cli)
 [![License](https://img.shields.io/npm/l/@oclif/dev-cli.svg)](https://github.com/oclif/dev-cli/blob/master/package.json)
 
+<!-- toc -->
 <!-- install -->
 # Install
 
