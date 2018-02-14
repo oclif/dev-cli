@@ -40,11 +40,10 @@ The readme must have any of the following tags inside of it for it to be replace
     this.debug('commands:', commands.map(c => c.id).length)
     commands = uniqBy(commands, c => c.id)
     commands = sortBy(commands, c => c.id)
-    // if (readme.includes('<!-- toc -->')) {
-    // } else this.warn('<!-- toc --> not found in README')
     readme = this.replaceTag(readme, 'install', this.install(config))
     readme = this.replaceTag(readme, 'usage', this.usage(config))
     readme = this.replaceTag(readme, 'commands', flags.multi ? this.multiCommands(config, commands) : this.commands(config, commands))
+    readme = this.replaceTag(readme, 'toc', this.toc(config, readme))
 
     readme = readme.trimRight()
     readme += '\n'
@@ -61,9 +60,17 @@ The readme must have any of the following tags inside of it for it to be replace
     return readme.replace(`<!-- ${tag} -->`, `<!-- ${tag} -->\n${body}\n<!-- ${tag}stop -->`)
   }
 
+  toc(_: Config.IConfig, readme: string): string {
+    return readme.split('\n').filter(l => l.startsWith('# '))
+    .map(l => l.slice(2))
+    .map(l => [l, l.replace(/[ :]/g, '')])
+    .map(([title, link]) => `* [${title}](#${link})`)
+    .join('\n')
+  }
+
   install(config: Config.IConfig): string {
     return [
-        `# Installing ${config.name}\n`,
+        '# Install\n',
         'with yarn:',
         '```\n$ yarn global add ' + config.name + '\n```\n',
         'or with npm:',
