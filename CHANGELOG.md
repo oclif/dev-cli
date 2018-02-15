@@ -1,3 +1,11 @@
+<a name="1.2.9"></a>
+## [1.2.9](https://github.com/oclif/dev-cli/compare/2fb4bf3eae40033f2287f5b99a78027bcb44d647...v1.2.9) (2018-02-15)
+
+
+### Bug Fixes
+
+* use OCLIF_NEXT_VERSION ([1bdf2af](https://github.com/oclif/dev-cli/commit/1bdf2af))
+
 <a name="1.2.8"></a>
 ## [1.2.8](https://github.com/oclif/dev-cli/compare/2b1b5a7b18b930148bdf44ed6fd662f3dc852798...v1.2.8) (2018-02-15)
 
