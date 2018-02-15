@@ -37,7 +37,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.2.6 (linux-x64) node-v9.5.0
+@oclif/dev-cli/1.2.7 (linux-x64) node-v9.5.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -47,10 +47,10 @@ USAGE
 <!-- commands -->
 # Commands
 
-* [oclif-dev help [COMMAND] [OPTIONS]](#help)
-* [oclif-dev manifest [PATH] [OPTIONS]](#manifest)
-* [oclif-dev readme [OPTIONS]](#readme)
-## help [COMMAND] [OPTIONS]
+* [oclif-dev help [COMMAND]](#help)
+* [oclif-dev manifest [PATH]](#manifest)
+* [oclif-dev readme](#readme)
+## help [COMMAND]
 
 display help for oclif-dev
 
@@ -67,7 +67,7 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.0.2/src/commands/help.ts)_
 
-## manifest [PATH] [OPTIONS]
+## manifest [PATH]
 
 generates plugin manifest json
 
@@ -83,9 +83,9 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.6/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.7/src/commands/manifest.ts)_
 
-## readme [OPTIONS]
+## readme
 
 adds commands to README.md in current directory
 
@@ -103,5 +103,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.6/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.7/src/commands/readme.ts)_
 <!-- commandsstop -->

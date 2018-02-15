@@ -1,3 +1,12 @@
+<a name="1.2.8"></a>
+## [1.2.8](https://github.com/oclif/dev-cli/compare/2b1b5a7b18b930148bdf44ed6fd662f3dc852798...v1.2.8) (2018-02-15)
+
+
+### Bug Fixes
+
+* hide OPTIONS for now ([2fb4bf3](https://github.com/oclif/dev-cli/commit/2fb4bf3))
+* hide OPTIONS for now ([f5a9af6](https://github.com/oclif/dev-cli/commit/f5a9af6))
+
 <a name="1.2.7"></a>
 ## [1.2.7](https://github.com/oclif/dev-cli/compare/2a235923e264d6a47e0d46e2ad43c1fa33d71669...v1.2.7) (2018-02-15)
 
