@@ -1,3 +1,11 @@
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/oclif/dev-cli/compare/aeedc05ba43c07dcef7a2090681a499040aeefc1...v1.2.5) (2018-02-15)
+
+
+### Bug Fixes
+
+* replace spaces with dashes for anchors ([5abc82f](https://github.com/oclif/dev-cli/commit/5abc82f))
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/oclif/dev-cli/compare/10e6e5e1db71660370d97d11149ad762df10353b...v1.2.4) (2018-02-14)
 
