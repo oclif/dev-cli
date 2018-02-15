@@ -11,6 +11,10 @@ import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
 
+function slugify(input: string): string {
+  return _.kebabCase(input.trim()).replace(/[^a-zA-Z0-9\- ]/g, '')
+}
+
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
 The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
@@ -63,8 +67,7 @@ The readme must have any of the following tags inside of it for it to be replace
   toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
     .map(l => l.slice(2))
-    .map(l => [l, _.kebabCase(l.trim()).replace(/[^a-zA-Z0-9\- ]/g, '')])
-    .map(([title, link]) => `* [${title}](#${link})`)
+    .map(l => `* [${l}](#${slugify(l)})`)
     .join('\n')
   }
 
@@ -136,7 +139,8 @@ USAGE
     return [
       '# Commands\n',
       ...commands.map(c => {
-        return `* [${config.bin} ${this.commandUsage(c)}](#${c.id.replace(/:/g, '')})`
+        let usage = this.commandUsage(c)
+        return `* [${config.bin} ${usage}](#${slugify(usage)})`
       }),
       ...rootCommands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
