@@ -1,3 +1,11 @@
+<a name="1.2.10"></a>
+## [1.2.10](https://github.com/oclif/dev-cli/compare/1bdf2af9f464fdee0868b1d6f5637b6242e769d5...v1.2.10) (2018-02-15)
+
+
+### Bug Fixes
+
+* improve slug generation ([7cf7bec](https://github.com/oclif/dev-cli/commit/7cf7bec))
+
 <a name="1.2.9"></a>
 ## [1.2.9](https://github.com/oclif/dev-cli/compare/2fb4bf3eae40033f2287f5b99a78027bcb44d647...v1.2.9) (2018-02-15)
 

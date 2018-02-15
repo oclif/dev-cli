@@ -1,7 +1,7 @@
 {
   "name": "@oclif/dev-cli",
   "description": "helpers for oclif CLIs",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "author": "Jeff Dickey @jdxcode",
   "bin": {
     "oclif-dev": "./bin/run"
