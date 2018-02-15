@@ -87,7 +87,7 @@ $ ${config.bin} (-v|--version|version)
 ${config.name}/${config.version} (${process.platform}-${process.arch}) node-v${process.versions.node}
 $ ${config.bin} --help [COMMAND]
 USAGE
-  $ ${config.bin} COMMAND [OPTIONS]
+  $ ${config.bin} COMMAND
 ...
 \`\`\`\n`,
       ].join('\n').trim()
