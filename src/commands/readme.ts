@@ -191,8 +191,8 @@ USAGE
       return `[${name}]`
     }
     const defaultUsage = () => {
-      const flags = Object.entries(command.flags)
-      .filter(([, v]) => !v.hidden)
+      // const flags = Object.entries(command.flags)
+      // .filter(([, v]) => !v.hidden)
       return compact([
         command.id,
         command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
