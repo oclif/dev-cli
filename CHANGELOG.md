@@ -1,3 +1,11 @@
+<a name="1.2.7"></a>
+## [1.2.7](https://github.com/oclif/dev-cli/compare/2a235923e264d6a47e0d46e2ad43c1fa33d71669...v1.2.7) (2018-02-15)
+
+
+### Bug Fixes
+
+* remove [OPTIONS] ([2b1b5a7](https://github.com/oclif/dev-cli/commit/2b1b5a7))
+
 <a name="1.2.6"></a>
 ## [1.2.6](https://github.com/oclif/dev-cli/compare/5abc82f90c49d2d369497bd3519090542803b762...v1.2.6) (2018-02-15)
 
