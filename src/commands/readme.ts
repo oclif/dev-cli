@@ -4,6 +4,7 @@ import {Command, flags} from '@oclif/command'
 import * as Config from '@oclif/config'
 import Help from '@oclif/plugin-help'
 import * as fs from 'fs-extra'
+import * as _ from 'lodash'
 import * as path from 'path'
 
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
@@ -59,10 +60,10 @@ The readme must have any of the following tags inside of it for it to be replace
     return readme.replace(`<!-- ${tag} -->`, `<!-- ${tag} -->\n${body}\n<!-- ${tag}stop -->`)
   }
 
-  toc(_: Config.IConfig, readme: string): string {
+  toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
     .map(l => l.slice(2))
-    .map(l => [l, l.toLowerCase().replace(/[ ]/g, '-')])
+    .map(l => [l, _.kebabCase(l.trim().replace(/[^a-zA-Z0-9\- ]/g, ''))])
     .map(([title, link]) => `* [${title}](#${link})`)
     .join('\n')
   }
