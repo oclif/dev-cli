@@ -196,7 +196,6 @@ USAGE
       return compact([
         command.id,
         command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
-        flags.length && '[OPTIONS]',
       ]).join(' ')
     }
     let usages = castArray(command.usage)
