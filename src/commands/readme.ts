@@ -178,10 +178,12 @@ USAGE
     }
     repo = repo.url.split('+')[1].replace(/\.git$/, '')
     let label = plugin.name
+    let version = plugin.version
     if (config.name === plugin.name) {
       label = commandPath
+      version = process.env.OCLIF_NEXT_VERSION || version
     }
-    return `_See code: [${label}](${repo}/blob/v${plugin.version}/${commandPath})_`
+    return `_See code: [${label}](${repo}/blob/v${version}/${commandPath})_`
   }
 
   commandUsage(command: Config.Command): string {
