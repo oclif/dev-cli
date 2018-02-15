@@ -37,7 +37,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.2.4 (linux-x64) node-v9.5.0
+@oclif/dev-cli/1.2.5 (linux-x64) node-v9.5.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND [OPTIONS]
@@ -56,7 +56,7 @@ display help for oclif-dev
 
 ```
 USAGE
-  $ oclif-dev help [COMMAND] [OPTIONS]
+  $ oclif-dev help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -65,7 +65,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.0.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.0.2/src/commands/help.ts)_
 
 ## manifest [PATH] [OPTIONS]
 
@@ -73,7 +73,7 @@ generates plugin manifest json
 
 ```
 USAGE
-  $ oclif-dev manifest [PATH] [OPTIONS]
+  $ oclif-dev manifest [PATH]
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -83,7 +83,7 @@ OPTIONS
   --version  show CLI version
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.4/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.5/src/commands/manifest.ts)_
 
 ## readme [OPTIONS]
 
@@ -91,7 +91,7 @@ adds commands to README.md in current directory
 
 ```
 USAGE
-  $ oclif-dev readme [OPTIONS]
+  $ oclif-dev readme
 
 OPTIONS
   --multi  create a different markdown page for each topic
@@ -103,5 +103,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.4/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.5/src/commands/readme.ts)_
 <!-- commandsstop -->
