@@ -62,7 +62,7 @@ The readme must have any of the following tags inside of it for it to be replace
   toc(_: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
     .map(l => l.slice(2))
-    .map(l => [l, l.toLowerCase().replace(/[ :]/g, '')])
+    .map(l => [l, l.toLowerCase().replace(/[ ]/g, '-')])
     .map(([title, link]) => `* [${title}](#${link})`)
     .join('\n')
   }
