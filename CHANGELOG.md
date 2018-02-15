@@ -1,3 +1,11 @@
+<a name="1.2.11"></a>
+## [1.2.11](https://github.com/oclif/dev-cli/compare/7cf7bec9fc2af45be1de7a61241d883b9d2deeb4...v1.2.11) (2018-02-15)
+
+
+### Bug Fixes
+
+* fixed slug generation with emojis ([0eb5b51](https://github.com/oclif/dev-cli/commit/0eb5b51))
+
 <a name="1.2.10"></a>
 ## [1.2.10](https://github.com/oclif/dev-cli/compare/1bdf2af9f464fdee0868b1d6f5637b6242e769d5...v1.2.10) (2018-02-15)
 
