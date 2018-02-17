@@ -1,3 +1,11 @@
+<a name="1.2.16"></a>
+## [1.2.16](https://github.com/oclif/dev-cli/compare/88f96171636a85cc139c79ac6bb4100035919caf...v1.2.16) (2018-02-17)
+
+
+### Bug Fixes
+
+* fixed slug with : ([db916ff](https://github.com/oclif/dev-cli/commit/db916ff))
+
 <a name="1.2.15"></a>
 ## [1.2.15](https://github.com/oclif/dev-cli/compare/24785434b6ba3cb52eb72928a6025834b97caacc...v1.2.15) (2018-02-17)
 
