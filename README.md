@@ -37,7 +37,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.2.12 (linux-x64) node-v9.5.0
+@oclif/dev-cli/1.2.13 (linux-x64) node-v9.5.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -65,7 +65,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.0.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.1.0/src/commands/help.ts)_
 
 ## manifest [PATH]
 
@@ -77,13 +77,9 @@ USAGE
 
 ARGUMENTS
   PATH  [default: .] path to plugin
-
-OPTIONS
-  --help     show CLI help
-  --version  show CLI version
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.13/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.2.14/src/commands/manifest.ts)_
 
 ## readme
 
@@ -103,5 +99,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.13/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.2.14/src/commands/readme.ts)_
 <!-- commandsstop -->
