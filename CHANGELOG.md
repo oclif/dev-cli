@@ -1,3 +1,11 @@
+<a name="1.2.13"></a>
+## [1.2.13](https://github.com/oclif/dev-cli/compare/dfc71b897dad8e5026ace6b7349c9ea3c7eb123f...v1.2.13) (2018-02-17)
+
+
+### Bug Fixes
+
+* fixed uniqby ([59a1d97](https://github.com/oclif/dev-cli/commit/59a1d97))
+
 <a name="1.2.12"></a>
 ## [1.2.12](https://github.com/oclif/dev-cli/compare/0eb5b518f4262b7a51870c7fc396116d84c2578e...v1.2.12) (2018-02-15)
 
