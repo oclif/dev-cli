@@ -135,14 +135,13 @@ USAGE
   }
 
   commands(config: Config.IConfig, commands: Config.Command[]): string {
-    let rootCommands = commands.filter(c => !c.id.includes(':'))
     return [
       '# Commands\n',
       ...commands.map(c => {
         let usage = this.commandUsage(c)
         return `* [${config.bin} ${usage}](#${slugify(usage)})`
       }),
-      ...rootCommands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
+      ...commands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
   }
 
