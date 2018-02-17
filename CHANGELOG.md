@@ -1,3 +1,11 @@
+<a name="1.2.18"></a>
+## [1.2.18](https://github.com/oclif/dev-cli/compare/cc99c5e268493915a7743a39d947f9ce1d8103ab...v1.2.18) (2018-02-17)
+
+
+### Bug Fixes
+
+* updated command ([8e87251](https://github.com/oclif/dev-cli/commit/8e87251))
+
 <a name="1.2.17"></a>
 ## [1.2.17](https://github.com/oclif/dev-cli/compare/db916ffe57964f67fd6098b3abcab3c8665821e8...v1.2.17) (2018-02-17)
 
