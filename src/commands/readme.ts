@@ -12,7 +12,7 @@ import {castArray, compact, sortBy, template, uniqBy} from '../util'
 const normalize = require('normalize-package-data')
 
 function slugify(input: string): string {
-  return _.kebabCase(input.trim()).replace(/[^a-zA-Z0-9\- ]/g, '')
+  return _.kebabCase(input.trim().replace(/:/g, '')).replace(/[^a-zA-Z0-9\- ]/g, '')
 }
 
 export default class Readme extends Command {
