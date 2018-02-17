@@ -8,7 +8,7 @@ export function castArray<T>(input?: T | T[]): T[] {
 export function uniqBy<T>(arr: T[], fn: (cur: T) => any): T[] {
   return arr.filter((a, i) => {
     let aVal = fn(a)
-    return !arr.find((b, j) => j !== i && fn(b) === aVal)
+    return !arr.find((b, j) => j > i && fn(b) === aVal)
   })
 }
 
