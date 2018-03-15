@@ -15,9 +15,9 @@ export default class Manifest extends Command {
     try { fs.unlinkSync('.oclif.manifest.json') } catch {}
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
-    let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true})
-    await plugin.load()
+    let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true, errorOnManifestCreate: true})
     if (!plugin) throw new Error('plugin not found')
+    await plugin.load()
     if (!plugin.valid) {
       // @ts-ignore
       let p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
