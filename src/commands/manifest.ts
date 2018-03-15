@@ -11,13 +11,25 @@ export default class Manifest extends Command {
     {name: 'path', description: 'path to plugin', default: '.'}
   ]
 
+  capturePluginWarning(warning: Error) {
+    if (warning.name.match(/Plugin:/)) { throw warning }
+  }
+
   async run() {
     try { fs.unlinkSync('.oclif.manifest.json') } catch {}
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
     let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true})
-    await plugin.load()
     if (!plugin) throw new Error('plugin not found')
+    process.addListener('warning', this.capturePluginWarning)
+    try {
+      await plugin.load()
+      // Wait for event queue to flush so we get any potential warning.
+      await new Promise(resolve => process.nextTick(resolve))
+    } finally {
+      // Clean up
+      process.removeListener('warning', this.capturePluginWarning)
+    }
     if (!plugin.valid) {
       // @ts-ignore
       let p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
