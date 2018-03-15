@@ -1,3 +1,14 @@
+<a name="1.2.20"></a>
+## [1.2.20](https://github.com/oclif/dev-cli/compare/c05aae9c4c335e738899e9bf6343e7a33dc61bf0...v1.2.20) (2018-03-15)
+
+
+### Bug Fixes
+
+* throw an error on plugin warnings when creating the colif manifest ([ef86e2d](https://github.com/oclif/dev-cli/commit/ef86e2d))
+* up version of config to get the error on manifest fix ([452ad4c](https://github.com/oclif/dev-cli/commit/452ad4c))
+* updated deps ([f55e27b](https://github.com/oclif/dev-cli/commit/f55e27b))
+* use the option to throw instead of listening on process ([4d3fd4f](https://github.com/oclif/dev-cli/commit/4d3fd4f))
+
 <a name="1.2.19"></a>
 ## [1.2.19](https://github.com/oclif/dev-cli/compare/8e8725193a59ce425a603fd18503bbd6110d3c5f...v1.2.19) (2018-02-28)
 
