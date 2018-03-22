@@ -18,7 +18,6 @@ function slugify(input: string): string {
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
 The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
-<!-- install -->
 <!-- usage -->
 <!-- commands -->
 `
@@ -44,7 +43,6 @@ The readme must have any of the following tags inside of it for it to be replace
     this.debug('commands:', commands.map(c => c.id).length)
     commands = uniqBy(commands, c => c.id)
     commands = sortBy(commands, c => c.id)
-    readme = this.replaceTag(readme, 'install', this.install(config))
     readme = this.replaceTag(readme, 'usage', this.usage(config))
     readme = this.replaceTag(readme, 'commands', flags.multi ? this.multiCommands(config, commands) : this.commands(config, commands))
     readme = this.replaceTag(readme, 'toc', this.toc(config, readme))
@@ -71,20 +69,11 @@ The readme must have any of the following tags inside of it for it to be replace
     .join('\n')
   }
 
-  install(config: Config.IConfig): string {
-    return [
-        '# Install\n',
-        'with yarn:',
-        '```\n$ yarn global add ' + config.name + '\n```\n',
-        'or with npm:',
-        '```\n$ npm install -g ' + config.name + '\n```\n',
-    ].join('\n').trim()
-  }
-
   usage(config: Config.IConfig): string {
       return [
         '# Usage\n',
         `\`\`\`sh-session
+$ npm install -g ${config.name}
 $ ${config.bin} COMMAND
 running command...
 $ ${config.bin} (-v|--version|version)
