@@ -77,7 +77,7 @@ $ npm install -g ${config.name}
 $ ${config.bin} COMMAND
 running command...
 $ ${config.bin} (-v|--version|version)
-${config.name}/${config.version} ${process.platform}-${process.arch} node-v${process.versions.node}
+${config.name}/${process.env.OCLIF_NEXT_VERSION || config.version} ${process.platform}-${process.arch} node-v${process.versions.node}
 $ ${config.bin} --help [COMMAND]
 USAGE
   $ ${config.bin} COMMAND
