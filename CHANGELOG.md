@@ -1,3 +1,16 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/oclif/dev-cli/compare/f55e27b143d6f172051ea5b970e3dbe77b0b7033...v1.3.0) (2018-03-22)
+
+
+### Bug Fixes
+
+* fixed platform/arch to match real output ([415dd77](https://github.com/oclif/dev-cli/commit/415dd77))
+
+
+### Features
+
+* combine install/usage steps ([901445d](https://github.com/oclif/dev-cli/commit/901445d))
+
 <a name="1.2.20"></a>
 ## [1.2.20](https://github.com/oclif/dev-cli/compare/c05aae9c4c335e738899e9bf6343e7a33dc61bf0...v1.2.20) (2018-03-15)
 
