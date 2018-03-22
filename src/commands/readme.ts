@@ -88,7 +88,7 @@ The readme must have any of the following tags inside of it for it to be replace
 $ ${config.bin} COMMAND
 running command...
 $ ${config.bin} (-v|--version|version)
-${config.name}/${config.version} (${process.platform}-${process.arch}) node-v${process.versions.node}
+${config.name}/${config.version} ${process.platform}-${process.arch} node-v${process.versions.node}
 $ ${config.bin} --help [COMMAND]
 USAGE
   $ ${config.bin} COMMAND
