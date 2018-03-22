@@ -13,7 +13,6 @@ helpers for oclif CLIs
 [![License](https://img.shields.io/npm/l/@oclif/dev-cli.svg)](https://github.com/oclif/dev-cli/blob/master/package.json)
 
 <!-- toc -->
-* [Install](#install)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -25,7 +24,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.2.20 linux-x64 node-v9.9.0
+@oclif/dev-cli/1.3.1 linux-x64 node-v9.9.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -67,7 +66,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.3.0/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.3.1/src/commands/manifest.ts)_
 
 ## readme
 
@@ -86,5 +85,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.3.0/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.3.1/src/commands/readme.ts)_
 <!-- commandsstop -->
