@@ -17,19 +17,6 @@ helpers for oclif CLIs
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-<!-- install -->
-# Install
-
-with yarn:
-```
-$ yarn global add @oclif/dev-cli
-```
-
-or with npm:
-```
-$ npm install -g @oclif/dev-cli
-```
-<!-- installstop -->
 <!-- usage -->
 # Usage
 
