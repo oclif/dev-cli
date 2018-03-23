@@ -1,3 +1,11 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/oclif/dev-cli/compare/7c43aa94b04e869ffbfec6d49ac1e7f2562d34d0...v1.4.0) (2018-03-23)
+
+
+### Features
+
+* remove headers to allow them to be customized ([adf8097](https://github.com/oclif/dev-cli/commit/adf8097))
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/oclif/dev-cli/compare/901445d5758c07143237e8018a208060dc724be7...v1.3.1) (2018-03-22)
 
