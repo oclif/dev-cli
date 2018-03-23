@@ -16,8 +16,8 @@ helpers for oclif CLIs
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-<!-- usage -->
 # Usage
+<!-- usage -->
 
 ```sh-session
 $ npm install -g @oclif/dev-cli
@@ -31,8 +31,8 @@ USAGE
 ...
 ```
 <!-- usagestop -->
-<!-- commands -->
 # Commands
+<!-- commands -->
 
 * [oclif-dev help [COMMAND]](#help-command)
 * [oclif-dev manifest [PATH]](#manifest-path)

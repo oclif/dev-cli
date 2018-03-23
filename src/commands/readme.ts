@@ -18,7 +18,9 @@ function slugify(input: string): string {
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
 The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
+# Usage
 <!-- usage -->
+# Commands
 <!-- commands -->
 `
   static flags = {
@@ -71,7 +73,6 @@ The readme must have any of the following tags inside of it for it to be replace
 
   usage(config: Config.IConfig): string {
       return [
-        '# Usage\n',
         `\`\`\`sh-session
 $ npm install -g ${config.name}
 $ ${config.bin} COMMAND
@@ -125,7 +126,6 @@ USAGE
 
   commands(config: Config.IConfig, commands: Config.Command[]): string {
     return [
-      '# Commands\n',
       ...commands.map(c => {
         let usage = this.commandUsage(c)
         return `* [${config.bin} ${usage}](#${slugify(usage)})`
