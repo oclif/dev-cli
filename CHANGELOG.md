@@ -1,3 +1,11 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/oclif/dev-cli/compare/adf809740afba0439e24d590a2beb6544f659ed5...v1.4.1) (2018-03-23)
+
+
+### Bug Fixes
+
+* put config.bin in title ([f498214](https://github.com/oclif/dev-cli/commit/f498214))
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/oclif/dev-cli/compare/7c43aa94b04e869ffbfec6d49ac1e7f2562d34d0...v1.4.0) (2018-03-23)
 
