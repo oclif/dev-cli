@@ -1,3 +1,11 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/oclif/dev-cli/compare/f498214fb0ce6aae970eeefdb2f6c21371d10a6f...v1.4.2) (2018-03-24)
+
+
+### Bug Fixes
+
+* fixed command anchor links ([b42656b](https://github.com/oclif/dev-cli/commit/b42656b))
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/oclif/dev-cli/compare/adf809740afba0439e24d590a2beb6544f659ed5...v1.4.1) (2018-03-23)
 
