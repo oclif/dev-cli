@@ -128,7 +128,7 @@ USAGE
     return [
       ...commands.map(c => {
         let usage = this.commandUsage(c)
-        return `* [${config.bin} ${usage}](#${slugify(usage)})`
+        return `* [${config.bin} ${usage}](#${slugify(`${config.bin}-${usage}`)})`
       }),
       '',
       ...commands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
