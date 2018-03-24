@@ -130,6 +130,7 @@ USAGE
         let usage = this.commandUsage(c)
         return `* [${config.bin} ${usage}](#${slugify(usage)})`
       }),
+      '',
       ...commands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
   }
