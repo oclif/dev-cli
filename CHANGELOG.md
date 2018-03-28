@@ -1,3 +1,11 @@
+<a name="1.4.4"></a>
+## [1.4.4](https://github.com/oclif/dev-cli/compare/62b142ccfb86d16f9becfc95bf0ab0f9cc995224...v1.4.4) (2018-03-28)
+
+
+### Bug Fixes
+
+* updated plugin-help ([f64ae1d](https://github.com/oclif/dev-cli/commit/f64ae1d))
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/oclif/dev-cli/compare/b42656b099edb33d0e030ab385e4a5df3983eb69...v1.4.3) (2018-03-28)
 
