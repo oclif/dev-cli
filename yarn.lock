@@ -48,7 +48,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@oclif/command@^1.4.2", "@oclif/command@^1.4.4", "@oclif/command@^1.4.6":
+"@oclif/command@^1.4.2", "@oclif/command@^1.4.6":
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.6.tgz#6de7789cfc6ae6cdf177566fbfbb742d5cb8f320"
   dependencies:
@@ -79,11 +79,11 @@
   dependencies:
     "@heroku/linewrap" "^1.0.0"
 
-"@oclif/plugin-help@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-1.2.1.tgz#5537779e5a1cfb812d54333111c861d06771c18f"
+"@oclif/plugin-help@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-1.2.2.tgz#7a4846b71a6d47720b628218fdb4bafa71155de3"
   dependencies:
-    "@oclif/command" "^1.4.4"
+    "@oclif/command" "^1.4.6"
     chalk "^2.3.2"
     indent-string "^3.2.0"
     lodash.template "^4.4.0"
