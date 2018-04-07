@@ -1,6 +1,5 @@
 import {Command, flags} from '@oclif/command'
 import * as path from 'path'
-import * as qq from 'qqjs'
 
 import * as S3 from '../../s3'
 import * as Tarballs from '../../tarballs'

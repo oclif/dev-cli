@@ -13,6 +13,6 @@ describe('pack', () => {
   skipIfWindows
   .command(['pack'])
   .it('packs win32-64', () => {
-    expect(qq.exists.sync(`dist/oclif-dev-v${version}.tar.gz`)).to.be.true
+    expect(qq.exists.sync(`dist/@oclif/dev-cli/channels/stable/oclif-dev-v${version}/oclif-dev-v${version}.tar.gz`)).to.be.true
   })
 })
