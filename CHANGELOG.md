@@ -1,3 +1,11 @@
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/oclif/dev-cli/compare/v1.7.1...v1.7.2) (2018-04-07)
+
+
+### Bug Fixes
+
+* move targets to pjson ([35a077b](https://github.com/oclif/dev-cli/commit/35a077b))
+
 <a name="1.7.1"></a>
 ## [1.7.1](https://github.com/oclif/dev-cli/compare/v1.7.0...v1.7.1) (2018-04-07)
 

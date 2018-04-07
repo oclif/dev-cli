@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.7.1 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.7.2 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -68,7 +68,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.1/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -105,7 +105,7 @@ EXAMPLES
   outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win32-x64.tar.gz
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.1/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/pack.ts)_
 
 ## oclif-dev publish:github
 
@@ -117,14 +117,13 @@ USAGE
 
 OPTIONS
   -r, --root=root              (required) [default: .] path to oclif CLI root
-  -t, --targets=targets        (required) comma-separated targets to build for (e.g. darwin-x64, win32-x86)
   --draft                      create an unpublished release
   --node-version=node-version  (required) [default: 9.11.1] node version of binary to get
   --prerelease                 identify as prerelease
   --xz                         also create xz tarballs
 ```
 
-_See code: [src/commands/publish/github.ts](https://github.com/oclif/dev-cli/blob/v1.7.1/src/commands/publish/github.ts)_
+_See code: [src/commands/publish/github.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/publish/github.ts)_
 
 ## oclif-dev publish:s3
 
@@ -136,14 +135,13 @@ USAGE
 
 OPTIONS
   -b, --bucket=bucket          s3 bucket to use
-  -c, --channel=channel        (required) channel to publish (e.g. "stable" or "beta")
+  -c, --channel=channel        (required) [default: stable] channel to publish (e.g. "stable" or "beta")
   -r, --root=root              (required) [default: .] path to oclif CLI root
-  -t, --targets=targets        (required) comma-separated targets to build for (e.g. darwin-x64, win32-x86)
   --node-version=node-version  (required) [default: 9.11.1] node version of binary to get
   --xz                         also create xz tarballs
 ```
 
-_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.1/src/commands/publish/s3.ts)_
+_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/publish/s3.ts)_
 
 ## oclif-dev readme
 
@@ -164,5 +162,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.1/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/readme.ts)_
 <!-- commandsstop -->
