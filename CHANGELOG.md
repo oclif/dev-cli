@@ -1,3 +1,11 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/oclif/dev-cli/compare/v1.6.0...v1.7.0) (2018-04-07)
+
+
+### Features
+
+* idempotent github release creation/updating ([d71c63e](https://github.com/oclif/dev-cli/commit/d71c63e))
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/oclif/dev-cli/compare/v1.5.0...v1.6.0) (2018-04-07)
 
