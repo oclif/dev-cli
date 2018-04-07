@@ -1,3 +1,11 @@
+<a name="1.7.12"></a>
+## [1.7.12](https://github.com/oclif/dev-cli/compare/v1.7.11...v1.7.12) (2018-04-07)
+
+
+### Bug Fixes
+
+* use config.name as prefix to match cli-engine ([020fa2d](https://github.com/oclif/dev-cli/commit/020fa2d))
+
 <a name="1.7.11"></a>
 ## [1.7.11](https://github.com/oclif/dev-cli/compare/v1.7.10...v1.7.11) (2018-04-07)
 
