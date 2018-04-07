@@ -38,11 +38,11 @@ export default class Publish extends Command {
     const uploadTarball = async (tarball: (type: 'gz' | 'xz') => string) => {
       const base = path.basename(tarball('gz'), '.tar.gz')
       const versionlessBase = base.replace(`-v${version}`, '')
-      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.gz`, CacheControl: 'max-age=604800'})
-      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.gz`, CacheControl: 'max-age=86400'})
+      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.gz`, CacheControl: 'max-age=604800', ContentType: 'application/gzip'})
+      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.gz`, CacheControl: 'max-age=86400', ContentType: 'application/gzip'})
       if (xz) {
-        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.xz`, CacheControl: 'max-age=604800'})
-        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.xz`, CacheControl: 'max-age=86400'})
+        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.xz`, CacheControl: 'max-age=604800', ContentType: 'application/x-xz'})
+        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.xz`, CacheControl: 'max-age=86400', ContentType: 'application/x-xz'})
       }
     }
     await uploadTarball(baseTarball)
