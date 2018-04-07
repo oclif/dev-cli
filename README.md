@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.7.2 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.7.3 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -68,7 +68,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.3/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -105,7 +105,7 @@ EXAMPLES
   outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win32-x64.tar.gz
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.3/src/commands/pack.ts)_
 
 ## oclif-dev publish:github
 
@@ -123,7 +123,7 @@ OPTIONS
   --xz                         also create xz tarballs
 ```
 
-_See code: [src/commands/publish/github.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/publish/github.ts)_
+_See code: [src/commands/publish/github.ts](https://github.com/oclif/dev-cli/blob/v1.7.3/src/commands/publish/github.ts)_
 
 ## oclif-dev publish:s3
 
@@ -141,7 +141,7 @@ OPTIONS
   --xz                         also create xz tarballs
 ```
 
-_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/publish/s3.ts)_
+_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.3/src/commands/publish/s3.ts)_
 
 ## oclif-dev readme
 
@@ -162,5 +162,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.2/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.3/src/commands/readme.ts)_
 <!-- commandsstop -->
