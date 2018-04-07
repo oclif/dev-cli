@@ -2,11 +2,8 @@ import * as Config from '@oclif/config'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
-export async function version(config: Config.IConfig) {
-  if (!await qq.exists('.git')) return config.version
-  // add git sha to version if in a git repo
-  const sha = (await qq.x.stdout('git', ['rev-parse', '--short', 'HEAD'], {cwd: config.root}))
-  return `${config.version}-${sha}`
+export function gitSha(cwd: string) {
+  return qq.x.stdout('git', ['rev-parse', '--short', 'HEAD'], {cwd})
 }
 
 export async function base(config: Config.IConfig, platform: string | undefined, arch: string | undefined, version: string) {

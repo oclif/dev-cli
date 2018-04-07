@@ -1,7 +1,19 @@
 import {IConfig} from '@oclif/config'
+import * as path from 'path'
 import * as qq from 'qqjs'
 
+import {writeBinScripts} from './bin'
+import {base as getBase} from './config'
 import {log} from './log'
+import {fetchNodeBinary} from './node'
+import {pack} from './pack'
+
+export type Manifest = {
+  version: string
+  channel: string
+  sha256gz: string
+  sha256xz?: string
+}
 
 export async function build({channel, config, output, version}: {output: string, channel: string, config: IConfig, version: string}) {
   const prevCwd = qq.cwd()
@@ -54,4 +66,31 @@ export async function build({channel, config, output, version}: {output: string,
   await addDependencies()
   await prune()
   qq.cd(prevCwd)
+}
+
+export async function target({config, platform, arch, channel, version, baseWorkspace, nodeVersion, xz}: {config: IConfig, platform: string, arch: string, channel: string, version: string, baseWorkspace: string, nodeVersion: string, xz: boolean}) {
+  const base = await getBase(config, platform, arch, version)
+  log(`building ${base}`)
+  const targetWorkspace = qq.join([config.root, 'tmp', base])
+  await qq.rm(targetWorkspace)
+  await qq.cp(baseWorkspace, targetWorkspace)
+  await writeBinScripts({config, output: targetWorkspace, platform})
+  await fetchNodeBinary({
+    nodeVersion,
+    output: path.join(targetWorkspace, 'bin', 'node'),
+    platform,
+    arch,
+    tmp: qq.join([config.root, 'tmp']),
+  })
+  const tarball = path.join(config.root, 'dist', base)
+  const target = path.join(config.root, 'dist', [platform, arch].join('-'))
+  await pack({from: targetWorkspace, to: tarball, as: config.bin, xz})
+  const manifest: Manifest = {
+    channel,
+    version,
+    sha256gz: await qq.hash('sha256', `${tarball}.tar.gz`),
+  }
+  if (xz) manifest.sha256xz = await qq.hash('sha256', `${tarball}.tar.xz`)
+  await qq.writeJSON(target, manifest)
+  return {tarball, target}
 }

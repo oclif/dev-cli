@@ -57,6 +57,6 @@ fi
     await qq.chmod(bin, 0o755)
   }
 
-  if (!platform || platform === 'win32') writeWin32()
-  if (!platform || platform !== 'win32') writeUnix()
+  if (!platform || platform === 'win32') await writeWin32()
+  if (!platform || platform !== 'win32') await writeUnix()
 }
