@@ -9,6 +9,7 @@ import {log as action} from '../../tarballs/log'
 
 export default class Publish extends Command {
   static description = 'publish an oclif CLI to GitHub Releases'
+  static hidden = true
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
