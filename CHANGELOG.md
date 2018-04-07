@@ -1,3 +1,11 @@
+<a name="1.7.5"></a>
+## [1.7.5](https://github.com/oclif/dev-cli/compare/v1.7.4...v1.7.5) (2018-04-07)
+
+
+### Bug Fixes
+
+* hide github for now ([59c39c0](https://github.com/oclif/dev-cli/commit/59c39c0))
+
 <a name="1.7.4"></a>
 ## [1.7.4](https://github.com/oclif/dev-cli/compare/v1.7.3...v1.7.4) (2018-04-07)
 

@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.7.4 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.7.5 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -35,7 +35,6 @@ USAGE
 * [oclif-dev help [COMMAND]](#oclif-dev-help-command)
 * [oclif-dev manifest [PATH]](#oclif-dev-manifest-path)
 * [oclif-dev pack](#oclif-dev-pack)
-* [oclif-dev publish:github](#oclif-dev-publishgithub)
 * [oclif-dev publish:s3](#oclif-dev-publishs-3)
 * [oclif-dev readme](#oclif-dev-readme)
 
@@ -68,7 +67,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.4/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -105,25 +104,7 @@ EXAMPLES
   outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win32-x64.tar.gz
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.4/src/commands/pack.ts)_
-
-## oclif-dev publish:github
-
-publish an oclif CLI to GitHub Releases
-
-```
-USAGE
-  $ oclif-dev publish:github
-
-OPTIONS
-  -r, --root=root              (required) [default: .] path to oclif CLI root
-  --draft                      create an unpublished release
-  --node-version=node-version  (required) [default: 9.11.1] node version of binary to get
-  --prerelease                 identify as prerelease
-  --xz                         also create xz tarballs
-```
-
-_See code: [src/commands/publish/github.ts](https://github.com/oclif/dev-cli/blob/v1.7.4/src/commands/publish/github.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/pack.ts)_
 
 ## oclif-dev publish:s3
 
@@ -141,7 +122,7 @@ OPTIONS
   --xz                         also create xz tarballs
 ```
 
-_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.4/src/commands/publish/s3.ts)_
+_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/publish/s3.ts)_
 
 ## oclif-dev readme
 
@@ -162,5 +143,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.4/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/readme.ts)_
 <!-- commandsstop -->
