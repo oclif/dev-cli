@@ -1,3 +1,12 @@
+<a name="1.7.7"></a>
+## [1.7.7](https://github.com/oclif/dev-cli/compare/v1.7.6...v1.7.7) (2018-04-07)
+
+
+### Bug Fixes
+
+* export just the base tarball ([ee057ac](https://github.com/oclif/dev-cli/commit/ee057ac))
+* fixup scripts ([3165694](https://github.com/oclif/dev-cli/commit/3165694))
+
 <a name="1.7.6"></a>
 ## [1.7.6](https://github.com/oclif/dev-cli/compare/v1.7.5...v1.7.6) (2018-04-07)
 

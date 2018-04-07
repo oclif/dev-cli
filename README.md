@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.7.5 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.7.7 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -67,7 +67,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.7.7/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -78,33 +78,16 @@ USAGE
   $ oclif-dev pack
 
 OPTIONS
-  -a, --arch=x64|x86|arm             arch to use for node binary
-  -c, --channel=channel              (required) channel to publish (e.g. "stable" or "beta")
-  -o, --output=output                output location
-  -p, --platform=darwin|linux|win32  OS to use for node binary
-  -r, --root=root                    (required) [default: .] path to oclif CLI root
-  --node-version=node-version        (required) [default: 9.11.1] node version of binary to get
-  --xz                               also create xz tarballs
+  -c, --channel=channel  (required) [default: stable] channel to publish (e.g. "stable" or "beta")
+  -r, --root=root        (required) [default: .] path to oclif CLI root
 
 DESCRIPTION
   packages oclif cli into tarballs
 
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
-  The default output will be ./dist/mycli-v0.0.0.tar.gz for tarballs without node or 
-  ./dist/mycli-v0.0.0-darwin-x64.tar.gz when node is included.
-
-  By default it will not include node. To include node, pass in the --platform and --arch flags.
-
-
-EXAMPLES
-  $ oclif-dev pack
-  outputs tarball of CLI in current directory to ./dist/mycli-v0.0.0.tar.gz
-
-  $ oclif-dev pack --platform win32 --arch x64
-  outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win32-x64.tar.gz
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.7.7/src/commands/pack.ts)_
 
 ## oclif-dev publish:s3
 
@@ -115,14 +98,12 @@ USAGE
   $ oclif-dev publish:s3
 
 OPTIONS
-  -b, --bucket=bucket          s3 bucket to use
-  -c, --channel=channel        (required) [default: stable] channel to publish (e.g. "stable" or "beta")
-  -r, --root=root              (required) [default: .] path to oclif CLI root
-  --node-version=node-version  (required) [default: 9.11.1] node version of binary to get
-  --xz                         also create xz tarballs
+  -c, --channel=channel  (required) [default: stable] channel to publish (e.g. "stable" or "beta")
+  -r, --root=root        (required) [default: .] path to oclif CLI root
+  --xz                   also create xz tarballs
 ```
 
-_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/publish/s3.ts)_
+_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.7.7/src/commands/publish/s3.ts)_
 
 ## oclif-dev readme
 
@@ -143,5 +124,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.5/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.7.7/src/commands/readme.ts)_
 <!-- commandsstop -->
