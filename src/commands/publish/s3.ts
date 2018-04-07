@@ -48,9 +48,9 @@ export default class Publish extends Command {
     await uploadTarball(baseTarball)
     for (const target of targets) {
       await uploadTarball(target.tarball)
-      await S3.uploadFile(target.manifest, {...S3Options, Key: `${prefix}/${path.basename(target.manifest)}`, CacheControl: 'max-age=86400'})
+      await S3.uploadFile(target.manifest, {...S3Options, Key: `${prefix}/${path.basename(target.manifest)}`, CacheControl: 'max-age=86400', ContentType: 'application/json'})
     }
     action('uploading manifest')
-    await S3.uploadFile(versionPath, {...S3Options, Key: `${prefix}/version`, CacheControl: 'max-age=86400'})
+    await S3.uploadFile(versionPath, {...S3Options, Key: `${prefix}/version`, CacheControl: 'max-age=86400', ContentType: 'application/json'})
   }
 }

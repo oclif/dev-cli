@@ -7,8 +7,8 @@ import {log} from './log'
 import {fetchNodeBinary} from './node'
 
 export interface IManifest {
-  channel: string
   version: string
+  channel: string
   sha256gz: string
   sha256xz?: string
 }
@@ -96,8 +96,8 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
     await pack(targetWorkspace, target.tarball('gz'), 'gz')
     if (xz) await pack(targetWorkspace, target.tarball('xz'), 'xz')
     const manifest: IManifest = {
-      channel,
       version,
+      channel,
       sha256gz: await qq.hash('sha256', target.tarball('gz')),
       sha256xz: xz ? (await qq.hash('sha256', target.tarball('xz'))) : undefined,
     }
@@ -107,8 +107,8 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
     await pack(baseWorkspace, t.baseTarball('gz'), 'gz')
     if (xz) await pack(baseWorkspace, t.baseTarball('xz'), 'xz')
     await qq.writeJSON(t.versionPath, {
-      channel,
       version,
+      channel,
       sha256gz: await qq.hash('sha256', t.baseTarball('gz')),
       sha256xz: xz ? await qq.hash('sha256', t.baseTarball('xz')) : undefined,
       rollout: typeof t.updateConfig.autoupdate === 'object' && t.updateConfig.autoupdate.rollout,
