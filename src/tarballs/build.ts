@@ -6,11 +6,19 @@ import {buildConfig, ITarget} from './config'
 import {log} from './log'
 import {fetchNodeBinary} from './node'
 
-export interface Manifest {
-  version: string
+export interface IManifest {
   channel: string
+  version: string
   sha256gz: string
   sha256xz?: string
+}
+
+export interface IVersionManifest extends IManifest {
+  rollout?: number
+  node: {
+    compatible: string
+    recommended: string
+  }
 }
 
 const pack = async (from: string, to: string, type: 'gz' | 'xz') => {
@@ -86,13 +94,29 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
       tmp: qq.join([config.root, 'tmp']),
     })
     await pack(targetWorkspace, target.tarball('gz'), 'gz')
-    const manifest: Manifest = {
+    if (xz) await pack(targetWorkspace, target.tarball('xz'), 'xz')
+    const manifest: IManifest = {
       channel,
       version,
       sha256gz: await qq.hash('sha256', target.tarball('gz')),
+      sha256xz: xz ? (await qq.hash('sha256', target.tarball('xz'))) : undefined,
     }
-    if (xz) manifest.sha256xz = await qq.hash('sha256', target.tarball('xz'))
     await qq.writeJSON(target.manifest, manifest)
+  }
+  const buildBaseTarball = async () => {
+    await pack(baseWorkspace, t.baseTarball('gz'), 'gz')
+    if (xz) await pack(baseWorkspace, t.baseTarball('xz'), 'xz')
+    await qq.writeJSON(t.versionPath, {
+      channel,
+      version,
+      sha256gz: await qq.hash('sha256', t.baseTarball('gz')),
+      sha256xz: xz ? await qq.hash('sha256', t.baseTarball('xz')) : undefined,
+      rollout: typeof t.updateConfig.autoupdate === 'object' && t.updateConfig.autoupdate.rollout,
+      node: {
+        compatible: config.pjson.engines.node,
+        recommended: nodeVersion,
+      },
+    } as IVersionManifest)
   }
   log(`packing ${t.config.bin} to ${t.baseWorkspace}`)
   await extractCLI(await packCLI())
@@ -100,7 +124,7 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
   await addDependencies()
   await prune()
   await writeBinScripts(t)
-  await pack(baseWorkspace, t.baseTarball('gz'), 'gz')
+  await buildBaseTarball()
   for (let target of t.targets) await buildTarget(target)
   qq.cd(prevCwd)
   return t

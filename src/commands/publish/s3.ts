@@ -19,7 +19,6 @@ export default class Publish extends Command {
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
     channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
-    xz: flags.boolean({description: 'also create xz tarballs'}),
   }
 
   async run() {
@@ -28,33 +27,31 @@ export default class Publish extends Command {
     const {channel} = flags
     const root = path.resolve(flags.root)
 
-    const {config, s3Config, targets, version, updateConfig, nodeVersion} = await Tarballs.build(root, channel)
+    const {config, s3Config, targets, version, updateConfig, nodeVersion, baseTarball, xz, versionPath} = await Tarballs.build(root, channel)
 
     // TODO: handle s3Prefix
     const prefix = `${config.bin}/channels/${channel}`
-    const Bucket = s3Config.bucket
-    if (!Bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
-    const upload = async (local: string, remote: string) => {
-      action(`uploading ${local} to s3://${Bucket}/${remote}`)
-      await S3.uploadFile(local, {Bucket, Key: remote, ACL: 'public-read'})
+    if (!s3Config.bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
+    const S3Options = {
+      Bucket: s3Config.bucket,
+      ACL: 'public-read',
     }
+    const uploadTarball = async (tarball: (type: 'gz' | 'xz') => string) => {
+      const base = path.basename(tarball('gz'), '.tar.gz')
+      const versionlessBase = base.replace(`-v${version}`, '')
+      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.gz`, CacheControl: 'max-age=604800'})
+      await S3.uploadFile(tarball('gz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.gz`, CacheControl: 'max-age=86400'})
+      if (xz) {
+        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${base}/${base}.tar.xz`, CacheControl: 'max-age=604800'})
+        await S3.uploadFile(tarball('xz'), {...S3Options, Key: `${prefix}/${versionlessBase}.tar.xz`, CacheControl: 'max-age=86400'})
+      }
+    }
+    await uploadTarball(baseTarball)
     for (const target of targets) {
-      const base = path.basename(target.tarball('gz'))
-      await upload(target.tarball('gz'), `${prefix}/${base}/${base}.tar.gz`)
-      if (flags.xz) await upload(target.tarball('xz'), `${prefix}/${base}/${base}.tar.xz`)
-      await upload(target.manifest, `${prefix}/${path.basename(target.manifest)}`)
+      await uploadTarball(target.tarball)
+      await S3.uploadFile(target.manifest, {...S3Options, Key: `${prefix}/${path.basename(target.manifest)}`, CacheControl: 'max-age=86400'})
     }
     action('uploading manifest')
-    const versionPath = path.join(config.root, 'dist', version)
-    await qq.writeJSON(versionPath, {
-      channel,
-      version,
-      rollout: typeof updateConfig.autoupdate === 'object' && updateConfig.autoupdate.rollout,
-      node: {
-        compatible: config.pjson.engines.node,
-        recommended: nodeVersion,
-      },
-    })
-    await upload(versionPath, `${prefix}/version`)
+    await S3.uploadFile(versionPath, {...S3Options, Key: `${prefix}/version`, CacheControl: 'max-age=86400'})
   }
 }

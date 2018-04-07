@@ -69,10 +69,15 @@
         "debounce": 60
       },
       "node": {
-        "version": "8.11.1"
+        "version": "8.11.1",
+        "targets": [
+          "win32-x64",
+          "darwin-x64"
+        ]
       },
       "s3": {
-        "bucket": "oclif-assets"
+        "bucket": "oclif",
+        "xz": true
       }
     },
     "plugins": [

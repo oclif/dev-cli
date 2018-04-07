@@ -30,7 +30,7 @@ export async function buildConfig(root: string, channel: string) {
   const tConfig = {
     root,
     gitSha: _gitSha,
-    base(platform: string | undefined, arch: string | undefined) {
+    base(platform?: string, arch?: string) {
       let base = [config.bin, `v${version}`].join('-')
       if (platform && arch) {
         base = [base, platform, arch].join('-')
@@ -41,6 +41,7 @@ export async function buildConfig(root: string, channel: string) {
     tmp,
     updateConfig,
     version,
+    versionPath: path.join(output, 'version'),
     channel,
     output,
     baseTarball: (type: 'xz' | 'gz') => path.join(output, `${config.bin}-v${version}.tar.${type}`),
