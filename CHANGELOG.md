@@ -1,3 +1,11 @@
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/oclif/dev-cli/compare/v1.7.0...v1.7.1) (2018-04-07)
+
+
+### Bug Fixes
+
+* fix commitish ([0eb2ea1](https://github.com/oclif/dev-cli/commit/0eb2ea1))
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/oclif/dev-cli/compare/v1.6.0...v1.7.0) (2018-04-07)
 
