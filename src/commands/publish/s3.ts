@@ -64,8 +64,5 @@ export default class Publish extends Command {
       version,
     })
     await upload(versionPath, `${prefix}/version`)
-    if (config.pjson.scripts.postpublish) {
-      await qq.x('npm', ['run', 'postpublish'])
-    }
   }
 }

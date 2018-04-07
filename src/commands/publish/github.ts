@@ -55,9 +55,6 @@ export default class Publish extends Command {
       await this.addFileToRelease(release, `${tarball}.tar.gz`)
       if (flags.xz) await this.addFileToRelease(release, `${tarball}.tar.xz`)
     }
-    if (config.pjson.scripts.postpublish) {
-      await qq.x('npm', ['run', 'postpublish'])
-    }
   }
 
   async findOrCreateRelease({owner, repo, tag, prerelease, draft, commitish}: {owner: string, repo: string, tag: string, prerelease: boolean, draft: boolean, commitish: string}) {
