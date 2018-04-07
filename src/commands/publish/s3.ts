@@ -1,6 +1,5 @@
 import {Command, flags} from '@oclif/command'
 import * as path from 'path'
-import * as qq from 'qqjs'
 
 import * as S3 from '../../s3'
 import * as Tarballs from '../../tarballs'
@@ -27,7 +26,7 @@ export default class Publish extends Command {
     const {channel} = flags
     const root = path.resolve(flags.root)
 
-    const {config, s3Config, targets, version, updateConfig, nodeVersion, baseTarball, xz, versionPath} = await Tarballs.build(root, channel)
+    const {config, s3Config, targets, version, baseTarball, xz, versionPath} = await Tarballs.build(root, channel)
 
     // TODO: handle s3Prefix
     const prefix = `${config.bin}/channels/${channel}`
