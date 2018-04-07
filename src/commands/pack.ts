@@ -27,6 +27,7 @@ outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win
     platform: flags.string({char: 'p', description: 'OS to use for node binary', options: ['darwin', 'linux', 'win32']}),
     arch: flags.string({char: 'a', description: 'arch to use for node binary', options: ['x64', 'x86', 'arm']}),
     channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', required: true}),
+    xz: flags.boolean({description: 'also create xz tarballs'}),
   }
 
   async run() {
@@ -55,8 +56,8 @@ outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win
       })
     }
 
-    const tarball = flags.output ? path.resolve(flags.output) : path.join(process.cwd(), 'dist', `${base}.tar.gz`)
-    await Tarballs.pack({from: workspace, to: tarball, as: config.bin})
+    const tarball = flags.output ? path.resolve(flags.output) : path.join(process.cwd(), 'dist', base)
+    await Tarballs.pack({from: workspace, to: tarball, as: config.bin, xz: flags.xz})
     qq.cd(prevCwd)
   }
 }

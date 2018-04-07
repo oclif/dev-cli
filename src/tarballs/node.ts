@@ -21,7 +21,8 @@ export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}
   const extract = async () => {
     log(`extracting ${nodeBase}`)
     const nodeTmp = path.join(tmp, 'node')
-    await qq.emptyDir(nodeTmp)
+    await qq.rm([nodeTmp, nodeBase])
+    await qq.mkdirp(nodeTmp)
     await qq.mkdirp(path.dirname(output))
     if (platform === 'win32') {
       qq.pushd(nodeTmp)
@@ -32,8 +33,6 @@ export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}
       await qq.x(`tar -C ${tmp}/node -xJf ${tarball}`)
       await qq.mv([nodeTmp, nodeBase, 'bin/node'], output)
     }
-    await qq.rm([nodeTmp, nodeBase])
-    await qq.rmIfEmpty(nodeTmp)
   }
   if (!await qq.exists(tarball)) await download()
   await extract()
