@@ -18,9 +18,8 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    targets: flags.string({char: 't', description: 'comma-separated targets to build for (e.g. darwin-x64, win32-x86)', required: true}),
     'node-version': flags.string({description: 'node version of binary to get', default: process.versions.node, required: true}),
-    channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', required: true}),
+    channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
     bucket: flags.string({char: 'b', description: 's3 bucket to use'}),
     xz: flags.boolean({description: 'also create xz tarballs'}),
   }
@@ -33,12 +32,14 @@ export default class Publish extends Command {
     const config = await Tarballs.config(root)
     const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root, {short: true})}`
     const baseWorkspace = qq.join([config.root, 'tmp', 'base'])
+    const targets = config.pjson.oclif.targets
+    if (!targets) throw new Error('specify oclif.targets in package.json')
 
     // first create the generic base workspace that will be copied later
     await Tarballs.build({config, channel, output: baseWorkspace, version})
 
     const tarballs: {target: string, tarball: string}[] = []
-    for (let [platform, arch] of flags.targets.split(',').map(t => t.split('-'))) {
+    for (let [platform, arch] of targets.map(t => t.split('-'))) {
       const t = await Tarballs.target({config, platform, arch, channel, version, baseWorkspace, nodeVersion, xz: flags.xz})
       tarballs.push(t)
     }
