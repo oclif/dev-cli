@@ -1,3 +1,11 @@
+<a name="1.7.9"></a>
+## [1.7.9](https://github.com/oclif/dev-cli/compare/v1.7.8...v1.7.9) (2018-04-07)
+
+
+### Bug Fixes
+
+* skip pack test on windows ([14dd2fe](https://github.com/oclif/dev-cli/commit/14dd2fe))
+
 <a name="1.7.8"></a>
 ## [1.7.8](https://github.com/oclif/dev-cli/compare/v1.7.7...v1.7.8) (2018-04-07)
 
