@@ -81,9 +81,9 @@
   "scripts": {
     "build": "rm -rf lib && tsc",
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
-    "postpublish": "node ./bin/run publish:s3 --xz && node ./bin/run publish:github --xz && rm .oclif.manifest.json",
+    "postpublish": "node ./bin/run publish:s3 && rm .oclif.manifest.json",
     "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build && node ./bin/run manifest && node ./bin/run readme",
+    "prepack": "yarn run build && node ./bin/run manifest && node ./bin/run readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "node ./bin/run manifest && node ./bin/run readme && git add README.md"
   },
