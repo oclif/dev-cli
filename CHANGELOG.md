@@ -1,3 +1,11 @@
+<a name="1.7.4"></a>
+## [1.7.4](https://github.com/oclif/dev-cli/compare/v1.7.3...v1.7.4) (2018-04-07)
+
+
+### Bug Fixes
+
+* skip postpublish ([0a1c90c](https://github.com/oclif/dev-cli/commit/0a1c90c))
+
 <a name="1.7.3"></a>
 ## [1.7.3](https://github.com/oclif/dev-cli/compare/v1.7.2...v1.7.3) (2018-04-07)
 
