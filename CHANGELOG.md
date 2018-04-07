@@ -1,3 +1,13 @@
+<a name="1.7.13"></a>
+## [1.7.13](https://github.com/oclif/dev-cli/compare/v1.7.12...v1.7.13) (2018-04-07)
+
+
+### Bug Fixes
+
+* bump config ([aa0ab3d](https://github.com/oclif/dev-cli/commit/aa0ab3d))
+* fixed template strings ([5597ab0](https://github.com/oclif/dev-cli/commit/5597ab0))
+* tests ([a3064ca](https://github.com/oclif/dev-cli/commit/a3064ca))
+
 <a name="1.7.12"></a>
 ## [1.7.12](https://github.com/oclif/dev-cli/compare/v1.7.11...v1.7.12) (2018-04-07)
 
