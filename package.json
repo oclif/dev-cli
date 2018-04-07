@@ -10,12 +10,11 @@
   "dependencies": {
     "@heroku-cli/color": "^1.1.3",
     "@oclif/command": "^1.4.7",
-    "@oclif/config": "^1.3.66",
+    "@oclif/config": "^1.3.68",
     "@oclif/errors": "^1.0.3",
     "@oclif/plugin-help": "^1.2.3",
     "@oclif/plugin-warn-if-update-available": "^1.2.4",
     "@octokit/rest": "^15.2.6",
-    "aws-sdk": "^2.222.1",
     "cli-ux": "^3.3.27",
     "debug": "^3.1.0",
     "fs-extra": "^5.0.0",
@@ -27,6 +26,7 @@
   },
   "devDependencies": {
     "@oclif/plugin-legacy": "^1.0.7",
+    "aws-sdk": "^2.222.1",
     "@oclif/test": "^1.0.4",
     "@oclif/tslint": "^1.1.0",
     "@types/chai": "^4.1.2",
@@ -63,15 +63,18 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-dev",
-    "s3Bucket": "oclif-assets",
-    "targets": [
-      "darwin-x64",
-      "linux-x86",
-      "linux-x64",
-      "linux-arm",
-      "win32-x64",
-      "win32-x86"
-    ],
+    "update": {
+      "autoupdate": {
+        "rollout": 50,
+        "debounce": 60
+      },
+      "node": {
+        "version": "8.11.1"
+      },
+      "s3": {
+        "bucket": "oclif-assets"
+      }
+    },
     "plugins": [
       "@oclif/plugin-warn-if-update-available",
       "@oclif/plugin-help"

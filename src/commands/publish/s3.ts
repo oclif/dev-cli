@@ -18,50 +18,42 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    'node-version': flags.string({description: 'node version of binary to get', default: process.versions.node, required: true}),
     channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
-    bucket: flags.string({char: 'b', description: 's3 bucket to use', env: 'AWS_S3_BUCKET'}),
     xz: flags.boolean({description: 'also create xz tarballs'}),
   }
 
   async run() {
     const {flags} = this.parse(Publish)
-    if (process.platform === 'win32') throw new Error('pack does not function on windows')
-    const {channel, 'node-version': nodeVersion} = flags
+    if (process.platform === 'win32') throw new Error('publish:s3 does not function on windows')
+    const {channel} = flags
     const root = path.resolve(flags.root)
-    const config = await Tarballs.config(root)
-    const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root, {short: true})}`
-    const baseWorkspace = qq.join([config.root, 'tmp', 'base'])
-    const targets = config.pjson.oclif.targets
-    if (!targets) throw new Error('specify oclif.targets in package.json')
 
-    // first create the generic base workspace that will be copied later
-    await Tarballs.build({config, channel, output: baseWorkspace, version})
+    const {config, s3Config, targets, version, updateConfig, nodeVersion} = await Tarballs.build(root, channel)
 
-    const tarballs: {target: string, tarball: string}[] = []
-    for (let [platform, arch] of targets.map(t => t.split('-'))) {
-      const t = await Tarballs.target({config, platform, arch, channel, version, baseWorkspace, nodeVersion, xz: flags.xz})
-      tarballs.push(t)
-    }
     // TODO: handle s3Prefix
     const prefix = `${config.bin}/channels/${channel}`
-    const Bucket = flags.bucket || config.pjson.oclif.s3Bucket
-    if (!Bucket) throw new Error('must pass --bucket, set AWS_S3_BUCKET, or set oclif.s3Bucket in package.json')
+    const Bucket = s3Config.bucket
+    if (!Bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
     const upload = async (local: string, remote: string) => {
+      action(`uploading ${local} to s3://${Bucket}/${remote}`)
       await S3.uploadFile(local, {Bucket, Key: remote, ACL: 'public-read'})
     }
-    for (let {tarball, target} of tarballs) {
-      action(`uploading ${tarball}`)
-      const base = path.basename(tarball)
-      await upload(`${tarball}.tar.gz`, `${prefix}/${base}/${base}.tar.gz`)
-      if (flags.xz) await upload(`${tarball}.tar.xz`, `${prefix}/${base}/${base}.tar.xz`)
-      await upload(target, `${prefix}/${path.basename(target)}`)
+    for (const target of targets) {
+      const base = path.basename(target.tarball('gz'))
+      await upload(target.tarball('gz'), `${prefix}/${base}/${base}.tar.gz`)
+      if (flags.xz) await upload(target.tarball('xz'), `${prefix}/${base}/${base}.tar.xz`)
+      await upload(target.manifest, `${prefix}/${path.basename(target.manifest)}`)
     }
     action('uploading manifest')
     const versionPath = path.join(config.root, 'dist', version)
     await qq.writeJSON(versionPath, {
       channel,
       version,
+      rollout: typeof updateConfig.autoupdate === 'object' && updateConfig.autoupdate.rollout,
+      node: {
+        compatible: config.pjson.engines.node,
+        recommended: nodeVersion,
+      },
     })
     await upload(versionPath, `${prefix}/version`)
   }
