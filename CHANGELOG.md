@@ -1,3 +1,12 @@
+<a name="1.7.8"></a>
+## [1.7.8](https://github.com/oclif/dev-cli/compare/v1.7.7...v1.7.8) (2018-04-07)
+
+
+### Bug Fixes
+
+* lint issues ([fe7aafb](https://github.com/oclif/dev-cli/commit/fe7aafb))
+* re-enable xz and fixed some issues with publish:s3 ([377233b](https://github.com/oclif/dev-cli/commit/377233b))
+
 <a name="1.7.7"></a>
 ## [1.7.7](https://github.com/oclif/dev-cli/compare/v1.7.6...v1.7.7) (2018-04-07)
 
