@@ -1,3 +1,11 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/oclif/dev-cli/compare/v1.4.4...v1.5.0) (2018-04-07)
+
+
+### Features
+
+* pack ([b6b11bb](https://github.com/oclif/dev-cli/commit/b6b11bb))
+
 <a name="1.4.4"></a>
 ## [1.4.4](https://github.com/oclif/dev-cli/compare/62b142ccfb86d16f9becfc95bf0ab0f9cc995224...v1.4.4) (2018-03-28)
 

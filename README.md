@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.4.4 linux-x64 node-v9.9.0
+@oclif/dev-cli/1.5.0 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -34,6 +34,7 @@ USAGE
 <!-- commands -->
 * [oclif-dev help [COMMAND]](#oclif-dev-help-command)
 * [oclif-dev manifest [PATH]](#oclif-dev-manifest-path)
+* [oclif-dev pack](#oclif-dev-pack)
 * [oclif-dev readme](#oclif-dev-readme)
 
 ## oclif-dev help [COMMAND]
@@ -51,7 +52,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.2.2/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.2.3/src/commands/help.ts)_
 
 ## oclif-dev manifest [PATH]
 
@@ -65,7 +66,43 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.4.4/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.5.0/src/commands/manifest.ts)_
+
+## oclif-dev pack
+
+packages oclif cli into tarballs
+
+```
+USAGE
+  $ oclif-dev pack
+
+OPTIONS
+  -a, --arch=x64|x86|arm             arch to use for node binary
+  -c, --channel=channel              (required) channel to publish (e.g. "stable" or "beta")
+  -o, --output=output                output location
+  -p, --platform=darwin|linux|win32  OS to use for node binary
+  -r, --root=root                    (required) [default: .] path to oclif CLI root
+  --node-version=node-version        (required) [default: 9.11.1] node version of binary to get
+
+DESCRIPTION
+  packages oclif cli into tarballs
+
+  This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
+  The default output will be ./dist/mycli-v0.0.0.tar.gz for tarballs without node or 
+  ./dist/mycli-v0.0.0-darwin-x64.tar.gz when node is included.
+
+  By default it will not include node. To include node, pass in the --platform and --arch flags.
+
+
+EXAMPLES
+  $ oclif-dev pack
+  outputs tarball of CLI in current directory to ./dist/mycli-v0.0.0.tar.gz
+
+  $ oclif-dev pack --platform win32 --arch x64
+  outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win32-x64.tar.gz
+```
+
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.5.0/src/commands/pack.ts)_
 
 ## oclif-dev readme
 
@@ -86,5 +123,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.4.4/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.5.0/src/commands/readme.ts)_
 <!-- commandsstop -->
