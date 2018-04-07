@@ -21,12 +21,12 @@ export interface IVersionManifest extends IManifest {
   }
 }
 
-const pack = async (from: string, to: string, type: 'gz' | 'xz') => {
+const pack = async (from: string, to: string) => {
   const prevCwd = qq.cwd()
   qq.cd(path.dirname(from))
   await qq.mkdirp(path.dirname(to))
   log(`packing tarball from ${qq.prettifyPaths(from)} to ${qq.prettifyPaths(to)}`)
-  await (type === 'gz'
+  await (to.endsWith('gz')
     ? qq.x('tar', ['czf', to, path.basename(from)])
     : qq.x(`tar c ${path.basename(from)} | xz > ${to}`))
   qq.cd(prevCwd)
@@ -34,43 +34,43 @@ const pack = async (from: string, to: string, type: 'gz' | 'xz') => {
 
 export async function build(root: string, channel = 'stable'): ReturnType<typeof buildConfig> {
   const t = await buildConfig(root, channel)
-  const {config, baseWorkspace, nodeVersion, version, xz} = t
+  const {config, baseWorkspace, nodeVersion, version, xz, dist, targetWorkspace, vanilla, targets, updateConfig} = t
   const prevCwd = qq.cwd()
   const packCLI = async () => {
-    qq.cd(t.root)
-    if (t.config.pjson.scripts.prepublishOnly) await qq.x('npm', ['run', 'prepublishOnly'])
+    qq.cd(root)
+    if (config.pjson.scripts.prepublishOnly) await qq.x('npm', ['run', 'prepublishOnly'])
     return qq.x.stdout('npm', ['pack'])
   }
   const extractCLI = async (tarball: string) => {
-    await qq.emptyDir(t.baseWorkspace)
-    await qq.mv(tarball, t.baseWorkspace)
-    tarball = qq.join([t.baseWorkspace, tarball])
-    qq.cd(t.baseWorkspace)
+    await qq.emptyDir(baseWorkspace)
+    await qq.mv(tarball, baseWorkspace)
+    tarball = qq.join([baseWorkspace, tarball])
+    qq.cd(baseWorkspace)
     await qq.x(`tar -xzf ${tarball}`)
     for (let f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
     await qq.rm('package', tarball, 'bin/run.cmd')
   }
   const updatePJSON = async () => {
-    qq.cd(t.baseWorkspace)
+    qq.cd(baseWorkspace)
     const pjson = await qq.readJSON('package.json')
-    pjson.version = t.version
-    pjson.channel = t.channel
+    pjson.version = version
+    pjson.channel = channel
     await qq.writeJSON('package.json', pjson)
   }
   const addDependencies = async () => {
-    qq.cd(t.baseWorkspace)
-    const yarn = await qq.exists.sync([t.root, 'yarn.lock'])
+    qq.cd(baseWorkspace)
+    const yarn = await qq.exists.sync([root, 'yarn.lock'])
     if (yarn) {
-      await qq.cp([t.root, 'yarn.lock'], '.')
+      await qq.cp([root, 'yarn.lock'], '.')
       await qq.x('yarn --no-progress --production --non-interactive')
     } else {
-      await qq.cp([t.root, 'package-lock.json'], '.')
+      await qq.cp([root, 'package-lock.json'], '.')
       await qq.x('npm install --production')
     }
   }
   const prune = async () => {
     // removes unnecessary files to make the tarball smaller
-    qq.cd(t.baseWorkspace)
+    qq.cd(baseWorkspace)
     const toRemove = await qq.globby([
       'node_modules/**/README*',
       '**/CHANGELOG*',
@@ -81,51 +81,51 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
   }
   const buildTarget = async (target: ITarget) => {
     const {platform, arch} = target
-    const targetWorkspace = t.targetWorkspace(platform, arch)
-    const base = t.base(platform, arch)
-    log(`building ${base}`)
-    await qq.rm(targetWorkspace)
-    await qq.cp(baseWorkspace, targetWorkspace)
+    const workspace = targetWorkspace(platform, arch)
+    const base = path.basename(target.keys.tarball.gz, '.tar.gz')
+    log(`building target ${base}`)
+    await qq.rm(workspace)
+    await qq.cp(baseWorkspace, workspace)
     await fetchNodeBinary({
       nodeVersion,
-      output: path.join(targetWorkspace, 'bin', 'node'),
+      output: path.join(workspace, 'bin', 'node'),
       platform,
       arch,
       tmp: qq.join([config.root, 'tmp']),
     })
-    await pack(targetWorkspace, target.tarball('gz'), 'gz')
-    if (xz) await pack(targetWorkspace, target.tarball('xz'), 'xz')
+    await pack(workspace, dist(target.keys.tarball.gz))
+    if (xz) await pack(workspace, dist(target.keys.tarball.xz))
     const manifest: IManifest = {
       version,
       channel,
-      sha256gz: await qq.hash('sha256', target.tarball('gz')),
-      sha256xz: xz ? (await qq.hash('sha256', target.tarball('xz'))) : undefined,
+      sha256gz: await qq.hash('sha256', dist(target.keys.tarball.gz)),
+      sha256xz: xz ? (await qq.hash('sha256', dist(target.keys.tarball.xz))) : undefined,
     }
-    await qq.writeJSON(target.manifest, manifest)
+    await qq.writeJSON(dist(target.keys.manifest), manifest)
   }
   const buildBaseTarball = async () => {
-    await pack(baseWorkspace, t.baseTarball('gz'), 'gz')
-    if (xz) await pack(baseWorkspace, t.baseTarball('xz'), 'xz')
-    await qq.writeJSON(t.versionPath, {
+    await pack(baseWorkspace, dist(vanilla.tarball.gz))
+    if (xz) await pack(baseWorkspace, dist(vanilla.tarball.xz))
+    await qq.writeJSON(dist(vanilla.manifest), {
       version,
       channel,
-      sha256gz: await qq.hash('sha256', t.baseTarball('gz')),
-      sha256xz: xz ? await qq.hash('sha256', t.baseTarball('xz')) : undefined,
-      rollout: typeof t.updateConfig.autoupdate === 'object' && t.updateConfig.autoupdate.rollout,
+      sha256gz: await qq.hash('sha256', dist(vanilla.tarball.gz)),
+      sha256xz: xz ? await qq.hash('sha256', dist(vanilla.tarball.xz)) : undefined,
+      rollout: typeof updateConfig.autoupdate === 'object' && updateConfig.autoupdate.rollout,
       node: {
         compatible: config.pjson.engines.node,
         recommended: nodeVersion,
       },
     } as IVersionManifest)
   }
-  log(`packing ${t.config.bin} to ${t.baseWorkspace}`)
+  log(`packing ${config.bin} to ${baseWorkspace}`)
   await extractCLI(await packCLI())
   await updatePJSON()
   await addDependencies()
   await prune()
   await writeBinScripts(t)
   await buildBaseTarball()
-  for (let target of t.targets) await buildTarget(target)
+  for (let target of targets) await buildTarget(target)
   qq.cd(prevCwd)
   return t
 }

@@ -33,17 +33,7 @@ if exist "%LOCALAPPDATA%\\${t.config.dirname}\\client\\bin\\${t.config.bin}.cmd"
     const bin = qq.join([t.baseWorkspace, 'bin', t.config.bin])
     await qq.write(bin, `#!/usr/bin/env bash
 set -e
-get_script_dir () {
-  SOURCE="\${BASH_SOURCE[0]}"
-  while [ -h "\$SOURCE" ]; do
-    DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
-    SOURCE="\$( readlink "\$SOURCE" )"
-    [[ \$SOURCE != /* ]] && SOURCE="\$DIR/\$SOURCE"
-  done
-  DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
-  echo "\$DIR"
-}
-DIR=\$(get_script_dir)
+DIR=\$(dirname "$0")
 CLI_HOME=\$(cd && pwd)
 XDG_DATA_HOME=\${XDG_DATA_HOME:="\$CLI_HOME/.local/share"}
 BIN_PATH="\$XDG_DATA_HOME/${t.config.dirname}/client/bin/${t.config.bin}"
