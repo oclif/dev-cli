@@ -31,7 +31,7 @@ export default class Publish extends Command {
     const {channel, 'node-version': nodeVersion} = flags
     const root = path.resolve(flags.root)
     const config = await Tarballs.config(root)
-    const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root)}`
+    const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root, {short: true})}`
     const baseWorkspace = qq.join([config.root, 'tmp', 'base'])
 
     // first create the generic base workspace that will be copied later

@@ -2,8 +2,9 @@ import * as Config from '@oclif/config'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
-export function gitSha(cwd: string) {
-  return qq.x.stdout('git', ['rev-parse', '--short', 'HEAD'], {cwd})
+export function gitSha(cwd: string, options: {short?: boolean} = {}) {
+  const args = options.short ? ['rev-parse', '--short', 'HEAD'] : ['rev-parse', 'HEAD']
+  return qq.x.stdout('git', args, {cwd})
 }
 
 export async function base(config: Config.IConfig, platform: string | undefined, arch: string | undefined, version: string) {

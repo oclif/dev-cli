@@ -39,7 +39,7 @@ outputs tarball of CLI including a windows-x64 binary to ./dist/mycli-v0.0.0-win
     if (platform && !arch) throw new Error('--platform and --arch must be specified together')
 
     const config = await Tarballs.config(root)
-    const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root)}`
+    const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${await Tarballs.gitSha(config.root, {short: true})}`
     const base = await Tarballs.base(config, platform, arch, version)
     const tmp = await Tarballs.tmp(config)
     const workspace = path.join(tmp, base)
