@@ -20,7 +20,7 @@ export default class Publish extends Command {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
     'node-version': flags.string({description: 'node version of binary to get', default: process.versions.node, required: true}),
     channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
-    bucket: flags.string({char: 'b', description: 's3 bucket to use'}),
+    bucket: flags.string({char: 'b', description: 's3 bucket to use', env: 'AWS_S3_BUCKET'}),
     xz: flags.boolean({description: 'also create xz tarballs'}),
   }
 
@@ -43,9 +43,10 @@ export default class Publish extends Command {
       const t = await Tarballs.target({config, platform, arch, channel, version, baseWorkspace, nodeVersion, xz: flags.xz})
       tarballs.push(t)
     }
+    // TODO: handle s3Prefix
     const prefix = `${config.bin}/channels/${channel}`
-    const Bucket = flags.bucket || process.env.AWS_S3_BUCKET
-    if (!Bucket) throw new Error('must pass --bucket or set AWS_S3_BUCKET')
+    const Bucket = flags.bucket || config.pjson.oclif.s3Bucket
+    if (!Bucket) throw new Error('must pass --bucket, set AWS_S3_BUCKET, or set oclif.s3Bucket in package.json')
     const upload = async (local: string, remote: string) => {
       await S3.uploadFile(local, {Bucket, Key: remote, ACL: 'public-read'})
     }

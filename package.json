@@ -63,6 +63,7 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-dev",
+    "s3Bucket": "oclif-assets",
     "targets": [
       "darwin-x64",
       "linux-x86",
