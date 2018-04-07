@@ -16,8 +16,16 @@ export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}
   }
   const download = async () => {
     log(`downloading ${nodeBase}`)
-    await qq.mkdirp(path.dirname(tarball))
-    await qq.download(url, tarball)
+    const shasums = path.join(tmp, 'cache', nodeVersion, 'SHASUMS256.txt.asc')
+    if (!await qq.exists(shasums)) {
+      await qq.download(`https://nodejs.org/dist/v${nodeVersion}/SHASUMS256.txt.asc`, shasums)
+    }
+    const downloadTmp = path.join(path.dirname(tarball), 'tmp')
+    await qq.mkdirp(downloadTmp)
+    qq.cd(downloadTmp)
+    await qq.download(url, path.basename(tarball))
+    await qq.x(`grep ${path.basename(tarball)} ${shasums} | shasum -a 256 -c -`)
+    await qq.mv(path.basename(tarball), tarball)
   }
   const extract = async () => {
     log(`extracting ${nodeBase}`)

@@ -21,7 +21,7 @@
     "lodash": "^4.17.5",
     "lodash.template": "^4.4.0",
     "normalize-package-data": "^2.4.0",
-    "qqjs": "^0.2.0",
+    "qqjs": "^0.2.1",
     "require-resolve": "^0.0.2"
   },
   "devDependencies": {
