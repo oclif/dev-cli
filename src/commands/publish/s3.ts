@@ -29,7 +29,7 @@ export default class Publish extends Command {
     const {config, s3Config, targets, version, baseTarball, xz, versionPath} = await Tarballs.build(root, channel)
 
     // TODO: handle s3Prefix
-    const prefix = `${config.bin}/channels/${channel}`
+    const prefix = `${config.name}/channels/${channel}`
     if (!s3Config.bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
     const S3Options = {
       Bucket: s3Config.bucket,
