@@ -19,11 +19,13 @@ export default class Publish extends Command {
     draft: flags.boolean({description: 'create an unpublished release'}),
   }
 
+  octokit = new Octokit()
+
   async run() {
     if (!process.env.GH_TOKEN) throw new Error('GH_TOKEN must be set')
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('pack does not function on windows')
-    const {'node-version': nodeVersion} = flags
+    const {'node-version': nodeVersion, prerelease, draft} = flags
     const channel = flags.prerelease ? 'prerelease' : 'stable'
     const root = path.resolve(flags.root)
     const config = await Tarballs.config(root)
@@ -39,40 +41,59 @@ export default class Publish extends Command {
       tarballs.push(t)
     }
 
-    const octokit = new Octokit()
-    octokit.authenticate({
+    this.octokit.authenticate({
       type: 'token',
       token: process.env.GH_TOKEN,
     })
     const tag = `v${version}`
-    action(`creating ${tag} release`)
     const [owner, repo] = config.pjson.repository.split('/')
-    const {data: release} = await octokit.repos.createRelease({
-      owner,
-      repo,
-      target_commitish: await Tarballs.gitSha(config.root),
-      tag_name: tag,
-      prerelease: flags.prerelease,
-      draft: flags.draft,
-    })
+    const commitish = await Tarballs.gitSha(config.root)
+    const release = await this.findOrCreateRelease({owner, repo, tag, prerelease, draft, commitish})
 
     for (let {tarball} of tarballs) {
-      const upload = async (file: string) => {
-        action(`uploading ${tarball}`)
-        await octokit.repos.uploadAsset({
-          url: release.upload_url,
-          file: fs.createReadStream(file),
-          contentType: 'application/gzip',
-          contentLength: fs.statSync(file).size,
-          name: qq.path.basename(file),
-          label: qq.path.basename(file),
-        })
-      }
-      await upload(`${tarball}.tar.gz`)
-      if (flags.xz) await upload(`${tarball}.tar.xz`)
+      await this.addFileToRelease(release, `${tarball}.tar.gz`)
+      if (flags.xz) await this.addFileToRelease(release, `${tarball}.tar.xz`)
     }
     if (config.pjson.scripts.postpublish) {
       await qq.x('npm', ['run', 'postpublish'])
     }
+  }
+
+  async findOrCreateRelease({owner, repo, tag, prerelease, draft, commitish}: {owner: string, repo: string, tag: string, prerelease: boolean, draft: boolean, commitish: string}) {
+    const findRelease = async () => {
+      const {data} = await this.octokit.repos.getReleaseByTag({owner, repo, tag})
+      action(`found existing release ${tag}`)
+      return data
+    }
+    const createRelease = async () => {
+      action(`creating ${tag} release`)
+      const {data} = await this.octokit.repos.createRelease({
+        owner,
+        repo,
+        target_commitish: commitish,
+        tag_name: tag,
+        prerelease,
+        draft,
+      })
+      return data
+    }
+    try {
+      return await findRelease()
+    } catch (err) {
+      this.debug(err)
+    }
+    return createRelease()
+  }
+
+  async addFileToRelease(release: {upload_url: string}, file: string) {
+    action(`uploading ${file}`)
+    await this.octokit.repos.uploadAsset({
+      url: release.upload_url,
+      file: fs.createReadStream(file),
+      contentType: 'application/gzip',
+      contentLength: fs.statSync(file).size,
+      name: qq.path.basename(file),
+      label: qq.path.basename(file),
+    })
   }
 }
