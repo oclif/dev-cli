@@ -1,3 +1,19 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/oclif/dev-cli/compare/v1.5.0...v1.6.0) (2018-04-07)
+
+
+### Bug Fixes
+
+* move publish to publish:s3 ([40e844e](https://github.com/oclif/dev-cli/commit/40e844e))
+* tests ([a037cfe](https://github.com/oclif/dev-cli/commit/a037cfe))
+* updated qqjs ([cf0a9e9](https://github.com/oclif/dev-cli/commit/cf0a9e9))
+
+
+### Features
+
+* added publish command ([dacf57b](https://github.com/oclif/dev-cli/commit/dacf57b))
+* added publish:github ([37d56f3](https://github.com/oclif/dev-cli/commit/37d56f3))
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/oclif/dev-cli/compare/v1.4.4...v1.5.0) (2018-04-07)
 
