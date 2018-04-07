@@ -67,27 +67,26 @@ Can publish either to S3 or as GitHub releases.
       if (flags.xz) manifest.sha256xz = await qq.hash('sha256', `${tarball}.tar.xz`)
       await qq.writeJSON(target, manifest)
     }
-    if (flags.bucket) {
-      const prefix = `${config.bin}/channels/${channel}`
-      const Bucket = flags.bucket
-      const upload = async (local: string, remote: string) => {
-        await S3.uploadFile(local, {Bucket, Key: remote, ACL: 'public-read'})
-      }
-      for (let [t, target] of tarballs) {
-        action(`uploading ${t}`)
-        const base = path.basename(t)
-        await upload(`${t}.tar.gz`, `${prefix}/${base}/${base}.tar.gz`)
-        if (flags.xz) await upload(`${t}.tar.xz`, `${prefix}/${base}/${base}.tar.xz`)
-        await upload(target, `${prefix}/${path.basename(target)}`)
-      }
-      action('uploading manifest')
-      const versionPath = path.join(config.root, 'dist', version)
-      await qq.writeJSON(versionPath, {
-        channel,
-        version,
-      })
-      await upload(versionPath, `${prefix}/version`)
+    const prefix = `${config.bin}/channels/${channel}`
+    const Bucket = flags.bucket || process.env.AWS_S3_BUCKET
+    if (!Bucket) throw new Error('must pass --bucket or set AWS_S3_BUCKET')
+    const upload = async (local: string, remote: string) => {
+      await S3.uploadFile(local, {Bucket, Key: remote, ACL: 'public-read'})
     }
+    for (let [t, target] of tarballs) {
+      action(`uploading ${t}`)
+      const base = path.basename(t)
+      await upload(`${t}.tar.gz`, `${prefix}/${base}/${base}.tar.gz`)
+      if (flags.xz) await upload(`${t}.tar.xz`, `${prefix}/${base}/${base}.tar.xz`)
+      await upload(target, `${prefix}/${path.basename(target)}`)
+    }
+    action('uploading manifest')
+    const versionPath = path.join(config.root, 'dist', version)
+    await qq.writeJSON(versionPath, {
+      channel,
+      version,
+    })
+    await upload(versionPath, `${prefix}/version`)
     if (config.pjson.scripts.postpublish) {
       await qq.x('npm', ['run', 'postpublish'])
     }
