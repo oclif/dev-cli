@@ -1,3 +1,11 @@
+<a name="1.7.10"></a>
+## [1.7.10](https://github.com/oclif/dev-cli/compare/v1.7.9...v1.7.10) (2018-04-07)
+
+
+### Bug Fixes
+
+* set content type of manifest files ([cf7b4cc](https://github.com/oclif/dev-cli/commit/cf7b4cc))
+
 <a name="1.7.9"></a>
 ## [1.7.9](https://github.com/oclif/dev-cli/compare/v1.7.8...v1.7.9) (2018-04-07)
 
