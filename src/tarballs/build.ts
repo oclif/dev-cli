@@ -2,24 +2,9 @@ import * as path from 'path'
 import * as qq from 'qqjs'
 
 import {writeBinScripts} from './bin'
-import {buildConfig, ITarget} from './config'
+import {buildConfig, ITarget, IVersionManifest} from './config'
 import {log} from './log'
 import {fetchNodeBinary} from './node'
-
-export interface IManifest {
-  version: string
-  channel: string
-  sha256gz: string
-  sha256xz?: string
-}
-
-export interface IVersionManifest extends IManifest {
-  rollout?: number
-  node: {
-    compatible: string
-    recommended: string
-  }
-}
 
 const pack = async (from: string, to: string) => {
   const prevCwd = qq.cwd()
@@ -34,7 +19,7 @@ const pack = async (from: string, to: string) => {
 
 export async function build(root: string, channel = 'stable'): ReturnType<typeof buildConfig> {
   const t = await buildConfig(root, channel)
-  const {config, baseWorkspace, nodeVersion, version, xz, dist, targetWorkspace, vanilla, targets, updateConfig} = t
+  const {config, baseWorkspace, nodeVersion, version, dist, targetWorkspace, vanilla, targets, updateConfig} = t
   const prevCwd = qq.cwd()
   const packCLI = async () => {
     qq.cd(root)
@@ -55,6 +40,7 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
     const pjson = await qq.readJSON('package.json')
     pjson.version = version
     pjson.channel = channel
+    pjson.oclif.update.s3.bucket = t.s3Config.bucket
     await qq.writeJSON('package.json', pjson)
   }
   const addDependencies = async () => {
@@ -94,29 +80,45 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
       tmp: qq.join([config.root, 'tmp']),
     })
     await pack(workspace, dist(target.keys.tarball.gz))
-    if (xz) await pack(workspace, dist(target.keys.tarball.xz))
-    const manifest: IManifest = {
+    if (target.keys.tarball.xz) await pack(workspace, dist(target.keys.tarball.xz))
+    target.manifest = {
       version,
       channel,
+      gz: target.urls.tarball.gz,
+      xz: target.urls.tarball.xz,
       sha256gz: await qq.hash('sha256', dist(target.keys.tarball.gz)),
-      sha256xz: xz ? (await qq.hash('sha256', dist(target.keys.tarball.xz))) : undefined,
+      sha256xz: target.keys.tarball.xz ? (await qq.hash('sha256', dist(target.keys.tarball.xz))) : undefined,
     }
-    await qq.writeJSON(dist(target.keys.manifest), manifest)
+    await qq.writeJSON(dist(target.keys.manifest), target.manifest)
   }
   const buildBaseTarball = async () => {
     await pack(baseWorkspace, dist(vanilla.tarball.gz))
-    if (xz) await pack(baseWorkspace, dist(vanilla.tarball.xz))
-    await qq.writeJSON(dist(vanilla.manifest), {
+    if (vanilla.tarball.xz) await pack(baseWorkspace, dist(vanilla.tarball.xz))
+  }
+  const buildBaseManifest = async () => {
+    const manifest: IVersionManifest = {
       version,
       channel,
+      gz: vanilla.urls.gz,
+      xz: vanilla.urls.xz,
       sha256gz: await qq.hash('sha256', dist(vanilla.tarball.gz)),
-      sha256xz: xz ? await qq.hash('sha256', dist(vanilla.tarball.xz)) : undefined,
-      rollout: typeof updateConfig.autoupdate === 'object' && updateConfig.autoupdate.rollout,
+      sha256xz: vanilla.tarball.xz ? await qq.hash('sha256', dist(vanilla.tarball.xz)) : undefined,
+      rollout: (typeof updateConfig.autoupdate === 'object' && updateConfig.autoupdate.rollout) as number,
       node: {
         compatible: config.pjson.engines.node,
         recommended: nodeVersion,
       },
-    } as IVersionManifest)
+      targets: targets.reduce((targets, t) => {
+        targets![`${t.platform}-${t.arch}`] = {
+          gz: t.urls.tarball.gz,
+          xz: t.urls.tarball.xz,
+          sha256gz: t.manifest!.sha256gz,
+          sha256xz: t.manifest!.sha256xz,
+        }
+        return targets
+      }, {} as IVersionManifest['targets'])
+    }
+    await qq.writeJSON(dist(vanilla.manifest), manifest)
   }
   log(`packing ${config.bin} to ${baseWorkspace}`)
   await extractCLI(await packCLI())
@@ -126,6 +128,7 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
   await writeBinScripts(t)
   await buildBaseTarball()
   for (let target of targets) await buildTarget(target)
+  await buildBaseManifest()
   qq.cd(prevCwd)
   return t
 }

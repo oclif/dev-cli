@@ -9,6 +9,10 @@ describe('pack', () => {
   beforeEach(async () => {
     await qq.rm('dist')
   })
+  afterEach(async () => {
+    qq.cd([__dirname, '../..'])
+    await qq.rm('dist')
+  })
 
   skipIfWindows
   .command(['pack'])

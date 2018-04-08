@@ -32,6 +32,8 @@ jobs:
       - image: oclif/release:0.0.0-8.11.1
   release:
     <<: *test
+    environment:
+      OCLIF_DEV_S3_BUCKET: oclif
     steps:
       - add_ssh_keys
       - checkout

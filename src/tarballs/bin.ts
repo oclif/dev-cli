@@ -43,7 +43,9 @@ if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${t.conf
   fi
   ${redirectedEnvVar}=1 "\$BIN_PATH" "\$@"
 else
-  if [ -x "$(command -v "\$DIR/node")" ]; then
+  if [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-custom")" ]; then
+    NODE="\$XDG_DATA_HOME/oclif/node/node-custom"
+  elif [ -x "$(command -v "\$DIR/node")" ]; then
     NODE="\$DIR/node"
   elif [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}")" ]; then
     NODE="\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}"
@@ -56,7 +58,7 @@ else
   if [ "\$DEBUG" == "*" ]; then
     echo ${binPathEnvVar}="\$DIR/${t.config.bin}" "\$NODE" "\$DIR/run" "\$@"
   fi
-  ${binPathEnvVar}="\$DIR/${t.config.bin}" "\$NODE" "\$@"
+  ${binPathEnvVar}="\$DIR/${t.config.bin}" "\$NODE" "\$DIR/run" "\$@"
 fi
 `)
     await qq.chmod(bin, 0o755)

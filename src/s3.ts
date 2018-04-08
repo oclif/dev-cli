@@ -1,10 +1,14 @@
+// tslint:disable no-console
+
 import * as S3 from 'aws-sdk/clients/s3'
 import * as fs from 'fs-extra'
+import * as qq from 'qqjs'
 
-const debug = require('debug')('@oclif/dev-cli/s3')
+const debug = require('debug')('oclif-dev:s3')
 
 export const uploadFile = (local: string, options: S3.Types.PutObjectRequest) => new Promise((resolve, reject) => {
-  debug('uploadFile', local, `s3://${options.Bucket}/${options.Key}`)
+  console.log('uploadFile', qq.prettifyPaths(local), `s3://${options.Bucket}/${options.Key}`)
+  debug('uploadFile', qq.prettifyPaths(local), `s3://${options.Bucket}/${options.Key}`)
   options.Body = fs.createReadStream(local)
   s3().upload(options, err => {
     if (err) reject(err)
@@ -20,21 +24,21 @@ export const headObject = (options: S3.Types.HeadObjectRequest) => new Promise<S
   })
 })
 
-export const getObject = (options: S3.Types.GetObjectRequest) => new Promise<S3.GetObjectOutput>((resolve, reject) => {
-  debug('getObject', `s3://${options.Bucket}/${options.Key}`)
-  s3().getObject(options, (err, data) => {
-    if (err) reject(err)
-    else resolve(data)
-  })
-})
+// export const getObject = (options: S3.Types.GetObjectRequest) => new Promise<S3.GetObjectOutput>((resolve, reject) => {
+//   debug('getObject', `s3://${options.Bucket}/${options.Key}`)
+//   s3().getObject(options, (err, data) => {
+//     if (err) reject(err)
+//     else resolve(data)
+//   })
+// })
 
-export const listObjects = (options: S3.Types.ListObjectsV2Request) => new Promise<S3.ListObjectsV2Output>((resolve, reject) => {
-  debug('listObjects', `s3://${options.Bucket}/${options.Prefix}`)
-  s3().listObjectsV2(options, (err, objects) => {
-    if (err) reject(err)
-    else resolve(objects)
-  })
-})
+// export const listObjects = (options: S3.Types.ListObjectsV2Request) => new Promise<S3.ListObjectsV2Output>((resolve, reject) => {
+//   debug('listObjects', `s3://${options.Bucket}/${options.Prefix}`)
+//   s3().listObjectsV2(options, (err, objects) => {
+//     if (err) reject(err)
+//     else resolve(objects)
+//   })
+// })
 
 export namespace upload {
   export interface Options {
