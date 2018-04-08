@@ -1,3 +1,11 @@
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/oclif/dev-cli/compare/v1.7.13...v1.8.0) (2018-04-08)
+
+
+### Features
+
+* check sha checksums of node binaries ([a892b58](https://github.com/oclif/dev-cli/commit/a892b58))
+
 <a name="1.7.13"></a>
 ## [1.7.13](https://github.com/oclif/dev-cli/compare/v1.7.12...v1.7.13) (2018-04-07)
 
