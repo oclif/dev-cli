@@ -1,3 +1,15 @@
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/oclif/dev-cli/compare/v1.9.0...v1.9.1) (2018-04-08)
+
+
+### Bug Fixes
+
+* add linux-x64 target ([16e40f8](https://github.com/oclif/dev-cli/commit/16e40f8))
+* add tests for publish ([7f6dc4c](https://github.com/oclif/dev-cli/commit/7f6dc4c))
+* fixed build ([fb3ec67](https://github.com/oclif/dev-cli/commit/fb3ec67))
+* fixed tests on linux ([bfe60b2](https://github.com/oclif/dev-cli/commit/bfe60b2))
+* split pack and publish into separate steps ([c199458](https://github.com/oclif/dev-cli/commit/c199458))
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/oclif/dev-cli/compare/v1.8.0...v1.9.0) (2018-04-08)
 
