@@ -88,6 +88,7 @@ export async function buildConfig(root: string, channel: string): Promise<IConfi
     version,
     name: config.name,
     bin: config.bin,
+    dirname: config.dirname,
   }
   const vanillaTarball: {gz: string, xz?: string} = {gz: _.template(updateConfig.s3.templates.vanillaTarball)(templateOpts) + '.tar.gz'}
   const gzUrl = new URL(s3Host)
@@ -115,9 +116,9 @@ export async function buildConfig(root: string, channel: string): Promise<IConfi
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
     nodeVersion: updateConfig.node.version || process.versions.node,
-    baseWorkspace: path.join(config.root, 'tmp', config.bin),
+    baseWorkspace: path.join(config.root, 'tmp', config.dirname),
     targetWorkspace(platform: string, arch: string) {
-      return qq.join([config.root, 'tmp', [config.bin, platform, arch].join('-'), config.bin])
+      return qq.join([config.root, 'tmp', [config.dirname, platform, arch].join('-'), config.dirname])
     },
     targets: (updateConfig.node.targets || []).map((t): ITarget => {
       const [platform, arch] = t.split('-')
