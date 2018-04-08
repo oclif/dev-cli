@@ -1,3 +1,11 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/oclif/dev-cli/compare/v1.8.0...v1.9.0) (2018-04-08)
+
+
+### Features
+
+* upload node binaries to s3 on publish ([26b86ac](https://github.com/oclif/dev-cli/commit/26b86ac))
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/oclif/dev-cli/compare/v1.7.13...v1.8.0) (2018-04-08)
 
