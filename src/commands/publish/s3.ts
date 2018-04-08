@@ -30,9 +30,8 @@ export default class Publish extends Command {
     this.buildConfig = await Tarballs.buildConfig(flags.root, channel)
     const {s3Config, targets, vanilla, dist, version} = this.buildConfig
     if (!await qq.exists(dist(vanilla.tarball.gz))) this.error('run "oclif-dev pack" before publishing')
-    if (!s3Config.bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
     const S3Options = {
-      Bucket: s3Config.bucket,
+      Bucket: s3Config.bucket!,
       ACL: 'public-read',
     }
     for (let target of targets) await this.uploadNodeBinary(target)

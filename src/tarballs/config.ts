@@ -1,4 +1,5 @@
 import * as Config from '@oclif/config'
+import {CLIError} from '@oclif/errors'
 import * as _ from 'lodash'
 import * as path from 'path'
 import * as qq from 'qqjs'
@@ -80,6 +81,7 @@ export async function buildConfig(root: string, channel: string): Promise<IConfi
   const tmp = await Tmp(config)
   const updateConfig = config.pjson.oclif.update
   const s3Host = updateConfig.s3.host!
+  if (!s3Host) throw new CLIError('must set oclif.update.s3.bucket in package.json')
   const templateOpts = {
     config,
     channel,
