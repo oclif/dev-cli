@@ -1,3 +1,11 @@
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/oclif/dev-cli/compare/v1.9.1...v1.9.2) (2018-04-08)
+
+
+### Bug Fixes
+
+* fixed error message when s3 is not configured ([e8f67af](https://github.com/oclif/dev-cli/commit/e8f67af))
+
 <a name="1.9.1"></a>
 ## [1.9.1](https://github.com/oclif/dev-cli/compare/v1.9.0...v1.9.1) (2018-04-08)
 
