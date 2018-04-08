@@ -1,14 +1,11 @@
-// tslint:disable no-console
-
 import * as S3 from 'aws-sdk/clients/s3'
 import * as fs from 'fs-extra'
 import * as qq from 'qqjs'
 
-const debug = require('debug')('oclif-dev:s3')
+import {debug, log} from './log'
 
 export const uploadFile = (local: string, options: S3.Types.PutObjectRequest) => new Promise((resolve, reject) => {
-  console.log('uploadFile', qq.prettifyPaths(local), `s3://${options.Bucket}/${options.Key}`)
-  debug('uploadFile', qq.prettifyPaths(local), `s3://${options.Bucket}/${options.Key}`)
+  log('s3:uploadFile', qq.prettifyPaths(local), `s3://${options.Bucket}/${options.Key}`)
   options.Body = fs.createReadStream(local)
   s3().upload(options, err => {
     if (err) reject(err)
@@ -17,7 +14,7 @@ export const uploadFile = (local: string, options: S3.Types.PutObjectRequest) =>
 })
 
 export const headObject = (options: S3.Types.HeadObjectRequest) => new Promise<S3.HeadObjectOutput>((resolve, reject) => {
-  debug('headObject', `s3://${options.Bucket}/${options.Key}`)
+  debug('s3:headObject', `s3://${options.Bucket}/${options.Key}`)
   s3().headObject(options, (err, data) => {
     if (err) reject(err)
     else resolve(data)

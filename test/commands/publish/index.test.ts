@@ -1,5 +1,3 @@
-// tslint:disable no-console
-
 import {expect, test} from '@oclif/test'
 import * as qq from 'qqjs'
 
@@ -12,7 +10,7 @@ const skipIfWindows = process.platform === 'win32' ? test.skip() : test
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
 let version: string
 
-describe('publish:s3', () => {
+describe('publish', () => {
   beforeEach(async () => {
     if (!version) {
       const sha = await Tarballs.gitSha(process.cwd(), {short: true})
@@ -29,7 +27,7 @@ describe('publish:s3', () => {
 
   skipIfWindows
   .command(['pack', '-c', testRun])
-  .command(['publish:s3', '-c', testRun])
+  .command(['publish', '-c', testRun])
   .it('publishes valid releases', async () => {
     const manifest = await qq.readJSON(`https://oclif-staging.s3.amazonaws.com/@oclif/dev-cli/channels/${testRun}/version`)
 

@@ -2,9 +2,9 @@ import {Command, flags} from '@oclif/command'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
+import {log} from '../../log'
 import * as s3 from '../../s3'
 import * as Tarballs from '../../tarballs'
-import {log as action} from '../../tarballs/log'
 
 export type Manifest = {
   version: string
@@ -25,7 +25,7 @@ export default class Publish extends Command {
 
   async run() {
     const {flags} = this.parse(Publish)
-    if (process.platform === 'win32') throw new Error('publish:s3 does not function on windows')
+    if (process.platform === 'win32') throw new Error('publish does not function on windows')
     const {channel} = flags
     this.buildConfig = await Tarballs.buildConfig(flags.root, channel)
     const {s3Config, targets, vanilla, dist, version} = this.buildConfig
@@ -41,16 +41,16 @@ export default class Publish extends Command {
       await s3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
       if (tarball.xz) await s3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
     }
-    action('uploading vanilla')
+    log('uploading vanilla')
     await uploadTarball(vanilla.tarball)
-    if (targets.length) action('uploading targets')
+    if (targets.length) log('uploading targets')
     for (const target of targets) {
       await uploadTarball(target.keys.tarball)
       await s3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
     }
-    action('uploading main manifest')
+    log('uploading main manifest')
     await s3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
-    action(`published ${version}`)
+    log(`published ${version}`)
   }
 
   private async uploadNodeBinary(target: Tarballs.ITarget) {

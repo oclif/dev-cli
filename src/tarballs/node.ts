@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as qq from 'qqjs'
 
-import {log} from './log'
+import {log} from '../log'
 
 export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}: {nodeVersion: string, output: string, platform: string, arch: string, tmp: string}) {
   if (arch === 'arm') arch = 'armv7l'

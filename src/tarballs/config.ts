@@ -116,9 +116,9 @@ export async function buildConfig(root: string, channel: string): Promise<IConfi
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
     nodeVersion: updateConfig.node.version || process.versions.node,
-    baseWorkspace: path.join(config.root, 'tmp', config.dirname),
+    baseWorkspace: path.join(config.root, 'tmp', config.bin),
     targetWorkspace(platform: string, arch: string) {
-      return qq.join([config.root, 'tmp', [config.dirname, platform, arch].join('-'), config.dirname])
+      return qq.join([config.root, 'tmp', [config.bin, platform, arch].join('-'), config.bin])
     },
     targets: (updateConfig.node.targets || []).map((t): ITarget => {
       const [platform, arch] = t.split('-')
