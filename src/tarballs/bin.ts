@@ -15,8 +15,8 @@ if exist "%LOCALAPPDATA%\\${t.config.dirname}\\client\\bin\\${t.config.bin}.cmd"
   set ${binPathEnvVar}="%~dp0\\${t.config.bin}.cmd"
   if exist "%~dp0\\..\\client\\bin\\node.exe" (
     "%~dp0\\..\\client\\bin\\node.exe" "%~dp0\\..\\client\\bin\\run" %*
-  ) else if exist "%LOCALAPPDATA%\\oclif\\nodes\\node-${t.nodeVersion}.exe" (
-    "%LOCALAPPDATA%\\oclif\\nodes\\node-${t.nodeVersion}.exe" "%~dp0\\..\\client\\bin\\run" %*
+  ) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${t.nodeVersion}.exe" (
+    "%LOCALAPPDATA%\\oclif\\node\\node-${t.nodeVersion}.exe" "%~dp0\\..\\client\\bin\\run" %*
   ) else (
     node "%~dp0\\..\\client\\bin\\run" %*
   )
@@ -45,8 +45,8 @@ if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${t.conf
 else
   if [ -x "$(command -v "\$DIR/node")" ]; then
     NODE="\$DIR/node"
-  elif [ -x "$(command -v "\$XDG_DATA_HOME/oclif/nodes/node-${t.nodeVersion}")" ]; then
-    NODE="\$XDG_DATA_HOME/oclif/nodes/node-${t.nodeVersion}"
+  elif [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}")" ]; then
+    NODE="\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}"
   elif [ -x "$(command -v node)" ]; then
     NODE=node
   else

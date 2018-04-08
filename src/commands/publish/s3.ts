@@ -1,7 +1,8 @@
 import {Command, flags} from '@oclif/command'
 import * as path from 'path'
+import * as qq from 'qqjs'
 
-import * as S3 from '../../s3'
+import * as s3 from '../../s3'
 import * as Tarballs from '../../tarballs'
 import {log as action} from '../../tarballs/log'
 
@@ -20,32 +21,51 @@ export default class Publish extends Command {
     channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
   }
 
+  buildConfig!: ReturnType<typeof Tarballs.buildConfig> extends Promise<infer U> ? U : never
+
   async run() {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish:s3 does not function on windows')
     const {channel} = flags
     const root = path.resolve(flags.root)
 
-    const {s3Config, targets, vanilla, xz, dist} = await Tarballs.build(root, channel)
-
-    //  dev-cli/channels/stable/oclif-dev-v1.7.12-darwin-x64/oclif-dev-v1.7.12-darwin-x64.tar.xz
+    this.buildConfig = await Tarballs.build(root, channel)
+    const {s3Config, targets, vanilla, xz, dist} = this.buildConfig
     if (!s3Config.bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
     const S3Options = {
       Bucket: s3Config.bucket,
       ACL: 'public-read',
     }
+    for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
     const uploadTarball = async (tarball: {gz: string, xz: string}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
-      await S3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
-      if (xz) await S3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
+      await s3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
+      if (xz) await s3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
     }
     await uploadTarball(vanilla.tarball)
     for (const target of targets) {
       await uploadTarball(target.keys.tarball)
-      await S3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
+      await s3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
     }
     action('uploading manifest')
-    await S3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
+    await s3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
+  }
+
+  private async uploadNodeBinary(target: Tarballs.ITarget) {
+    const {platform, arch} = target
+    const {nodeVersion, dist, tmp, s3Config} = this.buildConfig
+    let key = path.join('node', `node-v${nodeVersion}`, `node-v${nodeVersion}-${platform}-${arch}`)
+    let Key = (platform === 'win32' ? `${key}.exe` : key) + '.gz'
+    try {
+      await s3.headObject({Bucket: s3Config.bucket!, Key})
+    } catch (err) {
+      if (err.code !== 'NotFound') throw err
+      action(`uploading ${key}`)
+      let output = dist(key)
+      output = await Tarballs.fetchNodeBinary({nodeVersion, platform, arch, output, tmp})
+      await qq.x('gzip', ['-f', output])
+      await s3.uploadFile(output + '.gz', {Bucket: s3Config.bucket!, Key})
+    }
   }
 }
