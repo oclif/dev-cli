@@ -40,9 +40,9 @@ describe('publish:s3', () => {
       const receivedSha = await qq.hash('sha256', `oclif-dev${ext}`)
       expect(receivedSha).to.equal(expectedSha)
       if (xz) {
-        await qq.x('cat oclif-dev.tar.xz | xz - | tar x')
+        await qq.x('tar xJf oclif-dev.tar.xz')
       } else {
-        await qq.x('cat oclif-dev.tar.gz | gzip -d | tar x')
+        await qq.x('tar xzf oclif-dev.tar.gz')
       }
       const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
       expect(stdout).to.contain(`@oclif/dev-cli/${version} ${target} node-v${nodeVersion}`)
