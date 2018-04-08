@@ -2,7 +2,7 @@ import * as path from 'path'
 import * as qq from 'qqjs'
 
 import {writeBinScripts} from './bin'
-import {buildConfig, ITarget, IVersionManifest} from './config'
+import {IConfig, ITarget, IVersionManifest} from './config'
 import {log} from './log'
 import {fetchNodeBinary} from './node'
 
@@ -17,18 +17,29 @@ const pack = async (from: string, to: string) => {
   qq.cd(prevCwd)
 }
 
-export async function build(root: string, channel = 'stable'): ReturnType<typeof buildConfig> {
-  const t = await buildConfig(root, channel)
-  const {config, baseWorkspace, nodeVersion, version, dist, targetWorkspace, vanilla, targets, updateConfig} = t
+export async function build({
+  config,
+  baseWorkspace,
+  nodeVersion,
+  version,
+  dist,
+  targetWorkspace,
+  vanilla,
+  targets,
+  updateConfig,
+  root,
+  channel,
+  s3Config
+}: IConfig) {
   const prevCwd = qq.cwd()
   const packCLI = async () => {
-    qq.cd(root)
-    if (config.pjson.scripts.prepublishOnly) await qq.x('npm', ['run', 'prepublishOnly'])
-    return qq.x.stdout('npm', ['pack'])
+    const stdout = await qq.x.stdout('npm', ['pack'], {cwd: root})
+    return path.join(root, stdout.split('\n').pop()!)
   }
   const extractCLI = async (tarball: string) => {
     await qq.emptyDir(baseWorkspace)
     await qq.mv(tarball, baseWorkspace)
+    tarball = path.basename(tarball)
     tarball = qq.join([baseWorkspace, tarball])
     qq.cd(baseWorkspace)
     await qq.x(`tar -xzf ${tarball}`)
@@ -40,7 +51,7 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
     const pjson = await qq.readJSON('package.json')
     pjson.version = version
     pjson.channel = channel
-    pjson.oclif.update.s3.bucket = t.s3Config.bucket
+    pjson.oclif.update.s3.bucket = s3Config.bucket
     await qq.writeJSON('package.json', pjson)
   }
   const addDependencies = async () => {
@@ -125,10 +136,9 @@ export async function build(root: string, channel = 'stable'): ReturnType<typeof
   await updatePJSON()
   await addDependencies()
   await prune()
-  await writeBinScripts(t)
+  await writeBinScripts({config, baseWorkspace, nodeVersion})
   await buildBaseTarball()
   for (let target of targets) await buildTarget(target)
   await buildBaseManifest()
   qq.cd(prevCwd)
-  return t
 }

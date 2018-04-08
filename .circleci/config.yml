@@ -12,8 +12,8 @@ jobs:
       - checkout
       - restore_cache: &restore_cache
           keys:
-            - v4-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
-            - v4-yarn-{{checksum ".circleci/config.yml"}}
+            - v5-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
+            - v5-yarn-{{checksum ".circleci/config.yml"}}
       - run: .circleci/greenkeeper
       - run: yarn add -D nyc@11 @oclif/nyc-config@1 mocha-junit-reporter@1
       - run: yarn run build
@@ -32,19 +32,18 @@ jobs:
       - image: oclif/release:0.0.0-8.11.1
   release:
     <<: *test
-    environment:
-      OCLIF_DEV_S3_BUCKET: oclif
     steps:
       - add_ssh_keys
       - checkout
       - restore_cache: *restore_cache
-      - run: yarn global add @oclif/semantic-release@2 semantic-release@15
+      - run: yarn global add @oclif/semantic-release@3 semantic-release@15
       - run: yarn --frozen-lockfile
       - run: |
           export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
           semantic-release -e @oclif/semantic-release
+      - run: yarn add -D nyc@11 @oclif/nyc-config@1 mocha-junit-reporter@1 # add dev packages to cache
       - save_cache:
-          key: v4-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
+          key: v5-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
           paths:
             - ~/cli/node_modules
             - /usr/local/share/.cache/yarn

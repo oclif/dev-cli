@@ -4,18 +4,42 @@ import * as path from 'path'
 import * as qq from 'qqjs'
 import {URL} from 'url'
 
+export interface IConfig {
+  root: string
+  gitSha: string
+  config: Config.IConfig
+  baseWorkspace: string
+  nodeVersion: string
+  version: string
+  tmp: string
+  updateConfig: IConfig['config']['pjson']['oclif']['update']
+  s3Config: IConfig['updateConfig']['s3']
+  channel: string
+  xz: boolean
+  vanilla: {
+    tarball: Tarball
+    urls: Tarball
+    manifest: string
+  }
+  targets: ITarget[]
+  targetWorkspace(platform: string, arch: string): string
+  dist(input: string): string
+}
+
 export interface ITarget {
   platform: string
   arch: string
   urls: {
-    tarball: { gz: string, xz?: string }
+    tarball: Tarball
   }
   keys: {
-    tarball: { gz: string, xz?: string }
+    tarball: Tarball
     manifest: string
   }
   manifest?: IManifest
 }
+
+export type Tarball = {gz: string, xz?: string}
 
 export interface IManifest {
   version: string
@@ -48,9 +72,10 @@ async function Tmp(config: Config.IConfig) {
   return tmp
 }
 
-export async function buildConfig(root: string, channel: string) {
-  const config = await Config.load({root, devPlugins: false, userPlugins: false})
-  const _gitSha = await gitSha(config.root, {short: true})
+export async function buildConfig(root: string, channel: string): Promise<IConfig> {
+  const config = await Config.load({root: path.resolve(root), devPlugins: false, userPlugins: false})
+  root = config.root
+  const _gitSha = await gitSha(root, {short: true})
   const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${_gitSha}`
   const tmp = await Tmp(config)
   const updateConfig = config.pjson.oclif.update
@@ -66,12 +91,12 @@ export async function buildConfig(root: string, channel: string) {
   const gzUrl = new URL(s3Host)
   gzUrl.pathname = path.join(gzUrl.pathname, vanillaTarball.gz)
   const vanillaUrls: {gz: string, xz?: string} = {gz: gzUrl.toString()}
-  const xz = updateConfig.s3.xz
+  const xz = !!updateConfig.s3.xz
   if (xz) {
     vanillaTarball.xz = vanillaTarball.gz.replace(/\.gz$/, '.xz')
     vanillaUrls.xz = vanillaUrls.gz.replace(/\.gz$/, '.xz')
   }
-  const tConfig = {
+  const tConfig: IConfig = {
     root,
     gitSha: _gitSha,
     config,
@@ -87,7 +112,6 @@ export async function buildConfig(root: string, channel: string) {
     xz,
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
-    gz: updateConfig.s3.gz === false,
     nodeVersion: updateConfig.node.version || process.versions.node,
     baseWorkspace: path.join(config.root, 'tmp', config.bin),
     targetWorkspace(platform: string, arch: string) {

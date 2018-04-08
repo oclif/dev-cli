@@ -28,6 +28,7 @@ describe('publish:s3', () => {
   })
 
   skipIfWindows
+  .command(['pack', '-c', testRun])
   .command(['publish:s3', '-c', testRun])
   .it('publishes valid releases', async () => {
     const manifest = await qq.readJSON(`https://oclif-staging.s3.amazonaws.com/@oclif/dev-cli/channels/${testRun}/version`)
@@ -44,7 +45,6 @@ describe('publish:s3', () => {
         await qq.x('cat oclif-dev.tar.gz | gzip -d | tar x')
       }
       const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
-      console.log(stdout)
       expect(stdout).to.contain(`@oclif/dev-cli/${version} ${target} node-v${nodeVersion}`)
       await qq.rm('oclif-dev')
     }

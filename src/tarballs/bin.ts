@@ -1,22 +1,21 @@
+import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 
-import {buildConfig} from './config'
-
-export async function writeBinScripts(t: ReturnType<typeof buildConfig> extends Promise<infer U> ? U : never) {
-  const binPathEnvVar = t.config.scopedEnvVarKey('CLI_BINPATH')
-  const redirectedEnvVar = t.config.scopedEnvVarKey('CLI_REDIRECTED')
+export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
+  const binPathEnvVar = config.scopedEnvVarKey('CLI_BINPATH')
+  const redirectedEnvVar = config.scopedEnvVarKey('CLI_REDIRECTED')
   const writeWin32 = async () => {
-    await qq.write([t.baseWorkspace, 'bin', `${t.config.bin}.cmd`], `@echo off
+    await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
 
-if exist "%LOCALAPPDATA%\\${t.config.dirname}\\client\\bin\\${t.config.bin}.cmd" (
+if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (
   set ${redirectedEnvVar}=1
-  "%LOCALAPPDATA%\\${t.config.dirname}\\client\\bin\\${t.config.bin}.cmd" %*
+  "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" %*
 ) else (
-  set ${binPathEnvVar}="%~dp0\\${t.config.bin}.cmd"
+  set ${binPathEnvVar}="%~dp0\\${config.bin}.cmd"
   if exist "%~dp0\\..\\client\\bin\\node.exe" (
     "%~dp0\\..\\client\\bin\\node.exe" "%~dp0\\..\\client\\bin\\run" %*
-  ) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${t.nodeVersion}.exe" (
-    "%LOCALAPPDATA%\\oclif\\node\\node-${t.nodeVersion}.exe" "%~dp0\\..\\client\\bin\\run" %*
+  ) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" (
+    "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" "%~dp0\\..\\client\\bin\\run" %*
   ) else (
     node "%~dp0\\..\\client\\bin\\run" %*
   )
@@ -30,14 +29,14 @@ if exist "%LOCALAPPDATA%\\${t.config.dirname}\\client\\bin\\${t.config.bin}.cmd"
 // `)
   }
   const writeUnix = async () => {
-    const bin = qq.join([t.baseWorkspace, 'bin', t.config.bin])
+    const bin = qq.join([baseWorkspace, 'bin', config.bin])
     await qq.write(bin, `#!/usr/bin/env bash
 set -e
 DIR=\$(dirname "$0")
 CLI_HOME=\$(cd && pwd)
 XDG_DATA_HOME=\${XDG_DATA_HOME:="\$CLI_HOME/.local/share"}
-BIN_PATH="\$XDG_DATA_HOME/${t.config.dirname}/client/bin/${t.config.bin}"
-if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${t.config.bin}" -ef "\$BIN_PATH" ]]; then
+BIN_PATH="\$XDG_DATA_HOME/${config.dirname}/client/bin/${config.bin}"
+if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${config.bin}" -ef "\$BIN_PATH" ]]; then
   if [ "\$DEBUG" == "*" ]; then
     echo "\$BIN_PATH" "\$@"
   fi
@@ -47,8 +46,8 @@ else
     NODE="\$XDG_DATA_HOME/oclif/node/node-custom"
   elif [ -x "$(command -v "\$DIR/node")" ]; then
     NODE="\$DIR/node"
-  elif [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}")" ]; then
-    NODE="\$XDG_DATA_HOME/oclif/node/node-${t.nodeVersion}"
+  elif [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-${nodeVersion}")" ]; then
+    NODE="\$XDG_DATA_HOME/oclif/node/node-${nodeVersion}"
   elif [ -x "$(command -v node)" ]; then
     NODE=node
   else
@@ -56,9 +55,9 @@ else
     exit 1
   fi
   if [ "\$DEBUG" == "*" ]; then
-    echo ${binPathEnvVar}="\$DIR/${t.config.bin}" "\$NODE" "\$DIR/run" "\$@"
+    echo ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
   fi
-  ${binPathEnvVar}="\$DIR/${t.config.bin}" "\$NODE" "\$DIR/run" "\$@"
+  ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
 fi
 `)
     await qq.chmod(bin, 0o755)

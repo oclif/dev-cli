@@ -27,18 +27,14 @@ export default class Publish extends Command {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish:s3 does not function on windows')
     const {channel} = flags
-    const root = await qq.pkgDir(path.resolve(flags.root))
-    if (!root) throw new Error(`package root not found in ${path.resolve(flags.root)}`)
-
-    action('building vanilla')
-    this.buildConfig = await Tarballs.build(root, channel)
+    this.buildConfig = await Tarballs.buildConfig(flags.root, channel)
     const {s3Config, targets, vanilla, dist, version} = this.buildConfig
+    if (!await qq.exists(dist(vanilla.tarball.gz))) this.error('run "oclif-dev pack" before publishing')
     if (!s3Config.bucket) throw new Error('must set oclif.update.s3.bucket in package.json')
     const S3Options = {
       Bucket: s3Config.bucket,
       ACL: 'public-read',
     }
-    if (targets.length) action('building targets')
     for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
     const uploadTarball = async (tarball: {gz: string, xz?: string}) => {

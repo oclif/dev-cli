@@ -21,7 +21,8 @@
     "lodash.template": "^4.4.0",
     "normalize-package-data": "^2.4.0",
     "qqjs": "^0.3.2",
-    "require-resolve": "^0.0.2"
+    "require-resolve": "^0.0.2",
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@oclif/plugin-legacy": "^1.0.7",
@@ -80,19 +81,18 @@
       }
     },
     "plugins": [
-      "@oclif/plugin-warn-if-update-available",
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-warn-if-update-available"
     ]
   },
   "repository": "oclif/dev-cli",
   "scripts": {
-    "build": "rm -rf lib && tsc",
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
-    "postpublish": "node ./bin/run publish:s3 && rm .oclif.manifest.json",
-    "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build && node ./bin/run manifest && node ./bin/run readme",
+    "postpack": "rm -f .oclif.manifest.json",
+    "posttest": "tsc -p test --noEmit && tslint -p test -t stylish",
+    "prepack": "rm -rf lib && tsc && node ./bin/run manifest",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "node ./bin/run manifest && node ./bin/run readme && git add README.md"
+    "version": "node ./bin/run readme && git add README.md"
   },
   "types": "lib/index.d.ts"
 }
