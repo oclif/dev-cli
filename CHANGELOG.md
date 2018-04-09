@@ -1,3 +1,11 @@
+<a name="1.9.17"></a>
+## [1.9.17](https://github.com/oclif/dev-cli/compare/v1.9.16...v1.9.17) (2018-04-09)
+
+
+### Bug Fixes
+
+* updated config ([bca1a6f](https://github.com/oclif/dev-cli/commit/bca1a6f))
+
 <a name="1.9.16"></a>
 ## [1.9.16](https://github.com/oclif/dev-cli/compare/v1.9.15...v1.9.16) (2018-04-09)
 
