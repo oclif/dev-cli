@@ -83,14 +83,7 @@ export async function buildConfig(root: string): Promise<IConfig> {
   const updateConfig = config.pjson.oclif.update
   const s3Host = updateConfig.s3.host!
   if (!s3Host) throw new CLIError('must set oclif.update.s3.bucket in package.json')
-  const templateOpts = {
-    config,
-    channel,
-    version,
-    name: config.name,
-    bin: config.bin,
-    dirname: config.dirname,
-  }
+  const templateOpts = {...config, version}
   const vanillaTarball: {gz: string, xz?: string} = {gz: _.template(updateConfig.s3.templates.vanillaTarball)(templateOpts) + '.tar.gz'}
   const gzUrl = new URL(s3Host)
   gzUrl.pathname = path.join(gzUrl.pathname, vanillaTarball.gz)
