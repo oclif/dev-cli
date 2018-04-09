@@ -1,3 +1,11 @@
+<a name="1.9.6"></a>
+## [1.9.6](https://github.com/oclif/dev-cli/compare/v1.9.5...v1.9.6) (2018-04-09)
+
+
+### Bug Fixes
+
+* improved debug output and export IManifest ([afdd520](https://github.com/oclif/dev-cli/commit/afdd520))
+
 <a name="1.9.5"></a>
 ## [1.9.5](https://github.com/oclif/dev-cli/compare/v1.9.4...v1.9.5) (2018-04-09)
 
