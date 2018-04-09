@@ -2,8 +2,8 @@ import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 
 export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
-  const binPathEnvVar = config.scopedEnvVarKey('CLI_BINPATH')
-  const redirectedEnvVar = config.scopedEnvVarKey('CLI_REDIRECTED')
+  const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
+  const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
   const writeWin32 = async () => {
     await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
 
