@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.9.10 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.9.11 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -67,7 +67,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.9.10/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.9.11/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -86,7 +86,7 @@ DESCRIPTION
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.9.10/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.9.11/src/commands/pack.ts)_
 
 ## oclif-dev publish
 
@@ -101,7 +101,7 @@ OPTIONS
   -r, --root=root        (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.9.10/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.9.11/src/commands/publish.ts)_
 
 ## oclif-dev readme
 
@@ -122,5 +122,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.9.10/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.9.11/src/commands/readme.ts)_
 <!-- commandsstop -->

@@ -1,3 +1,11 @@
+<a name="1.9.11"></a>
+## [1.9.11](https://github.com/oclif/dev-cli/compare/v1.9.10...v1.9.11) (2018-04-09)
+
+
+### Bug Fixes
+
+* move script debug output to stderr ([737ba54](https://github.com/oclif/dev-cli/commit/737ba54))
+
 <a name="1.9.10"></a>
 ## [1.9.10](https://github.com/oclif/dev-cli/compare/v1.9.9...v1.9.10) (2018-04-09)
 
