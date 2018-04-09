@@ -92,6 +92,7 @@ export async function buildConfig(root: string): Promise<IConfig> {
   gzUrl.pathname = path.join(gzUrl.pathname, vanillaTarball.gz)
   const vanillaUrls: {gz: string, xz?: string} = {gz: gzUrl.toString()}
   const xz = !!updateConfig.s3.xz
+  const vanillaBaseDir = _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts)
   if (xz) {
     vanillaTarball.xz = vanillaTarball.gz.replace(/\.gz$/, '.xz')
     vanillaUrls.xz = vanillaUrls.gz.replace(/\.gz$/, '.xz')
@@ -103,8 +104,8 @@ export async function buildConfig(root: string): Promise<IConfig> {
     vanilla: {
       tarball: vanillaTarball,
       urls: vanillaUrls,
+      baseDir: vanillaBaseDir,
       manifest: _.template(updateConfig.s3.templates.vanillaManifest)(templateOpts),
-      baseDir: _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts),
     },
     tmp,
     updateConfig,
@@ -114,9 +115,10 @@ export async function buildConfig(root: string): Promise<IConfig> {
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
     nodeVersion: updateConfig.node.version || process.versions.node,
-    baseWorkspace: path.join(config.root, 'tmp', config.bin),
+    baseWorkspace: path.join(config.root, 'tmp', vanillaBaseDir),
     targetWorkspace(platform: string, arch: string) {
-      return qq.join([config.root, 'tmp', [config.bin, platform, arch].join('-'), config.bin])
+      const baseDir = _.template(updateConfig.s3.templates.platformBaseDir)({...templateOpts, platform, arch})
+      return qq.join([config.root, 'tmp', [config.bin, platform, arch].join('-'), baseDir])
     },
     targets: (updateConfig.node.targets || []).map((t): ITarget => {
       const [platform, arch] = t.split('-')
