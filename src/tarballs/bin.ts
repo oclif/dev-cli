@@ -32,13 +32,15 @@ if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (
     const bin = qq.join([baseWorkspace, 'bin', config.bin])
     await qq.write(bin, `#!/usr/bin/env bash
 set -e
+echoerr() { echo "$@" 1>&2; }
+
 DIR=\$(dirname "$0")
 CLI_HOME=\$(cd && pwd)
 XDG_DATA_HOME=\${XDG_DATA_HOME:="\$CLI_HOME/.local/share"}
 BIN_PATH="\$XDG_DATA_HOME/${config.dirname}/client/bin/${config.bin}"
 if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${config.bin}" -ef "\$BIN_PATH" ]]; then
   if [ "\$DEBUG" == "*" ]; then
-    echo "\$BIN_PATH" "\$@"
+    echoerr "\$BIN_PATH" "\$@"
   fi
   ${redirectedEnvVar}=1 "\$BIN_PATH" "\$@"
 else
@@ -51,11 +53,11 @@ else
   elif [ -x "$(command -v node)" ]; then
     NODE=node
   else
-    echo 'Error: node is not installed.' >&2
+    echoerr 'Error: node is not installed.' >&2
     exit 1
   fi
   if [ "\$DEBUG" == "*" ]; then
-    echo ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
+    echoerr ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
   fi
   ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
 fi
