@@ -49,21 +49,21 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@oclif/command@^1.4.10":
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.10.tgz#15d229ba975018ca62cf4a94bec6d9796e18b619"
+  dependencies:
+    "@oclif/errors" "^1.0.4"
+    "@oclif/parser" "^3.2.13"
+    debug "^3.1.0"
+    semver "^5.5.0"
+
 "@oclif/command@^1.4.6", "@oclif/command@^1.4.7":
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.8.tgz#6e641a24246707ba06b74b35698c362f7199bbb2"
   dependencies:
     "@oclif/errors" "^1.0.3"
     "@oclif/parser" "^3.2.9"
-    debug "^3.1.0"
-    semver "^5.5.0"
-
-"@oclif/command@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.9.tgz#009bd5bb717ceb445bb81f08767c17cd4e7c7f02"
-  dependencies:
-    "@oclif/errors" "^1.0.4"
-    "@oclif/parser" "^3.2.11"
     debug "^3.1.0"
     semver "^5.5.0"
 
@@ -93,7 +93,14 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@oclif/linewrap/-/linewrap-1.0.0.tgz#aedcb64b479d4db7be24196384897b5000901d91"
 
-"@oclif/parser@^3.2.11", "@oclif/parser@^3.2.9":
+"@oclif/parser@^3.2.13":
+  version "3.2.13"
+  resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.2.13.tgz#4baf2b4ea23165e57adaae1f223861d8d9a33a24"
+  dependencies:
+    "@oclif/linewrap" "^1.0.0"
+    chalk "^2.3.2"
+
+"@oclif/parser@^3.2.9":
   version "3.2.11"
   resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.2.11.tgz#03a5fef0c45dd1badd0375ae05b476e0c27faf40"
   dependencies:
@@ -1422,9 +1429,9 @@ punycode@1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
 
-qqjs@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/qqjs/-/qqjs-0.3.5.tgz#723f2b9e2b4f9b832f8a43ddf66f02584cc20b11"
+qqjs@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/qqjs/-/qqjs-0.3.6.tgz#6e4b8008489a055fb95a93365154a9e777e9b784"
   dependencies:
     chalk "^2.3.2"
     debug "^3.1.0"

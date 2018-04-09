@@ -8,7 +8,7 @@
   },
   "bugs": "https://github.com/oclif/dev-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.4.9",
+    "@oclif/command": "^1.4.10",
     "@oclif/config": "^1.4.7",
     "@oclif/errors": "^1.0.4",
     "@oclif/plugin-help": "^1.2.3",
@@ -18,7 +18,7 @@
     "fs-extra": "^5.0.0",
     "lodash": "^4.17.5",
     "normalize-package-data": "^2.4.0",
-    "qqjs": "^0.3.5",
+    "qqjs": "^0.3.6",
     "require-resolve": "^0.0.2",
     "tslib": "^1.9.0"
   },
