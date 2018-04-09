@@ -20,7 +20,7 @@
     "lodash": "^4.17.5",
     "lodash.template": "^4.4.0",
     "normalize-package-data": "^2.4.0",
-    "qqjs": "^0.3.3",
+    "qqjs": "^0.3.4",
     "require-resolve": "^0.0.2",
     "tslib": "^1.9.0"
   },
