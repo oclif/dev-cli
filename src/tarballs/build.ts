@@ -93,6 +93,7 @@ export async function build({
     if (target.keys.tarball.xz) await pack(workspace, dist(target.keys.tarball.xz))
     target.manifest = {
       version,
+      baseDir: target.keys.baseDir,
       channel: config.channel,
       gz: target.urls.tarball.gz,
       xz: target.urls.tarball.xz,
@@ -108,6 +109,7 @@ export async function build({
   const buildBaseManifest = async () => {
     const manifest: IManifest = {
       version,
+      baseDir: vanilla.baseDir,
       channel: config.channel,
       gz: vanilla.urls.gz,
       xz: vanilla.urls.xz,

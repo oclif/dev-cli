@@ -73,9 +73,9 @@
   dependencies:
     debug "^3.1.0"
 
-"@oclif/config@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.4.9.tgz#62712d1e528c082c5fa2de530da108ccbeedd51a"
+"@oclif/config@^1.4.10":
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.4.10.tgz#79d10455378bf97b0910685659c00a7cca6e2e77"
   dependencies:
     debug "^3.1.0"
 

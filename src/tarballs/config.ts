@@ -21,6 +21,7 @@ export interface IConfig {
     tarball: Tarball
     urls: Tarball
     manifest: string
+    baseDir: string
   }
   targets: ITarget[]
   targetWorkspace(platform: string, arch: string): string
@@ -36,6 +37,7 @@ export interface ITarget {
   keys: {
     tarball: Tarball
     manifest: string
+    baseDir: string
   }
   manifest?: ITargetManifest
 }
@@ -49,6 +51,7 @@ export interface ITargetManifest {
   xz?: string
   sha256gz: string
   sha256xz?: string
+  baseDir: string
 }
 
 export interface IManifest extends ITargetManifest {
@@ -101,6 +104,7 @@ export async function buildConfig(root: string): Promise<IConfig> {
       tarball: vanillaTarball,
       urls: vanillaUrls,
       manifest: _.template(updateConfig.s3.templates.vanillaManifest)(templateOpts),
+      baseDir: _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts),
     },
     tmp,
     updateConfig,
@@ -121,6 +125,7 @@ export async function buildConfig(root: string): Promise<IConfig> {
       const keys: ITarget['keys'] = {
         manifest,
         tarball: {gz: key + '.tar.gz'},
+        baseDir: _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts),
       }
       const gzUrl = new URL(s3Host)
       gzUrl.pathname = path.join(gzUrl.pathname, keys.tarball.gz)
