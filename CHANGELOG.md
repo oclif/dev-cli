@@ -1,3 +1,11 @@
+<a name="1.9.14"></a>
+## [1.9.14](https://github.com/oclif/dev-cli/compare/v1.9.13...v1.9.14) (2018-04-09)
+
+
+### Bug Fixes
+
+* simplify config template ([c338ee8](https://github.com/oclif/dev-cli/commit/c338ee8))
+
 <a name="1.9.13"></a>
 ## [1.9.13](https://github.com/oclif/dev-cli/compare/v1.9.12...v1.9.13) (2018-04-09)
 
