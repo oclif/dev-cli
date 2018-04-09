@@ -1,3 +1,13 @@
+<a name="1.9.18"></a>
+## [1.9.18](https://github.com/oclif/dev-cli/compare/v1.9.17...v1.9.18) (2018-04-09)
+
+
+### Bug Fixes
+
+* add cloudfront distribution invalidation ([486642a](https://github.com/oclif/dev-cli/commit/486642a))
+* updated command ([1b79c16](https://github.com/oclif/dev-cli/commit/1b79c16))
+* updated command ([353228a](https://github.com/oclif/dev-cli/commit/353228a))
+
 <a name="1.9.17"></a>
 ## [1.9.17](https://github.com/oclif/dev-cli/compare/v1.9.16...v1.9.17) (2018-04-09)
 
