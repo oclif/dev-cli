@@ -1,3 +1,11 @@
+<a name="1.9.13"></a>
+## [1.9.13](https://github.com/oclif/dev-cli/compare/v1.9.12...v1.9.13) (2018-04-09)
+
+
+### Bug Fixes
+
+* add channel back to manifest ([e5fc84b](https://github.com/oclif/dev-cli/commit/e5fc84b))
+
 <a name="1.9.12"></a>
 ## [1.9.12](https://github.com/oclif/dev-cli/compare/v1.9.11...v1.9.12) (2018-04-09)
 
