@@ -1,3 +1,11 @@
+<a name="1.9.15"></a>
+## [1.9.15](https://github.com/oclif/dev-cli/compare/v1.9.14...v1.9.15) (2018-04-09)
+
+
+### Bug Fixes
+
+* add baseDir ([a1f030c](https://github.com/oclif/dev-cli/commit/a1f030c))
+
 <a name="1.9.14"></a>
 ## [1.9.14](https://github.com/oclif/dev-cli/compare/v1.9.13...v1.9.14) (2018-04-09)
 
