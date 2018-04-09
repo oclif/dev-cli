@@ -1,8 +1,8 @@
 import {Command, flags} from '@oclif/command'
 import * as qq from 'qqjs'
 
+import aws from '../../aws'
 import {log} from '../../log'
-import * as s3 from '../../s3'
 import * as Tarballs from '../../tarballs'
 
 export default class Publish extends Command {
@@ -10,9 +10,11 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
+    'cloudfront-distribution-id': flags.string({description: 'invalidate cloudfront CDN', alsoRequire: ['cloudfront-paths']}),
+    'cloudfront-paths': flags.string({description: 'paths to invalidate on cloudfront', alsoRequire: ['cloudfront-distribution-id']}),
   }
 
-  buildConfig!: ReturnType<typeof Tarballs.buildConfig> extends Promise<infer U> ? U : never
+  buildConfig!: Tarballs.IConfig
 
   async run() {
     const {flags} = this.parse(Publish)
@@ -28,18 +30,33 @@ export default class Publish extends Command {
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
     const uploadTarball = async (tarball: {gz: string, xz?: string}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
-      await s3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
-      if (tarball.xz) await s3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
+      await aws.s3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
+      if (tarball.xz) await aws.s3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
     }
     log('uploading vanilla')
     await uploadTarball(vanilla.tarball)
     if (targets.length) log('uploading targets')
     for (const target of targets) {
       await uploadTarball(target.keys.tarball)
-      await s3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
+      await aws.s3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
     }
     log('uploading main manifest')
-    await s3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
+    await aws.s3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
+
+    const {'cloudfront-distribution-id': DistributionId} = flags
+    if (DistributionId) {
+      await aws.cloudfront.createCloudfrontInvalidation({
+        DistributionId,
+        InvalidationBatch: {
+          CallerReference: new Date().toString(),
+          Paths: {
+            Items: [flags['cloudfront-paths']!],
+            Quantity: 1,
+          }
+        }
+      })
+    }
+
     log(`published ${version}`)
   }
 
