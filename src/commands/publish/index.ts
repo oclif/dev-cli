@@ -1,5 +1,4 @@
 import {Command, flags} from '@oclif/command'
-import * as path from 'path'
 import * as qq from 'qqjs'
 
 import {log} from '../../log'
@@ -34,7 +33,7 @@ export default class Publish extends Command {
       Bucket: s3Config.bucket!,
       ACL: 'public-read',
     }
-    for (let target of targets) await this.uploadNodeBinary(target)
+    // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
     const uploadTarball = async (tarball: {gz: string, xz?: string}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
@@ -53,21 +52,21 @@ export default class Publish extends Command {
     log(`published ${version}`)
   }
 
-  private async uploadNodeBinary(target: Tarballs.ITarget) {
-    const {platform, arch} = target
-    log('checking for node binary %s-%s in S3', platform, arch)
-    const {nodeVersion, dist, tmp, s3Config} = this.buildConfig
-    let key = path.join('node', `node-v${nodeVersion}`, `node-v${nodeVersion}-${platform}-${arch}`)
-    let Key = (platform === 'win32' ? `${key}.exe` : key) + '.gz'
-    try {
-      await s3.headObject({Bucket: s3Config.bucket!, Key})
-    } catch (err) {
-      if (err.code !== 'NotFound') throw err
-      log('uploading node binary %s-%s', target.platform, target.arch)
-      let output = dist(key)
-      output = await Tarballs.fetchNodeBinary({nodeVersion, platform, arch, output, tmp})
-      await qq.x('gzip', ['-f', output])
-      await s3.uploadFile(output + '.gz', {Bucket: s3Config.bucket!, Key})
-    }
-  }
+  // private async uploadNodeBinary(target: Tarballs.ITarget) {
+  //   const {platform, arch} = target
+  //   log('checking for node binary %s-%s in S3', platform, arch)
+  //   const {nodeVersion, dist, tmp, s3Config} = this.buildConfig
+  //   let key = path.join('node', `node-v${nodeVersion}`, `node-v${nodeVersion}-${platform}-${arch}`)
+  //   let Key = (platform === 'win32' ? `${key}.exe` : key) + '.gz'
+  //   try {
+  //     await s3.headObject({Bucket: s3Config.bucket!, Key})
+  //   } catch (err) {
+  //     if (err.code !== 'NotFound') throw err
+  //     log('uploading node binary %s-%s', target.platform, target.arch)
+  //     let output = dist(key)
+  //     output = await Tarballs.fetchNodeBinary({nodeVersion, platform, arch, output, tmp})
+  //     await qq.x('gzip', ['-f', output])
+  //     await s3.uploadFile(output + '.gz', {Bucket: s3Config.bucket!, Key})
+  //   }
+  // }
 }
