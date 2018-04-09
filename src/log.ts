@@ -1,10 +1,11 @@
 import cli from 'cli-ux'
 import * as qq from 'qqjs'
+import * as util from 'util'
 
 export const debug = require('debug')('oclif-dev')
 debug.new = (name: string) => require('debug')(`oclif-dev:${name}`)
 
-export function log(...msg: string[]) {
-  const output = qq.prettifyPaths(msg.join(' '))
-  debug.enabled ? debug(output) : cli.log(`oclif-dev: ${output}`)
+export function log(format: string, ...args: string[]) {
+  args = args.map(qq.prettifyPaths)
+  debug.enabled ? debug(format, ...args) : cli.log(`oclif-dev: ${util.format(format, ...args)}`)
 }

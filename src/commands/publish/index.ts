@@ -55,6 +55,7 @@ export default class Publish extends Command {
 
   private async uploadNodeBinary(target: Tarballs.ITarget) {
     const {platform, arch} = target
+    log('checking for node binary %s-%s in S3', platform, arch)
     const {nodeVersion, dist, tmp, s3Config} = this.buildConfig
     let key = path.join('node', `node-v${nodeVersion}`, `node-v${nodeVersion}-${platform}-${arch}`)
     let Key = (platform === 'win32' ? `${key}.exe` : key) + '.gz'
@@ -62,6 +63,7 @@ export default class Publish extends Command {
       await s3.headObject({Bucket: s3Config.bucket!, Key})
     } catch (err) {
       if (err.code !== 'NotFound') throw err
+      log('uploading node binary %s-%s', target.platform, target.arch)
       let output = dist(key)
       output = await Tarballs.fetchNodeBinary({nodeVersion, platform, arch, output, tmp})
       await qq.x('gzip', ['-f', output])

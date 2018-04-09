@@ -37,12 +37,12 @@ export interface ITarget {
     tarball: Tarball
     manifest: string
   }
-  manifest?: IManifest
+  manifest?: ITargetManifest
 }
 
 export type Tarball = {gz: string, xz?: string}
 
-export interface IManifest {
+export interface ITargetManifest {
   version: string
   channel: string
   gz: string
@@ -51,7 +51,7 @@ export interface IManifest {
   sha256xz?: string
 }
 
-export interface IVersionManifest extends IManifest {
+export interface IManifest extends ITargetManifest {
   rollout?: number
   node: {
     compatible: string

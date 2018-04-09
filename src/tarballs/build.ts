@@ -4,7 +4,7 @@ import * as qq from 'qqjs'
 import {log} from '../log'
 
 import {writeBinScripts} from './bin'
-import {IConfig, ITarget, IVersionManifest} from './config'
+import {IConfig, IManifest, ITarget} from './config'
 import {fetchNodeBinary} from './node'
 
 const pack = async (from: string, to: string) => {
@@ -108,7 +108,7 @@ export async function build({
     if (vanilla.tarball.xz) await pack(baseWorkspace, dist(vanilla.tarball.xz))
   }
   const buildBaseManifest = async () => {
-    const manifest: IVersionManifest = {
+    const manifest: IManifest = {
       version,
       channel,
       gz: vanilla.urls.gz,
@@ -128,11 +128,11 @@ export async function build({
           sha256xz: t.manifest!.sha256xz,
         }
         return targets
-      }, {} as IVersionManifest['targets'])
+      }, {} as IManifest['targets'])
     }
     await qq.writeJSON(dist(vanilla.manifest), manifest)
   }
-  log(`packing ${config.bin} to ${baseWorkspace}`)
+  log(`gathering workspace for ${config.bin} to ${baseWorkspace}`)
   await extractCLI(await packCLI())
   await updatePJSON()
   await addDependencies()
