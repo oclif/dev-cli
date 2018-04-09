@@ -1,3 +1,11 @@
+<a name="1.9.12"></a>
+## [1.9.12](https://github.com/oclif/dev-cli/compare/v1.9.11...v1.9.12) (2018-04-09)
+
+
+### Bug Fixes
+
+* use version string for channel ([3da71a3](https://github.com/oclif/dev-cli/commit/3da71a3))
+
 <a name="1.9.11"></a>
 ## [1.9.11](https://github.com/oclif/dev-cli/compare/v1.9.10...v1.9.11) (2018-04-09)
 
