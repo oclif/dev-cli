@@ -45,12 +45,12 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@oclif/command@^1.4.10", "@oclif/command@^1.4.7":
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.10.tgz#15d229ba975018ca62cf4a94bec6d9796e18b619"
+"@oclif/command@^1.4.10", "@oclif/command@^1.4.12", "@oclif/command@^1.4.7":
+  version "1.4.12"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.12.tgz#388dc3c409b4201a32240f4900dca22cb0d5641e"
   dependencies:
     "@oclif/errors" "^1.0.4"
-    "@oclif/parser" "^3.2.13"
+    "@oclif/parser" "^3.3.1"
     debug "^3.1.0"
     semver "^5.5.0"
 
@@ -74,9 +74,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@oclif/linewrap/-/linewrap-1.0.0.tgz#aedcb64b479d4db7be24196384897b5000901d91"
 
-"@oclif/parser@^3.2.13":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.3.0.tgz#c4e7765b244fcb76df71b8fd1f495ee50dd80900"
+"@oclif/parser@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.3.1.tgz#b6ec567bbac5b712094eeedbde1f0f2cf3aa9b5b"
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     chalk "^2.3.2"

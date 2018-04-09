@@ -10,8 +10,8 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    'cloudfront-distribution-id': flags.string({description: 'invalidate cloudfront CDN', alsoRequire: ['cloudfront-paths']}),
-    'cloudfront-paths': flags.string({description: 'paths to invalidate on cloudfront', alsoRequire: ['cloudfront-distribution-id']}),
+    'cloudfront-distribution-id': flags.string({description: 'invalidate cloudfront CDN', dependsOn: ['cloudfront-paths']}),
+    'cloudfront-paths': flags.string({description: 'paths to invalidate on cloudfront', dependsOn: ['cloudfront-distribution-id']}),
   }
 
   buildConfig!: Tarballs.IConfig
