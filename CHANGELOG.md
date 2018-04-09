@@ -1,3 +1,11 @@
+<a name="1.9.19"></a>
+## [1.9.19](https://github.com/oclif/dev-cli/compare/v1.9.18...v1.9.19) (2018-04-09)
+
+
+### Bug Fixes
+
+* debug output ([a6aa8c7](https://github.com/oclif/dev-cli/commit/a6aa8c7))
+
 <a name="1.9.18"></a>
 ## [1.9.18](https://github.com/oclif/dev-cli/compare/v1.9.17...v1.9.18) (2018-04-09)
 
