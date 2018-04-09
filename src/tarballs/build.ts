@@ -1,9 +1,10 @@
 import * as path from 'path'
 import * as qq from 'qqjs'
 
+import {log} from '../log'
+
 import {writeBinScripts} from './bin'
 import {IConfig, ITarget, IVersionManifest} from './config'
-import {log} from './log'
 import {fetchNodeBinary} from './node'
 
 const pack = async (from: string, to: string) => {
