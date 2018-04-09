@@ -93,6 +93,7 @@ export async function build({
     if (target.keys.tarball.xz) await pack(workspace, dist(target.keys.tarball.xz))
     target.manifest = {
       version,
+      channel: config.channel,
       gz: target.urls.tarball.gz,
       xz: target.urls.tarball.xz,
       sha256gz: await qq.hash('sha256', dist(target.keys.tarball.gz)),
@@ -107,6 +108,7 @@ export async function build({
   const buildBaseManifest = async () => {
     const manifest: IManifest = {
       version,
+      channel: config.channel,
       gz: vanilla.urls.gz,
       xz: vanilla.urls.xz,
       sha256gz: await qq.hash('sha256', dist(vanilla.tarball.gz)),

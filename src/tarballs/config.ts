@@ -44,6 +44,7 @@ export type Tarball = {gz: string, xz?: string}
 
 export interface ITargetManifest {
   version: string
+  channel: string
   gz: string
   xz?: string
   sha256gz: string
