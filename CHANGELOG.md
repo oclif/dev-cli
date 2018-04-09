@@ -1,3 +1,11 @@
+<a name="1.9.4"></a>
+## [1.9.4](https://github.com/oclif/dev-cli/compare/v1.9.3...v1.9.4) (2018-04-09)
+
+
+### Bug Fixes
+
+* rename update env vars ([30688dc](https://github.com/oclif/dev-cli/commit/30688dc))
+
 <a name="1.9.3"></a>
 ## [1.9.3](https://github.com/oclif/dev-cli/compare/v1.9.2...v1.9.3) (2018-04-09)
 
