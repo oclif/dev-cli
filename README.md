@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.9.2 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.9.3 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -35,7 +35,7 @@ USAGE
 * [oclif-dev help [COMMAND]](#oclif-dev-help-command)
 * [oclif-dev manifest [PATH]](#oclif-dev-manifest-path)
 * [oclif-dev pack](#oclif-dev-pack)
-* [oclif-dev publish:s3](#oclif-dev-publishs-3)
+* [oclif-dev publish](#oclif-dev-publish)
 * [oclif-dev readme](#oclif-dev-readme)
 
 ## oclif-dev help [COMMAND]
@@ -67,7 +67,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.9.2/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.9.3/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -86,22 +86,22 @@ DESCRIPTION
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.9.2/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.9.3/src/commands/pack.ts)_
 
-## oclif-dev publish:s3
+## oclif-dev publish
 
 publish an oclif CLI to S3
 
 ```
 USAGE
-  $ oclif-dev publish:s3
+  $ oclif-dev publish
 
 OPTIONS
   -c, --channel=channel  (required) [default: stable] channel to publish (e.g. "stable" or "beta")
   -r, --root=root        (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/s3.ts](https://github.com/oclif/dev-cli/blob/v1.9.2/src/commands/publish/s3.ts)_
+_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.9.3/src/commands/publish.ts)_
 
 ## oclif-dev readme
 
@@ -122,5 +122,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.9.2/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.9.3/src/commands/readme.ts)_
 <!-- commandsstop -->

@@ -1,3 +1,14 @@
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/oclif/dev-cli/compare/v1.9.2...v1.9.3) (2018-04-09)
+
+
+### Bug Fixes
+
+* improve debugging ([7e781bc](https://github.com/oclif/dev-cli/commit/7e781bc))
+* prefix output ([4a9dcb6](https://github.com/oclif/dev-cli/commit/4a9dcb6))
+* rename publish:s3 to publish ([5936199](https://github.com/oclif/dev-cli/commit/5936199))
+* use dirname for paths ([f1e5c2d](https://github.com/oclif/dev-cli/commit/f1e5c2d))
+
 <a name="1.9.2"></a>
 ## [1.9.2](https://github.com/oclif/dev-cli/compare/v1.9.1...v1.9.2) (2018-04-08)
 
