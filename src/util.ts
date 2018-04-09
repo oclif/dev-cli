@@ -1,4 +1,4 @@
-import Template = require('lodash.template')
+import _ = require('lodash')
 
 export function castArray<T>(input?: T | T[]): T[] {
   if (input === undefined) return []
@@ -40,4 +40,4 @@ export namespace sort {
   export type Types = string | number | undefined | boolean
 }
 
-export const template = (context: any) => (t: string | undefined): string => Template(t || '')(context)
+export const template = (context: any) => (t: string | undefined): string => _.template(t || '')(context)
