@@ -1,3 +1,11 @@
+<a name="1.9.9"></a>
+## [1.9.9](https://github.com/oclif/dev-cli/compare/v1.9.8...v1.9.9) (2018-04-09)
+
+
+### Bug Fixes
+
+* updated qqjs and cli-ux ([b508c70](https://github.com/oclif/dev-cli/commit/b508c70))
+
 <a name="1.9.8"></a>
 ## [1.9.8](https://github.com/oclif/dev-cli/compare/v1.9.7...v1.9.8) (2018-04-09)
 
