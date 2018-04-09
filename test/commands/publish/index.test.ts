@@ -1,33 +1,34 @@
 import {expect, test} from '@oclif/test'
 import * as qq from 'qqjs'
 
-import * as Tarballs from '../../../src/tarballs'
+import {gitSha} from '../../../src/tarballs'
 
 const pjson = require('../../../package.json')
+const pjsonPath = require.resolve('../../../package.json')
+const originalVersion = pjson.version
 const target = [process.platform, process.arch].join('-')
 
 const skipIfWindows = process.platform === 'win32' ? test.skip() : test
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
-let version: string
 
 describe('publish', () => {
   beforeEach(async () => {
-    if (!version) {
-      const sha = await Tarballs.gitSha(process.cwd(), {short: true})
-      version = `${pjson.version}-${testRun}.${sha}`
-    }
-    const root = qq.join(__dirname, '../../../tmp/test/publish/s3')
+    pjson.version = `${pjson.version}-${testRun}`
+    await qq.writeJSON(pjsonPath, pjson)
+    const root = qq.join(__dirname, '../../../tmp/test/publish')
     await qq.emptyDir(root)
     qq.cd(root)
   })
   afterEach(async () => {
     qq.x(`aws s3 rm --recursive s3://oclif/dev-cli/channels/${testRun}`)
     qq.cd([__dirname, '../../..'])
+    pjson.version = originalVersion
+    await qq.writeJSON(pjsonPath, pjson)
   })
 
   skipIfWindows
-  .command(['pack', '-c', testRun])
-  .command(['publish', '-c', testRun])
+  .command(['pack'])
+  .command(['publish'])
   .it('publishes valid releases', async () => {
     const manifest = await qq.readJSON(`https://oclif-staging.s3.amazonaws.com/@oclif/dev-cli/channels/${testRun}/version`)
 
@@ -43,7 +44,8 @@ describe('publish', () => {
         await qq.x('tar xzf oclif-dev.tar.gz')
       }
       const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
-      expect(stdout).to.contain(`@oclif/dev-cli/${version} ${target} node-v${nodeVersion}`)
+      const sha = await gitSha(process.cwd(), {short: true})
+      expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${nodeVersion}`)
       await qq.rm('oclif-dev')
     }
 

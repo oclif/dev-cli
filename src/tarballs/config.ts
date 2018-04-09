@@ -44,7 +44,6 @@ export type Tarball = {gz: string, xz?: string}
 
 export interface ITargetManifest {
   version: string
-  channel: string
   gz: string
   xz?: string
   sha256gz: string
@@ -73,11 +72,12 @@ async function Tmp(config: Config.IConfig) {
   return tmp
 }
 
-export async function buildConfig(root: string, channel: string): Promise<IConfig> {
+export async function buildConfig(root: string): Promise<IConfig> {
   const config = await Config.load({root: path.resolve(root), devPlugins: false, userPlugins: false})
+  const channel = config.channel
   root = config.root
   const _gitSha = await gitSha(root, {short: true})
-  const version = channel === 'stable' ? config.version : `${config.version}-${channel}.${_gitSha}`
+  const version = config.version.includes('-') ? `${config.version}.${_gitSha}` : config.version
   const tmp = await Tmp(config)
   const updateConfig = config.pjson.oclif.update
   const s3Host = updateConfig.s3.host!

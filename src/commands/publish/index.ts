@@ -5,19 +5,11 @@ import {log} from '../../log'
 import * as s3 from '../../s3'
 import * as Tarballs from '../../tarballs'
 
-export type Manifest = {
-  version: string
-  channel: string
-  sha256gz: string
-  sha256xz?: string
-}
-
 export default class Publish extends Command {
   static description = 'publish an oclif CLI to S3'
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    channel: flags.string({char: 'c', description: 'channel to publish (e.g. "stable" or "beta")', default: 'stable', required: true}),
   }
 
   buildConfig!: ReturnType<typeof Tarballs.buildConfig> extends Promise<infer U> ? U : never
@@ -25,8 +17,7 @@ export default class Publish extends Command {
   async run() {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish does not function on windows')
-    const {channel} = flags
-    this.buildConfig = await Tarballs.buildConfig(flags.root, channel)
+    this.buildConfig = await Tarballs.buildConfig(flags.root)
     const {s3Config, targets, vanilla, dist, version} = this.buildConfig
     if (!await qq.exists(dist(vanilla.tarball.gz))) this.error('run "oclif-dev pack" before publishing')
     const S3Options = {

@@ -29,7 +29,6 @@ export async function build({
   targets,
   updateConfig,
   root,
-  channel,
   s3Config
 }: IConfig) {
   const prevCwd = qq.cwd()
@@ -51,7 +50,6 @@ export async function build({
     qq.cd(baseWorkspace)
     const pjson = await qq.readJSON('package.json')
     pjson.version = version
-    pjson.channel = channel
     pjson.oclif.update.s3.bucket = s3Config.bucket
     await qq.writeJSON('package.json', pjson)
   }
@@ -95,7 +93,6 @@ export async function build({
     if (target.keys.tarball.xz) await pack(workspace, dist(target.keys.tarball.xz))
     target.manifest = {
       version,
-      channel,
       gz: target.urls.tarball.gz,
       xz: target.urls.tarball.xz,
       sha256gz: await qq.hash('sha256', dist(target.keys.tarball.gz)),
@@ -110,7 +107,6 @@ export async function build({
   const buildBaseManifest = async () => {
     const manifest: IManifest = {
       version,
-      channel,
       gz: vanilla.urls.gz,
       xz: vanilla.urls.xz,
       sha256gz: await qq.hash('sha256', dist(vanilla.tarball.gz)),
