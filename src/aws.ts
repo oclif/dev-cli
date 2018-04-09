@@ -36,7 +36,7 @@ export default {
   get cloudfront() {
     return {
       createCloudfrontInvalidation: (options: CloudFront.Types.CreateInvalidationRequest) => new Promise((resolve, reject) => {
-        log('createCloudfrontInvalidation', options.DistributionId, options.InvalidationBatch.Paths)
+        log('createCloudfrontInvalidation', options.DistributionId, options.InvalidationBatch.Paths.Items)
         aws.cloudfront.createInvalidation(options, err => {
           if (err) reject(err)
           else resolve()
