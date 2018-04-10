@@ -1,18 +1,6 @@
 import * as Config from '@oclif/config'
-import {CLIError} from '@oclif/errors'
-import * as _ from 'lodash'
 import * as path from 'path'
 import * as qq from 'qqjs'
-import {URL} from 'url'
-
-export namespace IConfig {
-  export type PathTypes = 'manifest' | 'baseDir' | 'versioned' | 'unversioned'
-  export type PathOptions = {
-    platform?: string
-    arch?: string
-    [key: string]: any
-  }
-}
 
 export interface IConfig {
   root: string
@@ -25,10 +13,8 @@ export interface IConfig {
   s3Config: IConfig['updateConfig']['s3']
   channel: string
   xz: boolean
-  targets: {platform: string, arch: string}[]
-  workspace(target?: {platform: string, arch: string}): string
-  path(type: IConfig.PathTypes, options?: IConfig.PathOptions): string
-  s3Url(key: string): string
+  targets: {platform: Config.PlatformTypes, arch: Config.ArchTypes}[]
+  workspace(target?: {platform: Config.PlatformTypes, arch: Config.ArchTypes}): string
   dist(input: string): string
 }
 
@@ -66,8 +52,6 @@ export async function buildConfig(root: string): Promise<IConfig> {
   const version = config.version.includes('-') ? `${config.version}.${_gitSha}` : config.version
   const tmp = await Tmp(config)
   const updateConfig = config.pjson.oclif.update
-  const s3Host = updateConfig.s3.host!
-  if (!s3Host) throw new CLIError('must set oclif.update.s3.bucket in package.json')
   return {
     root,
     gitSha: _gitSha,
@@ -82,20 +66,11 @@ export async function buildConfig(root: string): Promise<IConfig> {
     nodeVersion: updateConfig.node.version || process.versions.node,
     workspace(target) {
       const base = qq.join(config.root, 'tmp')
-      if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), this.path('baseDir', target))
-      return qq.join(base, this.path('baseDir', target))
-    },
-    path(type, options = {}) {
-      const t = this.s3Config.templates[options.platform ? 'target' : 'vanilla'][type]
-      return _.template(t)({...config, version, ...options})
-    },
-    s3Url(key) {
-      const url = new URL(s3Host)
-      url.pathname = path.join(url.pathname, key)
-      return url.toString()
+      if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), config.s3Key('baseDir', target))
+      return qq.join(base, config.s3Key('baseDir', target))
     },
     targets: (updateConfig.node.targets || []).map(t => {
-      const [platform, arch] = t.split('-')
+      const [platform, arch] = t.split('-') as [Config.PlatformTypes, Config.ArchTypes]
       return {platform, arch}
     }),
   }

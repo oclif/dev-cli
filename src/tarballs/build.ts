@@ -1,3 +1,4 @@
+import {ArchTypes, PlatformTypes} from '@oclif/config'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
@@ -19,6 +20,7 @@ const pack = async (from: string, to: string) => {
 }
 
 export async function build(c: IConfig) {
+  const {xz, config} = c
   const prevCwd = qq.cwd()
   const packCLI = async () => {
     const stdout = await qq.x.stdout('npm', ['pack'], {cwd: c.root})
@@ -63,9 +65,9 @@ export async function build(c: IConfig) {
     await qq.rm(...toRemove)
     await qq.rmIfEmpty('.')
   }
-  const buildTarget = async (target: {platform: string, arch: string}) => {
+  const buildTarget = async (target: {platform: PlatformTypes, arch: ArchTypes}) => {
     const workspace = c.workspace(target)
-    const key = c.path('versioned', {ext: '.tar.gz', ...target})
+    const key = config.s3Key('versioned', '.tar.gz', target)
     const base = path.basename(key)
     log(`building target ${base}`)
     await qq.rm(workspace)
@@ -75,51 +77,51 @@ export async function build(c: IConfig) {
       output: path.join(workspace, 'bin', 'node'),
       platform: target.platform,
       arch: target.arch,
-      tmp: qq.join(c.config.root, 'tmp'),
+      tmp: qq.join(config.root, 'tmp'),
     })
     await pack(workspace, c.dist(key))
-    if (c.xz) await pack(workspace, c.dist(c.path('versioned', {ext: '.tar.xz', ...target})))
+    if (xz) await pack(workspace, c.dist(config.s3Key('versioned', '.tar.xz', target)))
     const manifest: IManifest = {
       rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
       version: c.version,
       channel: c.channel,
-      baseDir: c.path('baseDir', target),
-      gz: c.s3Url(c.path('versioned', {ext: '.tar.gz', ...target})),
-      xz: c.xz ? c.s3Url(c.path('versioned', {ext: '.tar.xz', ...target})) : undefined,
-      sha256gz: await qq.hash('sha256', c.dist(c.path('versioned', {ext: '.tar.gz', ...target}))),
-      sha256xz: c.xz ? await qq.hash('sha256', c.dist(c.path('versioned', {ext: '.tar.xz', ...target}))) : undefined,
+      baseDir: config.s3Key('baseDir', target),
+      gz: config.s3Url(config.s3Key('versioned', '.tar.gz', target)),
+      xz: xz ? config.s3Url(config.s3Key('versioned', '.tar.xz', target)) : undefined,
+      sha256gz: await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.gz', target))),
+      sha256xz: xz ? await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.xz', target))) : undefined,
       node: {
-        compatible: c.config.pjson.engines.node,
+        compatible: config.pjson.engines.node,
         recommended: c.nodeVersion,
       }
     }
-    await qq.writeJSON(c.dist(c.path('manifest', target)), manifest)
+    await qq.writeJSON(c.dist(config.s3Key('manifest', target)), manifest)
   }
   const buildBaseTarball = async () => {
-    await pack(c.workspace(), c.dist(c.path('versioned', {ext: '.tar.gz'})))
-    if (c.xz) await pack(c.workspace(), c.dist(c.path('versioned', {ext: '.tar.xz'})))
+    await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.gz')))
+    if (xz) await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.xz')))
     const manifest: IManifest = {
       version: c.version,
-      baseDir: c.path('baseDir'),
-      channel: c.config.channel,
-      gz: c.s3Url(c.path('versioned', {ext: '.tar.gz'})),
-      xz: c.s3Url(c.path('versioned', {ext: '.tar.xz'})),
-      sha256gz: await qq.hash('sha256', c.dist(c.path('versioned', {ext: '.tar.gz'}))),
-      sha256xz: c.xz ? await qq.hash('sha256', c.dist(c.path('versioned', {ext: '.tar.xz'}))) : undefined,
+      baseDir: config.s3Key('baseDir'),
+      channel: config.channel,
+      gz: config.s3Url(config.s3Key('versioned', '.tar.gz')),
+      xz: config.s3Url(config.s3Key('versioned', '.tar.xz')),
+      sha256gz: await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.gz'))),
+      sha256xz: xz ? await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.xz'))) : undefined,
       rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
       node: {
-        compatible: c.config.pjson.engines.node,
+        compatible: config.pjson.engines.node,
         recommended: c.nodeVersion,
       },
     }
-    await qq.writeJSON(c.dist(c.path('manifest')), manifest)
+    await qq.writeJSON(c.dist(config.s3Key('manifest')), manifest)
   }
-  log(`gathering workspace for ${c.config.bin} to ${c.workspace()}`)
+  log(`gathering workspace for ${config.bin} to ${c.workspace()}`)
   await extractCLI(await packCLI())
   await updatePJSON()
   await addDependencies()
   await prune()
-  await writeBinScripts({config: c.config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
+  await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
   for (let target of c.targets) await buildTarget(target)
   qq.cd(prevCwd)

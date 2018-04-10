@@ -54,9 +54,15 @@
     debug "^3.1.0"
     semver "^5.5.0"
 
-"@oclif/config@^1.4.0", "@oclif/config@^1.4.13":
+"@oclif/config@^1.4.0":
   version "1.4.14"
   resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.4.14.tgz#ef792b5f4b4d44540f3cebc577eca5a77d17f96a"
+  dependencies:
+    debug "^3.1.0"
+
+"@oclif/config@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.6.0.tgz#0d9a034a3364d0ff24368e039599f89e4c00f775"
   dependencies:
     debug "^3.1.0"
 

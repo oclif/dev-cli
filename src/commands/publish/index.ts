@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import {ArchTypes, PlatformTypes} from '@oclif/config'
 import * as qq from 'qqjs'
 
 import aws from '../../aws'
@@ -20,25 +21,25 @@ export default class Publish extends Command {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish does not function on windows')
     this.buildConfig = await Tarballs.buildConfig(flags.root)
-    const {s3Config, targets, dist, version} = this.buildConfig
-    if (!await qq.exists(dist(this.buildConfig.path('versioned', {ext: '.tar.gz'})))) this.error('run "oclif-dev pack" before publishing')
+    const {s3Config, targets, dist, version, config} = this.buildConfig
+    if (!await qq.exists(dist(config.s3Key('versioned', {ext: '.tar.gz'})))) this.error('run "oclif-dev pack" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
       ACL: 'public-read',
     }
     // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
-    const uploadTarball = async (options?: {platform: string, arch: string}) => {
+    const uploadTarball = async (options?: {platform: PlatformTypes, arch: ArchTypes}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
-      const releaseTarballs = async (ext: string) => {
-        const versioned = this.buildConfig.path('versioned', {...options, ext})
-        const unversioned = this.buildConfig.path('unversioned', {...options, ext})
+      const releaseTarballs = async (ext: '.tar.gz' | '.tar.xz') => {
+        const versioned = config.s3Key('versioned', ext, options)
+        const unversioned = config.s3Key('unversioned', ext, options)
         await aws.s3.uploadFile(dist(versioned), {...TarballS3Options, ContentType: 'application/gzip', Key: versioned})
         await aws.s3.uploadFile(dist(versioned), {...TarballS3Options, ContentType: 'application/gzip', Key: unversioned})
       }
       await releaseTarballs('.tar.gz')
       if (this.buildConfig.xz) await releaseTarballs('.tar.xz')
-      const manifest = this.buildConfig.path('manifest', options)
+      const manifest = config.s3Key('manifest', options)
       await aws.s3.uploadFile(dist(manifest), {...ManifestS3Options, Key: manifest})
     }
     if (targets.length) log('uploading targets')
