@@ -11,8 +11,8 @@ jobs:
       - checkout
       - restore_cache: &restore_cache
           keys:
-            - v5-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
-            - v5-yarn-{{checksum ".circleci/config.yml"}}
+            - v6-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
+            - v6-yarn-{{checksum ".circleci/config.yml"}}
       - run: .circleci/greenkeeper
       - run: .circleci/loadgpg
       - run: yarn add -D nyc@11 @oclif/nyc-config@1
@@ -40,9 +40,10 @@ jobs:
           semantic-release -e @oclif/semantic-release
       - run: yarn add -D nyc@11 @oclif/nyc-config@1
       - save_cache:
-          key: v5-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
+          key: v6-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
           paths:
             - ~/cli/node_modules
+            - ~/cli/tmp/cache
             - /usr/local/share/.cache/yarn
             - /usr/local/share/.config/yarn
 
