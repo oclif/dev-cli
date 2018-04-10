@@ -1,3 +1,11 @@
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/oclif/dev-cli/compare/v1.10.2...v1.11.0) (2018-04-10)
+
+
+### Features
+
+* added pack:deb and pack:macos ([a781e37](https://github.com/oclif/dev-cli/commit/a781e37))
+
 <a name="1.10.2"></a>
 ## [1.10.2](https://github.com/oclif/dev-cli/compare/v1.10.1...v1.10.2) (2018-04-10)
 
