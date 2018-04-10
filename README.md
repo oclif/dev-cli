@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.11.0 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.12.0 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -37,6 +37,7 @@ USAGE
 * [oclif-dev pack](#oclif-dev-pack)
 * [oclif-dev pack:deb](#oclif-dev-packdeb)
 * [oclif-dev pack:macos](#oclif-dev-packmacos)
+* [oclif-dev pack:win](#oclif-dev-packwin)
 * [oclif-dev publish](#oclif-dev-publish)
 * [oclif-dev readme](#oclif-dev-readme)
 
@@ -69,7 +70,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/manifest.ts)_
 
 ## oclif-dev pack
 
@@ -87,7 +88,7 @@ DESCRIPTION
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack.ts)_
 
 ### oclif-dev pack:deb
 
@@ -101,7 +102,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/pack/deb.ts)_
+_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/deb.ts)_
 
 ### oclif-dev pack:macos
 
@@ -115,7 +116,21 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/pack/macos.ts)_
+_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/macos.ts)_
+
+### oclif-dev pack:win
+
+create windows installer from oclif CLI
+
+```
+USAGE
+  $ oclif-dev pack:win
+
+OPTIONS
+  -r, --root=root  (required) [default: .] path to oclif CLI root
+```
+
+_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/win.ts)_
 
 ## oclif-dev pack:deb
 
@@ -129,7 +144,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/pack/deb.ts)_
+_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/deb.ts)_
 
 ## oclif-dev pack:macos
 
@@ -143,7 +158,21 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/pack/macos.ts)_
+_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/macos.ts)_
+
+## oclif-dev pack:win
+
+create windows installer from oclif CLI
+
+```
+USAGE
+  $ oclif-dev pack:win
+
+OPTIONS
+  -r, --root=root  (required) [default: .] path to oclif CLI root
+```
+
+_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/pack/win.ts)_
 
 ## oclif-dev publish
 
@@ -159,7 +188,7 @@ OPTIONS
   --cloudfront-paths=cloudfront-paths                      paths to invalidate on cloudfront
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/publish.ts)_
 
 ## oclif-dev readme
 
@@ -180,5 +209,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.11.0/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.12.0/src/commands/readme.ts)_
 <!-- commandsstop -->
