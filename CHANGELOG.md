@@ -1,3 +1,12 @@
+<a name="1.10.2"></a>
+## [1.10.2](https://github.com/oclif/dev-cli/compare/v1.10.1...v1.10.2) (2018-04-10)
+
+
+### Bug Fixes
+
+* remove warn-if-update-available ([b6fb76f](https://github.com/oclif/dev-cli/commit/b6fb76f))
+* set --unsafe-perm on npm pack ([c7c4bc8](https://github.com/oclif/dev-cli/commit/c7c4bc8))
+
 <a name="1.10.1"></a>
 ## [1.10.1](https://github.com/oclif/dev-cli/compare/v1.10.0...v1.10.1) (2018-04-10)
 
