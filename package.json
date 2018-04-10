@@ -59,7 +59,12 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
+    "dirname": "oclif-dev",
     "bin": "oclif-dev",
+    "macos": {
+      "identifier": "com.oclif.devcli",
+      "sign": "Developer ID Installer: Heroku INC"
+    },
     "update": {
       "autoupdate": {
         "rollout": 50,

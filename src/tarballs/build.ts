@@ -19,7 +19,10 @@ const pack = async (from: string, to: string) => {
   qq.cd(prevCwd)
 }
 
-export async function build(c: IConfig) {
+export async function build(c: IConfig, options: {
+  platform?: string
+  pack?: boolean
+} = {}) {
   const {xz, config} = c
   const prevCwd = qq.cwd()
   const packCLI = async () => {
@@ -79,6 +82,7 @@ export async function build(c: IConfig) {
       arch: target.arch,
       tmp: qq.join(config.root, 'tmp'),
     })
+    if (options.pack === false) return
     await pack(workspace, c.dist(key))
     if (xz) await pack(workspace, c.dist(config.s3Key('versioned', '.tar.xz', target)))
     const manifest: IManifest = {
@@ -98,6 +102,7 @@ export async function build(c: IConfig) {
     await qq.writeJSON(c.dist(config.s3Key('manifest', target)), manifest)
   }
   const buildBaseTarball = async () => {
+    if (options.pack === false) return
     await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.gz')))
     if (xz) await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.xz')))
     const manifest: IManifest = {
@@ -123,6 +128,10 @@ export async function build(c: IConfig) {
   await prune()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
-  for (let target of c.targets) await buildTarget(target)
+  for (let target of c.targets) {
+    if (!options.platform || options.platform === target.platform) {
+      await buildTarget(target)
+    }
+  }
   qq.cd(prevCwd)
 }
