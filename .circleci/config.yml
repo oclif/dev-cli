@@ -15,6 +15,7 @@ jobs:
             - v5-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
             - v5-yarn-{{checksum ".circleci/config.yml"}}
       - run: .circleci/greenkeeper
+      - run: .circleci/loadgpg
       - run: yarn add -D nyc@11 @oclif/nyc-config@1 mocha-junit-reporter@1
       - run: ./node_modules/.bin/tsc
       - run: ./bin/run --version
@@ -31,6 +32,7 @@ jobs:
     steps:
       - add_ssh_keys
       - checkout
+      - run: .circleci/loadgpg
       - restore_cache: *restore_cache
       - run: yarn global add @oclif/semantic-release@3 semantic-release@15
       - run: yarn --frozen-lockfile

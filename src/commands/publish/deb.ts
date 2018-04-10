@@ -17,7 +17,7 @@ export default class PublishDeb extends Command {
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {s3Config, version, config} = buildConfig
     const dist = (f: string) => buildConfig.dist(qq.join('deb', f))
-    if (await qq.exists(dist('Release'))) this.error('run "oclif-dev pack:deb" before publishing')
+    if (!await qq.exists(dist('Release'))) this.error('run "oclif-dev pack:deb" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
       ACL: 'public-read',

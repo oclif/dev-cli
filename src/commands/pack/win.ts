@@ -23,11 +23,9 @@ export default class PackWin extends Command {
       await qq.write([installerBase, `bin/${config.bin}`], scripts.sh(config))
       await qq.write([installerBase, `${config.bin}.nsi`], scripts.nsis(config, arch))
       await qq.mv(buildConfig.workspace({platform: 'win32', arch}), [installerBase, 'client'])
-      await qq.x('makensis', [`${installerBase}/${config.bin}.nsi`])
+      await qq.x(`makensis ${installerBase}/${config.bin}.nsi | grep -v "\\[compress\\]" | grep -v "^File: Descending to"`)
       const o = buildConfig.dist(`win/${config.bin}-v${buildConfig.version}-${arch}.exe`)
       await qq.mv([installerBase, 'installer.exe'], o)
-        // | grep -v "\\[compress\\]" \
-        // | grep -v "^File: Descending to"
       this.log(`built ${o}`)
     }
   }
