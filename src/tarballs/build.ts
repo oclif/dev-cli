@@ -23,7 +23,7 @@ export async function build(c: IConfig) {
   const {xz, config} = c
   const prevCwd = qq.cwd()
   const packCLI = async () => {
-    const stdout = await qq.x.stdout('npm', ['pack'], {cwd: c.root})
+    const stdout = await qq.x.stdout('npm', ['pack', '--unsafe-perm'], {cwd: c.root})
     return path.join(c.root, stdout.split('\n').pop()!)
   }
   const extractCLI = async (tarball: string) => {
