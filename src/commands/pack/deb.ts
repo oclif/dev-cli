@@ -45,22 +45,23 @@ export default class PackDeb extends Command {
       await qq.x(`chown -R root "${workspace}"`)
       await qq.x(`chgrp -R root "${workspace}"`)
       await qq.x(`dpkg --build "${workspace}" "${qq.join(dist, `${versionedDebBase}.deb`)}"`)
-      await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
-      await qq.x('gzip -c Packages > Packages.gz', {cwd: dist})
-      await qq.x('bzip2 -k Packages', {cwd: dist})
-      await qq.x('xz -k Packages', {cwd: dist})
-      const ftparchive = qq.join(buildConfig.tmp, 'apt', 'apt-ftparchive.conf')
-      await qq.write(ftparchive, scripts.ftparchive(config))
-      await qq.x(`apt-ftparchive -c "${ftparchive}" release . > Release`, {cwd: dist})
-      const gpgKey = config.scopedEnvVar('DEB_KEY')
-      if (gpgKey) {
-        await qq.x(`gpg --digest-algo SHA512 --clearsign -u ${gpgKey} -o InRelease Release`, {cwd: dist})
-        await qq.x(`gpg --digest-algo SHA512 -abs -u ${gpgKey} -o Release.gpg Release`, {cwd: dist})
-      }
     }
 
     const arches = _.uniq(buildConfig.targets.map(t => t.arch))
     for (let a of arches) await build(a)
+
+    await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
+    await qq.x('gzip -c Packages > Packages.gz', {cwd: dist})
+    await qq.x('bzip2 -k Packages', {cwd: dist})
+    await qq.x('xz -k Packages', {cwd: dist})
+    const ftparchive = qq.join(buildConfig.tmp, 'apt', 'apt-ftparchive.conf')
+    await qq.write(ftparchive, scripts.ftparchive(config))
+    await qq.x(`apt-ftparchive -c "${ftparchive}" release . > Release`, {cwd: dist})
+    const gpgKey = config.scopedEnvVar('DEB_KEY')
+    if (gpgKey) {
+      await qq.x(`gpg --digest-algo SHA512 --clearsign -u ${gpgKey} -o InRelease Release`, {cwd: dist})
+      await qq.x(`gpg --digest-algo SHA512 -abs -u ${gpgKey} -o Release.gpg Release`, {cwd: dist})
+    }
   }
 }
 
