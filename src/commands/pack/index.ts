@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import * as qq from 'qqjs'
 
-import * as Tarballs from '../tarballs'
+import * as Tarballs from '../../tarballs'
 
 export default class Manifest extends Command {
   static description = `packages oclif cli into tarballs
