@@ -1,3 +1,24 @@
+<a name="1.13.0"></a>
+# [1.13.0](https://github.com/oclif/dev-cli/compare/v1.12.1...v1.13.0) (2018-04-10)
+
+
+### Bug Fixes
+
+* add tmp/cache to circle ([3429f5a](https://github.com/oclif/dev-cli/commit/3429f5a))
+* added tests for macos publishing ([53f39fb](https://github.com/oclif/dev-cli/commit/53f39fb))
+* empty deb dir before building anything ([8ef1c85](https://github.com/oclif/dev-cli/commit/8ef1c85))
+* fixes with pack:deb ([e691a62](https://github.com/oclif/dev-cli/commit/e691a62))
+* fixes with pack:deb ([a5e65d5](https://github.com/oclif/dev-cli/commit/a5e65d5))
+* set cwd for gpg signing ([c031baf](https://github.com/oclif/dev-cli/commit/c031baf))
+* tests ([28e60a8](https://github.com/oclif/dev-cli/commit/28e60a8))
+* windows test exe names ([cad4f43](https://github.com/oclif/dev-cli/commit/cad4f43))
+* write out deb manifest after building targets ([91f9baa](https://github.com/oclif/dev-cli/commit/91f9baa))
+
+
+### Features
+
+* added publish:win and publish:deb ([145078c](https://github.com/oclif/dev-cli/commit/145078c))
+
 <a name="1.12.1"></a>
 ## [1.12.1](https://github.com/oclif/dev-cli/compare/v1.12.0...v1.12.1) (2018-04-10)
 
