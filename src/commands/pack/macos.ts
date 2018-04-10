@@ -18,7 +18,7 @@ export default class PackMacos extends Command {
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
     await Tarballs.build(buildConfig, {platform: 'darwin', pack: false})
-    const dist = buildConfig.dist(`macos/${config.bin}.pkg`)
+    const dist = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     await qq.emptyDir(path.dirname(dist))
     const scriptsDir = qq.join(buildConfig.tmp, 'macos/scripts')
     const writeScript = async (script: 'preinstall' | 'postinstall') => {
@@ -32,7 +32,7 @@ export default class PackMacos extends Command {
     const args = [
       '--root', buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
       '--identifier', c.macos.identifier,
-      '--version', config.version,
+      '--version', buildConfig.version,
       '--install-location', `/usr/local/lib/${config.dirname}`,
       '--sign', c.macos.sign,
       '--scripts', scriptsDir,
