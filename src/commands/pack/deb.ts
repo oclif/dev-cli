@@ -27,6 +27,8 @@ export default class PackDeb extends Command {
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
     await Tarballs.build(buildConfig, {platform: 'linux', pack: false})
+    const dist = buildConfig.dist('deb')
+    await qq.emptyDir(dist)
     const build = async (arch: Config.ArchTypes) => {
       const target: {platform: 'linux', arch: Config.ArchTypes} = {platform: 'linux', arch}
       const versionedDebBase = `${config.bin}_${debVersion(buildConfig)}_${debArch(arch)}`
@@ -42,8 +44,6 @@ export default class PackDeb extends Command {
       await qq.x(`ln -s "../lib/${config.dirname}/bin/${config.bin}" "${workspace}/usr/bin/${config.bin}"`)
       await qq.x(`chown -R root "${workspace}"`)
       await qq.x(`chgrp -R root "${workspace}"`)
-      const dist = buildConfig.dist('deb')
-      await qq.emptyDir(dist)
       await qq.x(`dpkg --build "${workspace}" "${qq.join(dist, `${versionedDebBase}.deb`)}"`)
       await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
       await qq.x('gzip -c Packages > Packages.gz', {cwd: dist})
