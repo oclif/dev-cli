@@ -1,3 +1,11 @@
+<a name="1.12.1"></a>
+## [1.12.1](https://github.com/oclif/dev-cli/compare/v1.12.0...v1.12.1) (2018-04-10)
+
+
+### Bug Fixes
+
+* add ftparchive to deb ([b81bd1e](https://github.com/oclif/dev-cli/commit/b81bd1e))
+
 <a name="1.12.0"></a>
 # [1.12.0](https://github.com/oclif/dev-cli/compare/v1.11.0...v1.12.0) (2018-04-10)
 
