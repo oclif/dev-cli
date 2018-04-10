@@ -16,7 +16,7 @@ describe('publish', () => {
     await qq.x(`aws s3 rm --recursive s3://oclif-staging/channels/${testRun}`)
     pjson.version = `${pjson.version}-${testRun}`
     await qq.writeJSON(pjsonPath, pjson)
-    const root = qq.join(__dirname, '../../../tmp/test/publish')
+    const root = qq.join(__dirname, '../tmp/test/publish')
     await qq.emptyDir(root)
     qq.cd(root)
   })

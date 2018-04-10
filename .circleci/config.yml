@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  node-latest: &test
+  test: &test
     docker:
       - image: oclif/nsis:0.0.1-9.11.1
     working_directory: ~/cli
@@ -26,10 +26,6 @@ jobs:
           curl -s https://codecov.io/bash | bash
       - store_test_results: &store_test_results
           path: ~/cli/reports
-  node-8:
-    <<: *test
-    docker:
-      - image: oclif/release:0.0.0-8.11.1
   release:
     <<: *test
     steps:
@@ -57,12 +53,10 @@ workflows:
   version: 2
   "@oclif/dev-cli":
     jobs:
-      - node-latest
-      - node-8
+      - test
       - release:
           context: org-global
           filters:
             branches: {only: master}
           requires:
-            - node-latest
-            - node-8
+            - test
