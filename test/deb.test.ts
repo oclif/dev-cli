@@ -8,7 +8,6 @@ const pjsonPath = require.resolve('../package.json')
 const originalVersion = pjson.version
 const target = [process.platform, process.arch].join('-')
 
-const onlyMacos = process.platform === 'darwin' ? test : test.skip()
 const onlyLinux = process.platform === 'linux' ? test : test.skip()
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
 
@@ -42,12 +41,5 @@ describe('publish:deb', () => {
     let stdout
     stdout = await qq.x.stdout('oclif-dev', ['--version'])
     expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${pjson.oclif.update.node.version}`)
-  })
-
-  onlyMacos
-  .command(['pack:deb'])
-  .command(['publish:deb'])
-  .it('publishes valid releases', async () => {
-    await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/apt/Release`)
   })
 })

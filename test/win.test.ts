@@ -1,8 +1,6 @@
 import {test} from '@oclif/test'
 import * as qq from 'qqjs'
 
-import {gitSha} from '../src/tarballs'
-
 const pjson = require('../package.json')
 const pjsonPath = require.resolve('../package.json')
 const originalVersion = pjson.version
@@ -30,7 +28,6 @@ describe('publish:win', () => {
   .command(['pack:win'])
   .command(['publish:win'])
   .it('publishes valid releases', async () => {
-    const sha = await gitSha(process.cwd(), {short: true})
     await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x64.exe`)
     await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x86.exe`)
   })

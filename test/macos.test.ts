@@ -8,7 +8,7 @@ const originalVersion = pjson.version
 const onlyMacos = process.platform === 'darwin' ? test : test.skip()
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
 
-describe('publish:deb', () => {
+describe('publish:macos', () => {
   beforeEach(async () => {
     await qq.x(`aws s3 rm --recursive s3://oclif-staging/channels/${testRun}`)
     pjson.version = `${pjson.version}-${testRun}`
