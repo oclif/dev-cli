@@ -1,3 +1,11 @@
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/oclif/dev-cli/compare/v1.9.19...v1.10.0) (2018-04-10)
+
+
+### Features
+
+* added unversioned tarballs ([8306017](https://github.com/oclif/dev-cli/commit/8306017))
+
 <a name="1.9.19"></a>
 ## [1.9.19](https://github.com/oclif/dev-cli/compare/v1.9.18...v1.9.19) (2018-04-09)
 
