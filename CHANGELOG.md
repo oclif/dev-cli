@@ -1,3 +1,11 @@
+<a name="1.10.1"></a>
+## [1.10.1](https://github.com/oclif/dev-cli/compare/v1.10.0...v1.10.1) (2018-04-10)
+
+
+### Bug Fixes
+
+* refactor to use s3Key/s3Url from [@oclif](https://github.com/oclif)/config ([8c96067](https://github.com/oclif/dev-cli/commit/8c96067))
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/oclif/dev-cli/compare/v1.9.19...v1.10.0) (2018-04-10)
 
