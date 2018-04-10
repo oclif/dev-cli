@@ -16,8 +16,8 @@ export default class PublishDeb extends Command {
     const {flags} = this.parse(PublishDeb)
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {s3Config, version, config} = buildConfig
-    const dist = buildConfig.dist('deb')
-    if (await qq.exists([dist, 'Release'])) this.error('run "oclif-dev pack:deb" before publishing')
+    const dist = (f: string) => buildConfig.dist(qq.join('deb', f))
+    if (await qq.exists(dist('Release'))) this.error('run "oclif-dev pack:deb" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
       ACL: 'public-read',
@@ -29,7 +29,7 @@ export default class PublishDeb extends Command {
     }
     const debVersion = `${buildConfig.version.split('-')[0]}-1`
     const uploadDeb = async (arch: 'amd64' | 'i386') => {
-      const deb = buildConfig.dist(`deb/${config.bin}_${debVersion}_${arch}.deb`)
+      const deb = dist(`${config.bin}_${debVersion}_${arch}.deb`)
       if (await qq.exists(deb)) await upload(deb)
     }
     await uploadDeb('amd64')
@@ -38,8 +38,8 @@ export default class PublishDeb extends Command {
     await upload('Packages.xz')
     await upload('Packages.bz2')
     await upload('Release')
-    await upload('InRelease')
-    await upload('Release.gpg')
+    if (await qq.exists(dist('InRelease'))) await upload('InRelease')
+    if (await qq.exists(dist('Release.gpg'))) await upload('Release.gpg')
 
     log(`published deb ${version}`)
   }
