@@ -52,7 +52,7 @@ export default class PackDeb extends Command {
       const ftparchive = qq.join(buildConfig.tmp, 'apt', 'apt-ftparchive.conf')
       await qq.write(ftparchive, scripts.ftparchive(config))
       await qq.x(`apt-ftparchive -c "${ftparchive}" release . > Release`, {cwd: dist})
-      const gpgKey = config.scopedEnvVar('GPG_KEY')
+      const gpgKey = config.scopedEnvVar('DEB_KEY')
       if (gpgKey) {
         await qq.x(`gpg --digest-algo SHA512 --clearsign -u ${gpgKey} -o InRelease Release`)
         await qq.x(`gpg --digest-algo SHA512 -abs -u ${gpgKey} -o Release.gpg Release`)

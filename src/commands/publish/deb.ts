@@ -25,19 +25,19 @@ export default class PublishDeb extends Command {
 
     const remoteBase = buildConfig.channel === 'stable' ? 'apt' : `channels/${buildConfig.channel}/apt`
     const upload = (file: string) => {
-      return aws.s3.uploadFile(file, {...S3Options, CacheControl: 'max-age=86400', Key: [remoteBase, file].join('/')})
+      return aws.s3.uploadFile(dist(file), {...S3Options, CacheControl: 'max-age=86400', Key: [remoteBase, file].join('/')})
     }
     const debVersion = `${buildConfig.version.split('-')[0]}-1`
     const uploadDeb = async (arch: 'amd64' | 'i386') => {
-      const deb = dist(`${config.bin}_${debVersion}_${arch}.deb`)
-      if (await qq.exists(deb)) await upload(deb)
+      const deb = `${config.bin}_${debVersion}_${arch}.deb`
+      if (await qq.exists(dist(deb))) await upload(deb)
     }
     await uploadDeb('amd64')
     await uploadDeb('i386')
-    await upload(dist('Packages.gz'))
-    await upload(dist('Packages.xz'))
-    await upload(dist('Packages.bz2'))
-    await upload(dist('Release'))
+    await upload('Packages.gz')
+    await upload('Packages.xz')
+    await upload('Packages.bz2')
+    await upload('Release')
     if (await qq.exists(dist('InRelease'))) await upload('InRelease')
     if (await qq.exists(dist('Release.gpg'))) await upload('Release.gpg')
 
