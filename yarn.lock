@@ -45,16 +45,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@oclif/command@^1.4.10", "@oclif/command@^1.4.7":
-  version "1.4.12"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.12.tgz#388dc3c409b4201a32240f4900dca22cb0d5641e"
-  dependencies:
-    "@oclif/errors" "^1.0.4"
-    "@oclif/parser" "^3.3.1"
-    debug "^3.1.0"
-    semver "^5.5.0"
-
-"@oclif/command@^1.4.13":
+"@oclif/command@^1.4.10", "@oclif/command@^1.4.13", "@oclif/command@^1.4.7":
   version "1.4.13"
   resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.13.tgz#2ed3c42142307d20337ec04eabd1be410dfa2a5e"
   dependencies:
@@ -63,9 +54,9 @@
     debug "^3.1.0"
     semver "^5.5.0"
 
-"@oclif/config@^1.4.0", "@oclif/config@^1.4.12":
-  version "1.4.12"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.4.12.tgz#9ce66ef6fdb4cbc0bed9cb639dd118d8e8bde50d"
+"@oclif/config@^1.4.0", "@oclif/config@^1.4.13":
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.4.14.tgz#ef792b5f4b4d44540f3cebc577eca5a77d17f96a"
   dependencies:
     debug "^3.1.0"
 
@@ -82,13 +73,6 @@
 "@oclif/linewrap@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@oclif/linewrap/-/linewrap-1.0.0.tgz#aedcb64b479d4db7be24196384897b5000901d91"
-
-"@oclif/parser@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.3.1.tgz#b6ec567bbac5b712094eeedbde1f0f2cf3aa9b5b"
-  dependencies:
-    "@oclif/linewrap" "^1.0.0"
-    chalk "^2.3.2"
 
 "@oclif/parser@^3.3.2":
   version "3.3.2"
@@ -201,7 +185,11 @@
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.0.0.tgz#a3014921991066193f6c8e47290d4d598dfd19e6"
 
-"@types/node@*", "@types/node@^9.6.2":
+"@types/node@*":
+  version "7.0.60"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.60.tgz#5406c35961e4f9e2d5a1b9482daa14501754ecda"
+
+"@types/node@^9.6.2":
   version "9.6.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.2.tgz#e49ac1adb458835e95ca6487bc20f916b37aff23"
 

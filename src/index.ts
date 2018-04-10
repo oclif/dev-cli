@@ -1,2 +1,2 @@
 export {run} from '@oclif/command'
-export {ITargetManifest, IManifest} from './tarballs'
+export {IManifest} from './tarballs'

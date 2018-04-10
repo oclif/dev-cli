@@ -5,11 +5,19 @@ import * as path from 'path'
 import * as qq from 'qqjs'
 import {URL} from 'url'
 
+export namespace IConfig {
+  export type PathTypes = 'manifest' | 'baseDir' | 'versioned' | 'unversioned'
+  export type PathOptions = {
+    platform?: string
+    arch?: string
+    [key: string]: any
+  }
+}
+
 export interface IConfig {
   root: string
   gitSha: string
   config: Config.IConfig
-  baseWorkspace: string
   nodeVersion: string
   version: string
   tmp: string
@@ -17,34 +25,14 @@ export interface IConfig {
   s3Config: IConfig['updateConfig']['s3']
   channel: string
   xz: boolean
-  vanilla: {
-    tarball: Tarball
-    urls: Tarball
-    manifest: string
-    baseDir: string
-  }
-  targets: ITarget[]
-  targetWorkspace(platform: string, arch: string): string
+  targets: {platform: string, arch: string}[]
+  workspace(target?: {platform: string, arch: string}): string
+  path(type: IConfig.PathTypes, options?: IConfig.PathOptions): string
+  s3Url(key: string): string
   dist(input: string): string
 }
 
-export interface ITarget {
-  platform: string
-  arch: string
-  urls: {
-    tarball: Tarball
-  }
-  keys: {
-    tarball: Tarball
-    manifest: string
-    baseDir: string
-  }
-  manifest?: ITargetManifest
-}
-
-export type Tarball = {gz: string, xz?: string}
-
-export interface ITargetManifest {
+export interface IManifest {
   version: string
   channel: string
   gz: string
@@ -52,16 +40,10 @@ export interface ITargetManifest {
   sha256gz: string
   sha256xz?: string
   baseDir: string
-}
-
-export interface IManifest extends ITargetManifest {
   rollout?: number
   node: {
     compatible: string
     recommended: string
-  }
-  targets?: {
-    [target: string]: Pick<IManifest, 'gz' | 'xz' | 'sha256gz' | 'sha256xz'>
   }
 }
 
@@ -86,65 +68,35 @@ export async function buildConfig(root: string): Promise<IConfig> {
   const updateConfig = config.pjson.oclif.update
   const s3Host = updateConfig.s3.host!
   if (!s3Host) throw new CLIError('must set oclif.update.s3.bucket in package.json')
-  const templateOpts = {...config, version}
-  const vanillaTarball: {gz: string, xz?: string} = {gz: _.template(updateConfig.s3.templates.vanillaTarball)(templateOpts) + '.tar.gz'}
-  const gzUrl = new URL(s3Host)
-  gzUrl.pathname = path.join(gzUrl.pathname, vanillaTarball.gz)
-  const vanillaUrls: {gz: string, xz?: string} = {gz: gzUrl.toString()}
-  const xz = !!updateConfig.s3.xz
-  const vanillaBaseDir = _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts)
-  if (xz) {
-    vanillaTarball.xz = vanillaTarball.gz.replace(/\.gz$/, '.xz')
-    vanillaUrls.xz = vanillaUrls.gz.replace(/\.gz$/, '.xz')
-  }
-  const tConfig: IConfig = {
+  return {
     root,
     gitSha: _gitSha,
     config,
-    vanilla: {
-      tarball: vanillaTarball,
-      urls: vanillaUrls,
-      baseDir: vanillaBaseDir,
-      manifest: _.template(updateConfig.s3.templates.vanillaManifest)(templateOpts),
-    },
     tmp,
     updateConfig,
     version,
     channel,
-    xz,
+    xz: !!updateConfig.s3.xz,
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
     nodeVersion: updateConfig.node.version || process.versions.node,
-    baseWorkspace: path.join(config.root, 'tmp', vanillaBaseDir),
-    targetWorkspace(platform: string, arch: string) {
-      const baseDir = _.template(updateConfig.s3.templates.platformBaseDir)({...templateOpts, platform, arch})
-      return qq.join([config.root, 'tmp', [config.bin, platform, arch].join('-'), baseDir])
+    workspace(target) {
+      const base = qq.join(config.root, 'tmp')
+      if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), this.path('baseDir', target))
+      return qq.join(base, this.path('baseDir', target))
     },
-    targets: (updateConfig.node.targets || []).map((t): ITarget => {
+    path(type, options = {}) {
+      const t = this.s3Config.templates[options.platform ? 'target' : 'vanilla'][type]
+      return _.template(t)({...config, version, ...options})
+    },
+    s3Url(key) {
+      const url = new URL(s3Host)
+      url.pathname = path.join(url.pathname, key)
+      return url.toString()
+    },
+    targets: (updateConfig.node.targets || []).map(t => {
       const [platform, arch] = t.split('-')
-      const key = _.template(updateConfig.s3.templates.platformTarball)({...templateOpts, platform, arch})
-      const manifest = _.template(updateConfig.s3.templates.platformManifest)({...templateOpts, platform, arch})
-      const keys: ITarget['keys'] = {
-        manifest,
-        tarball: {gz: key + '.tar.gz'},
-        baseDir: _.template(updateConfig.s3.templates.vanillaBaseDir)(templateOpts),
-      }
-      const gzUrl = new URL(s3Host)
-      gzUrl.pathname = path.join(gzUrl.pathname, keys.tarball.gz)
-      const urls: ITarget['urls'] = {
-        tarball: {gz: gzUrl.toString()}
-      }
-      if (xz) {
-        keys.tarball.xz = keys.tarball.gz.replace(/\.gz$/, '.xz')
-        urls.tarball.xz = urls.tarball.gz.replace(/\.gz$/, '.xz')
-      }
-      return {
-        platform,
-        arch,
-        keys,
-        urls,
-      }
+      return {platform, arch}
     }),
   }
-  return tConfig
 }

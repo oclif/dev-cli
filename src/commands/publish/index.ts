@@ -20,28 +20,31 @@ export default class Publish extends Command {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish does not function on windows')
     this.buildConfig = await Tarballs.buildConfig(flags.root)
-    const {s3Config, targets, vanilla, dist, version} = this.buildConfig
-    if (!await qq.exists(dist(vanilla.tarball.gz))) this.error('run "oclif-dev pack" before publishing')
+    const {s3Config, targets, dist, version} = this.buildConfig
+    if (!await qq.exists(dist(this.buildConfig.path('versioned', {ext: '.tar.gz'})))) this.error('run "oclif-dev pack" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
       ACL: 'public-read',
     }
     // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
-    const uploadTarball = async (tarball: {gz: string, xz?: string}) => {
+    const uploadTarball = async (options?: {platform: string, arch: string}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
-      await aws.s3.uploadFile(dist(tarball.gz), {...TarballS3Options, ContentType: 'application/gzip', Key: tarball.gz})
-      if (tarball.xz) await aws.s3.uploadFile(dist(tarball.xz), {...TarballS3Options, ContentType: 'application/x-xz', Key: tarball.xz})
+      const releaseTarballs = async (ext: string) => {
+        const versioned = this.buildConfig.path('versioned', {...options, ext})
+        const unversioned = this.buildConfig.path('unversioned', {...options, ext})
+        await aws.s3.uploadFile(dist(versioned), {...TarballS3Options, ContentType: 'application/gzip', Key: versioned})
+        await aws.s3.uploadFile(dist(versioned), {...TarballS3Options, ContentType: 'application/gzip', Key: unversioned})
+      }
+      await releaseTarballs('.tar.gz')
+      if (this.buildConfig.xz) await releaseTarballs('.tar.xz')
+      const manifest = this.buildConfig.path('manifest', options)
+      await aws.s3.uploadFile(dist(manifest), {...ManifestS3Options, Key: manifest})
     }
-    log('uploading vanilla')
-    await uploadTarball(vanilla.tarball)
     if (targets.length) log('uploading targets')
-    for (const target of targets) {
-      await uploadTarball(target.keys.tarball)
-      await aws.s3.uploadFile(dist(target.keys.manifest), {...ManifestS3Options, Key: target.keys.manifest})
-    }
-    log('uploading main manifest')
-    await aws.s3.uploadFile(dist(vanilla.manifest), {...ManifestS3Options, Key: vanilla.manifest})
+    for (const target of targets) await uploadTarball(target)
+    log('uploading vanilla')
+    await uploadTarball()
 
     const {'cloudfront-distribution-id': DistributionId} = flags
     if (DistributionId) {
