@@ -51,7 +51,7 @@ describe('publish', () => {
       await test(manifest.gz, manifest.sha256gz, nodeVersion)
       await test(manifest.xz, manifest.sha256xz, nodeVersion)
     }
-    await manifest(`https://oclif-staging.s3.amazonaws.com/@oclif/dev-cli/channels/${testRun}/version`, process.versions.node)
-    await manifest(`https://oclif-staging.s3.amazonaws.com/@oclif/dev-cli/channels/${testRun}/${target}`, pjson.oclif.update.node.version)
+    await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/version`, process.versions.node)
+    await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/${target}`, pjson.oclif.update.node.version)
   })
 })

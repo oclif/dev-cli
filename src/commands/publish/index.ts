@@ -11,8 +11,7 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    'cloudfront-distribution-id': flags.string({description: 'invalidate cloudfront CDN', dependsOn: ['cloudfront-paths']}),
-    'cloudfront-paths': flags.string({description: 'paths to invalidate on cloudfront', dependsOn: ['cloudfront-distribution-id']}),
+    deb: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
   }
 
   buildConfig!: Tarballs.IConfig
@@ -46,20 +45,6 @@ export default class Publish extends Command {
     for (const target of targets) await uploadTarball(target)
     log('uploading vanilla')
     await uploadTarball()
-
-    const {'cloudfront-distribution-id': DistributionId} = flags
-    if (DistributionId) {
-      await aws.cloudfront.createCloudfrontInvalidation({
-        DistributionId,
-        InvalidationBatch: {
-          CallerReference: new Date().toString(),
-          Paths: {
-            Items: [flags['cloudfront-paths']!],
-            Quantity: 1,
-          }
-        }
-      })
-    }
 
     log(`published ${version}`)
   }

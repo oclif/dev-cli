@@ -3,7 +3,7 @@ version: 2
 jobs:
   node-latest: &test
     docker:
-      - image: oclif/release:0.0.0-9.11.1
+      - image: oclif/nsis:0.0.1-9.11.1
     working_directory: ~/cli
     environment:
       NYC: "yarn exec nyc -- --nycrc-path node_modules/@oclif/nyc-config/.nycrc"
@@ -38,6 +38,10 @@ jobs:
       - restore_cache: *restore_cache
       - run: yarn global add @oclif/semantic-release@3 semantic-release@15
       - run: yarn --frozen-lockfile
+      - run: ./bin/run pack
+      - run: ./bin/run pack:deb
+      - run: ./bin/run pack:win
+      - run: ./bin/run publish
       - run: |
           export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
           semantic-release -e @oclif/semantic-release
