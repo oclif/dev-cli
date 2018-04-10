@@ -36,8 +36,8 @@ export default class PackDeb extends Command {
       await qq.mkdirp([workspace, 'usr/bin'])
       await qq.mkdirp([workspace, 'usr/lib'])
       await qq.mv(buildConfig.workspace(target), [workspace, 'usr/lib', config.dirname])
-      await qq.write([workspace, 'usr/lib', config.dirname, 'bin', config.bin], binScript())
-      await qq.write([workspace, 'DEBIAN/control'], controlFile(buildConfig, debArch(arch)))
+      await qq.write([workspace, 'usr/lib', config.dirname, 'bin', config.bin], scripts.bin())
+      await qq.write([workspace, 'DEBIAN/control'], scripts.control(buildConfig, debArch(arch)))
       await qq.chmod([workspace, 'usr/lib', config.dirname, 'bin', config.bin], 0o755)
       await qq.x(`ln -s "../lib/${config.dirname}/bin/${config.bin}" "${workspace}/usr/bin/${config.bin}"`)
       await qq.x(`chown -R root "${workspace}"`)
@@ -49,6 +49,14 @@ export default class PackDeb extends Command {
       await qq.x('gzip -c Packages > Packages.gz', {cwd: dist})
       await qq.x('bzip2 -k Packages', {cwd: dist})
       await qq.x('xz -k Packages', {cwd: dist})
+      const ftparchive = qq.join(buildConfig.tmp, 'apt', 'apt-ftparchive.conf')
+      await qq.write(ftparchive, scripts.ftparchive(config))
+      await qq.x(`apt-ftparchive -c "${ftparchive}" release . > Release`, {cwd: dist})
+      const gpgKey = config.scopedEnvVar('GPG_KEY')
+      if (gpgKey) {
+        await qq.x(`gpg --digest-algo SHA512 --clearsign -u ${gpgKey} -o InRelease Release`)
+        await qq.x(`gpg --digest-algo SHA512 -abs -u ${gpgKey} -o Release.gpg Release`)
+      }
     }
 
     const arches = _.uniq(buildConfig.targets.map(t => t.arch))
@@ -56,7 +64,8 @@ export default class PackDeb extends Command {
   }
 }
 
-const binScript = () => `#!/usr/bin/env bash
+const scripts = {
+  bin: () => `#!/usr/bin/env bash
 set -e
 echoerr() { echo "$@" 1>&2; }
 get_script_dir () {
@@ -73,13 +82,18 @@ get_script_dir () {
 }
 DIR=\$(get_script_dir)
 \$DIR/node \$DIR/run "\$@"
-`
-
-const controlFile = (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
+`,
+  control: (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
 Version: ${debVersion(config)}
 Section: main
 Priority: standard
 Architecture: ${arch}
 Maintainer: ${config.config.pjson.author}
 Description: ${config.config.pjson.description}
+`,
+  ftparchive: (config: Config.IConfig) => `
+APT::FTPArchive::Release {
+  Origin "${config.pjson.author}";
+  Suite  "stable";
 `
+}
