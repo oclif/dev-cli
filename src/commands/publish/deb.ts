@@ -34,10 +34,10 @@ export default class PublishDeb extends Command {
     }
     await uploadDeb('amd64')
     await uploadDeb('i386')
-    await upload('Packages.gz')
-    await upload('Packages.xz')
-    await upload('Packages.bz2')
-    await upload('Release')
+    await upload(dist('Packages.gz'))
+    await upload(dist('Packages.xz'))
+    await upload(dist('Packages.bz2'))
+    await upload(dist('Release'))
     if (await qq.exists(dist('InRelease'))) await upload('InRelease')
     if (await qq.exists(dist('Release.gpg'))) await upload('Release.gpg')
 
