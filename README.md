@@ -32,19 +32,19 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [oclif-dev help [COMMAND]](#oclif-dev-help-command)
-* [oclif-dev manifest [PATH]](#oclif-dev-manifest-path)
-* [oclif-dev pack](#oclif-dev-pack)
-* [oclif-dev pack:deb](#oclif-dev-packdeb)
-* [oclif-dev pack:macos](#oclif-dev-packmacos)
-* [oclif-dev pack:win](#oclif-dev-packwin)
-* [oclif-dev publish](#oclif-dev-publish)
-* [oclif-dev publish:deb](#oclif-dev-publishdeb)
-* [oclif-dev publish:macos](#oclif-dev-publishmacos)
-* [oclif-dev publish:win](#oclif-dev-publishwin)
-* [oclif-dev readme](#oclif-dev-readme)
+* [`oclif-dev help [COMMAND]`](#oclif-dev-help-command)
+* [`oclif-dev manifest [PATH]`](#oclif-dev-manifest-path)
+* [`oclif-dev pack`](#oclif-dev-pack)
+* [`oclif-dev pack:deb`](#oclif-dev-packdeb)
+* [`oclif-dev pack:macos`](#oclif-dev-packmacos)
+* [`oclif-dev pack:win`](#oclif-dev-packwin)
+* [`oclif-dev publish`](#oclif-dev-publish)
+* [`oclif-dev publish:deb`](#oclif-dev-publishdeb)
+* [`oclif-dev publish:macos`](#oclif-dev-publishmacos)
+* [`oclif-dev publish:win`](#oclif-dev-publishwin)
+* [`oclif-dev readme`](#oclif-dev-readme)
 
-## oclif-dev help [COMMAND]
+## `oclif-dev help [COMMAND]`
 
 display help for oclif-dev
 
@@ -59,9 +59,9 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.2.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.2.4/src/commands/help.ts)_
 
-## oclif-dev manifest [PATH]
+## `oclif-dev manifest [PATH]`
 
 generates plugin manifest json
 
@@ -75,7 +75,7 @@ ARGUMENTS
 
 _See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/manifest.ts)_
 
-## oclif-dev pack
+## `oclif-dev pack`
 
 packages oclif cli into tarballs
 
@@ -93,7 +93,7 @@ DESCRIPTION
 
 _See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack.ts)_
 
-### oclif-dev pack:deb
+## `oclif-dev pack:deb`
 
 pack CLI into debian package
 
@@ -107,7 +107,7 @@ OPTIONS
 
 _See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/deb.ts)_
 
-### oclif-dev pack:macos
+## `oclif-dev pack:macos`
 
 pack CLI into MacOS .pkg
 
@@ -121,7 +121,7 @@ OPTIONS
 
 _See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/macos.ts)_
 
-### oclif-dev pack:win
+## `oclif-dev pack:win`
 
 create windows installer from oclif CLI
 
@@ -135,49 +135,7 @@ OPTIONS
 
 _See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/win.ts)_
 
-## oclif-dev pack:deb
-
-pack CLI into debian package
-
-```
-USAGE
-  $ oclif-dev pack:deb
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/deb.ts)_
-
-## oclif-dev pack:macos
-
-pack CLI into MacOS .pkg
-
-```
-USAGE
-  $ oclif-dev pack:macos
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/macos.ts)_
-
-## oclif-dev pack:win
-
-create windows installer from oclif CLI
-
-```
-USAGE
-  $ oclif-dev pack:win
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/pack/win.ts)_
-
-## oclif-dev publish
+## `oclif-dev publish`
 
 publish an oclif CLI to S3
 
@@ -192,7 +150,7 @@ OPTIONS
 
 _See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish.ts)_
 
-### oclif-dev publish:deb
+## `oclif-dev publish:deb`
 
 publish deb package built with pack:deb
 
@@ -206,7 +164,7 @@ OPTIONS
 
 _See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/deb.ts)_
 
-### oclif-dev publish:macos
+## `oclif-dev publish:macos`
 
 publish macos installers built with pack:macos
 
@@ -220,7 +178,7 @@ OPTIONS
 
 _See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/macos.ts)_
 
-### oclif-dev publish:win
+## `oclif-dev publish:win`
 
 publish windows installers built with pack:win
 
@@ -234,49 +192,7 @@ OPTIONS
 
 _See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/win.ts)_
 
-## oclif-dev publish:deb
-
-publish deb package built with pack:deb
-
-```
-USAGE
-  $ oclif-dev publish:deb
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/deb.ts)_
-
-## oclif-dev publish:macos
-
-publish macos installers built with pack:macos
-
-```
-USAGE
-  $ oclif-dev publish:macos
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/macos.ts)_
-
-## oclif-dev publish:win
-
-publish windows installers built with pack:win
-
-```
-USAGE
-  $ oclif-dev publish:win
-
-OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
-```
-
-_See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.0/src/commands/publish/win.ts)_
-
-## oclif-dev readme
+## `oclif-dev readme`
 
 adds commands to README.md in current directory
 
