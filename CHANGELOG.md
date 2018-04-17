@@ -1,3 +1,11 @@
+<a name="1.13.1"></a>
+## [1.13.1](https://github.com/oclif/dev-cli/compare/v1.13.0...v1.13.1) (2018-04-17)
+
+
+### Bug Fixes
+
+* readme fixes ([e172d18](https://github.com/oclif/dev-cli/commit/e172d18))
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/oclif/dev-cli/compare/v1.12.1...v1.13.0) (2018-04-10)
 
