@@ -106,7 +106,7 @@ USAGE
       '# Command Topics\n',
       ...topics.map(t => {
         return compact([
-          `* [${config.bin} ${t.name}](docs/${t.name.replace(/:/g, '/')}.md)`,
+          `* [\`${config.bin} ${t.name}\`](docs/${t.name.replace(/:/g, '/')}.md)`,
           t.description,
         ]).join(' - ')
       }),
@@ -114,9 +114,10 @@ USAGE
   }
 
   createTopicFile(file: string, config: Config.IConfig, topic: Config.Topic, commands: Config.Command[]) {
+    const bin = `\`${config.bin} ${topic.name}\``
     let doc = [
-      `${config.bin} ${topic.name}`,
-      '='.repeat(`${config.bin} ${topic.name}`.length),
+      bin,
+      '='.repeat(bin.length),
       '',
       topic.description,
       this.commands(config, commands),
@@ -128,31 +129,23 @@ USAGE
     return [
       ...commands.map(c => {
         let usage = this.commandUsage(c)
-        return `* [${config.bin} ${usage}](#${slugify(`${config.bin}-${usage}`)})`
+        return `* [\`${config.bin} ${usage}\`](#${slugify(`${config.bin}-${usage}`)})`
       }),
       '',
-      ...commands.map(c => this.renderCommand(config, c, commands)).map(s => s.trim() + '\n'),
+      ...commands.map(c => this.renderCommand(config, c)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
   }
 
-  renderCommand(config: Config.IConfig, c: Config.Command, commands: Config.Command[], level: number = 2): string {
+  renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
     let title = template({config})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: 120})
-    const header = () => '#'.repeat(level) + ` ${config.bin} ${this.commandUsage(c)}`
-    const subcommands = (): string | undefined => {
-      return commands
-      .filter(sc => sc.id.startsWith(c.id) && sc.id !== c.id)
-      .map(c => this.renderCommand(config, c, commands, level + 1))
-      .map(c => c.trim())
-      .join('\n\n')
-    }
+    const header = () => `## \`${config.bin} ${this.commandUsage(c)}\``
     return compact([
       header(),
       title,
       '```\n' + help.command(c).trim() + '\n```',
       this.commandCode(config, c),
-      subcommands(),
     ]).join('\n\n')
   }
 
