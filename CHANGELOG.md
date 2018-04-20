@@ -1,3 +1,14 @@
+<a name="1.13.2"></a>
+## [1.13.2](https://github.com/oclif/dev-cli/compare/v1.13.1...v1.13.2) (2018-04-20)
+
+
+### Bug Fixes
+
+* always set binpath ([66e5206](https://github.com/oclif/dev-cli/commit/66e5206))
+* do not overwrite binpath ([3099bac](https://github.com/oclif/dev-cli/commit/3099bac))
+* updated deps ([d731695](https://github.com/oclif/dev-cli/commit/d731695))
+* windows script ([f475609](https://github.com/oclif/dev-cli/commit/f475609))
+
 <a name="1.13.1"></a>
 ## [1.13.1](https://github.com/oclif/dev-cli/compare/v1.13.0...v1.13.1) (2018-04-17)
 
