@@ -11,8 +11,8 @@ setlocal enableextensions
 
 if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" (
   set ${redirectedEnvVar}=1
-  rem "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" %*
-  exit /B
+  "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" %*
+  goto:EOF
 )
 
 if not defined ${binPathEnvVar} set ${binPathEnvVar}="%~dp0${bin}.cmd"
