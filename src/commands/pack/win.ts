@@ -33,6 +33,7 @@ export default class PackWin extends Command {
 
 const scripts = {
   cmd: (config: Config.IConfig) => `@echo off
+setlocal enableextensions
 
 set ${config.scopedEnvVarKey('BINPATH')}=%~dp0\\${config.bin}.cmd
 if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (

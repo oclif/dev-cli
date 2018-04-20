@@ -81,12 +81,12 @@
     "@oclif/linewrap" "^1.0.0"
     chalk "^2.3.2"
 
-"@oclif/plugin-help@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-1.2.4.tgz#1b4349f7d570445ad5cfe4f925bfd832d4552aa2"
+"@oclif/plugin-help@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-1.2.5.tgz#5a184cdac3d0cf9c12b444e693e5102b288bde24"
   dependencies:
     "@oclif/command" "^1.4.13"
-    chalk "^2.3.2"
+    chalk "^2.4.0"
     indent-string "^3.2.0"
     lodash.template "^4.4.0"
     string-width "^2.1.1"

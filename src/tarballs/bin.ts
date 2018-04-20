@@ -7,6 +7,7 @@ export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {con
   const writeWin32 = async () => {
     const {bin} = config
     await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
+setlocal enableextensions
 
 if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" (
   set ${redirectedEnvVar}=1
