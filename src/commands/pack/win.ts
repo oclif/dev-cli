@@ -34,8 +34,8 @@ export default class PackWin extends Command {
 const scripts = {
   cmd: (config: Config.IConfig) => `@echo off
 
+set ${config.scopedEnvVarKey('BINPATH')}=%~dp0\\${config.bin}.cmd
 if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (
-  set ${config.scopedEnvVarKey('BINPATH')}=%~dp0\\${config.bin}.cmd
   "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" %*
 ) else (
   "%~dp0\\..\\client\\bin\\node.exe" "%~dp0\\..\\client\\bin\\run" %*
