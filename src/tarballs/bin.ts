@@ -2,10 +2,10 @@ import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 
 export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
-  const {bin} = config
   const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
   const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
   const writeWin32 = async () => {
+    const {bin} = config
     await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
 
 if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" (
@@ -58,7 +58,7 @@ if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${config
   fi
   ${binPathEnvVar}="\$BIN_PATH" ${redirectedEnvVar}=1 "\$BIN_PATH" "\$@"
 else
-  export ${binPathEnvVar}=\${${binPathEnvVar}:="\$DIR/${bin}"}
+  export ${binPathEnvVar}=\${${binPathEnvVar}:="\$DIR/${config.bin}"}
   if [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-custom")" ]; then
     NODE="\$XDG_DATA_HOME/oclif/node/node-custom"
   elif [ -x "$(command -v "\$DIR/node")" ]; then
