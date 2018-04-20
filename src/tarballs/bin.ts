@@ -2,23 +2,25 @@ import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 
 export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
+  const {bin} = config
   const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
   const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
   const writeWin32 = async () => {
     await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
 
-if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (
+if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" (
   set ${redirectedEnvVar}=1
-  "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" %*
+  rem "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" %*
+  exit /B
+)
+
+set ${binPathEnvVar}="%~dp0${bin}.cmd"
+if exist "%~dp0..\\bin\\node.exe" (
+  "%~dp0..\\bin\\node.exe" "%~dp0..\\bin\\run" %*
+) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" (
+  "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" "%~dp0..\\bin\\run" %*
 ) else (
-  set ${binPathEnvVar}="%~dp0\\${config.bin}.cmd"
-  if exist "%~dp0\\..\\client\\bin\\node.exe" (
-    "%~dp0\\..\\client\\bin\\node.exe" "%~dp0\\..\\client\\bin\\run" %*
-  ) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" (
-    "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" "%~dp0\\..\\client\\bin\\run" %*
-  ) else (
-    node "%~dp0\\..\\client\\bin\\run" %*
-  )
+  node "%~dp0..\\bin\\run" %*
 )
 `)
     // await qq.write([output, 'bin', config.bin], `#!/bin/sh
