@@ -1,3 +1,12 @@
+<a name="1.13.4"></a>
+## [1.13.4](https://github.com/oclif/dev-cli/compare/v1.13.3...v1.13.4) (2018-04-20)
+
+
+### Bug Fixes
+
+* setlocal ([39ba94b](https://github.com/oclif/dev-cli/commit/39ba94b))
+* windows script fix ([e7275b4](https://github.com/oclif/dev-cli/commit/e7275b4))
+
 <a name="1.13.3"></a>
 ## [1.13.3](https://github.com/oclif/dev-cli/compare/v1.13.2...v1.13.3) (2018-04-20)
 
