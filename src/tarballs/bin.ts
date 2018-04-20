@@ -14,7 +14,7 @@ if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bi
   exit /B
 )
 
-set ${binPathEnvVar}="%~dp0${bin}.cmd"
+if not defined ${binPathEnvVar} set ${binPathEnvVar}="%~dp0${bin}.cmd"
 if exist "%~dp0..\\bin\\node.exe" (
   "%~dp0..\\bin\\node.exe" "%~dp0..\\bin\\run" %*
 ) else if exist "%LOCALAPPDATA%\\oclif\\node\\node-${nodeVersion}.exe" (
@@ -56,8 +56,9 @@ if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${config
   if [ "\$DEBUG" == "*" ]; then
     echoerr "\$BIN_PATH" "\$@"
   fi
-  ${redirectedEnvVar}=1 "\$BIN_PATH" "\$@"
+  ${binPathEnvVar}="\$BIN_PATH" ${redirectedEnvVar}=1 "\$BIN_PATH" "\$@"
 else
+  export ${binPathEnvVar}=\${${binPathEnvVar}:="\$DIR/${bin}"}
   if [ -x "$(command -v "\$XDG_DATA_HOME/oclif/node/node-custom")" ]; then
     NODE="\$XDG_DATA_HOME/oclif/node/node-custom"
   elif [ -x "$(command -v "\$DIR/node")" ]; then
@@ -71,9 +72,9 @@ else
     exit 1
   fi
   if [ "\$DEBUG" == "*" ]; then
-    echoerr ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
+    echoerr ${binPathEnvVar}="\$${binPathEnvVar}" "\$NODE" "\$DIR/run" "\$@"
   fi
-  ${binPathEnvVar}="\$DIR/${config.bin}" "\$NODE" "\$DIR/run" "\$@"
+  "\$NODE" "\$DIR/run" "\$@"
 fi
 `)
     await qq.chmod(bin, 0o755)
