@@ -1,3 +1,11 @@
+<a name="1.13.3"></a>
+## [1.13.3](https://github.com/oclif/dev-cli/compare/v1.13.2...v1.13.3) (2018-04-20)
+
+
+### Bug Fixes
+
+* defaulting binpath ([9341f87](https://github.com/oclif/dev-cli/commit/9341f87))
+
 <a name="1.13.2"></a>
 ## [1.13.2](https://github.com/oclif/dev-cli/compare/v1.13.1...v1.13.2) (2018-04-20)
 
