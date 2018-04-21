@@ -1,3 +1,11 @@
+<a name="1.13.5"></a>
+## [1.13.5](https://github.com/oclif/dev-cli/compare/v1.13.4...v1.13.5) (2018-04-21)
+
+
+### Bug Fixes
+
+* add AUTHOR env var ([cbd5d64](https://github.com/oclif/dev-cli/commit/cbd5d64))
+
 <a name="1.13.4"></a>
 ## [1.13.4](https://github.com/oclif/dev-cli/compare/v1.13.3...v1.13.4) (2018-04-20)
 
