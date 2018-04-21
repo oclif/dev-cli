@@ -69,7 +69,7 @@ OutFile "installer.exe"
 VIProductVersion "\${VERSION}.0"
 VIAddVersionKey /LANG=\${LANG_ENGLISH} "ProductName" "${config.name}"
 VIAddVersionKey /LANG=\${LANG_ENGLISH} "Comments" "${config.pjson.homepage}"
-VIAddVersionKey /LANG=\${LANG_ENGLISH} "CompanyName" "${config.pjson.author}"
+VIAddVersionKey /LANG=\${LANG_ENGLISH} "CompanyName" "${config.scopedEnvVar('AUTHOR') || config.pjson.author}"
 VIAddVersionKey /LANG=\${LANG_ENGLISH} "LegalCopyright" "${new Date().getFullYear()}"
 VIAddVersionKey /LANG=\${LANG_ENGLISH} "FileDescription" "${config.pjson.description}"
 VIAddVersionKey /LANG=\${LANG_ENGLISH} "FileVersion" "\${VERSION}.0"
@@ -90,7 +90,7 @@ Section "${config.name} CLI \${VERSION}"
   WriteRegStr HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${config.dirname}" \\
                    "UninstallString" "$\\"$INSTDIR\\uninstall.exe$\\""
   WriteRegStr HKLM "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\${config.dirname}" \\
-                   "Publisher" "${config.pjson.author}"
+                   "Publisher" "${config.scopedEnvVar('AUTHOR') || config.pjson.author}"
 SectionEnd
 
 Section "Set PATH to ${config.name}"

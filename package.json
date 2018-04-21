@@ -8,9 +8,9 @@
   },
   "bugs": "https://github.com/oclif/dev-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.4.13",
-    "@oclif/config": "^1.6.6",
-    "@oclif/errors": "^1.0.4",
+    "@oclif/command": "^1.4.14",
+    "@oclif/config": "^1.6.13",
+    "@oclif/errors": "^1.0.6",
     "@oclif/plugin-help": "^1.2.5",
     "cli-ux": "^3.3.31",
     "debug": "^3.1.0",

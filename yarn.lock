@@ -54,15 +54,34 @@
     debug "^3.1.0"
     semver "^5.5.0"
 
-"@oclif/config@^1.6.6":
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.6.6.tgz#8a5aed05018b6294ce4a46cba75aacebb1a3bf16"
+"@oclif/command@^1.4.14":
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.14.tgz#b9a65945566711dba1d180af05e427da9a673166"
+  dependencies:
+    "@oclif/errors" "^1.0.4"
+    "@oclif/parser" "^3.3.2"
+    debug "^3.1.0"
+    semver "^5.5.0"
+
+"@oclif/config@^1.6.13":
+  version "1.6.13"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.6.13.tgz#fa4688a8a32afe49fd353a13aac6061b96eac1be"
   dependencies:
     debug "^3.1.0"
 
 "@oclif/errors@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@oclif/errors/-/errors-1.0.4.tgz#8e34386ede530484ae3c98bc21d818c416214c66"
+  dependencies:
+    clean-stack "^1.3.0"
+    fs-extra "^5.0.0"
+    indent-string "^3.2.0"
+    strip-ansi "^4.0.0"
+    wrap-ansi "^3.0.1"
+
+"@oclif/errors@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@oclif/errors/-/errors-1.0.6.tgz#76b17906ac1beea252add52e8e8ed78229c33a7b"
   dependencies:
     clean-stack "^1.3.0"
     fs-extra "^5.0.0"

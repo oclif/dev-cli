@@ -89,12 +89,12 @@ Version: ${debVersion(config)}
 Section: main
 Priority: standard
 Architecture: ${arch}
-Maintainer: ${config.config.pjson.author}
+Maintainer: ${config.config.scopedEnvVar('AUTHOR') || config.config.pjson.author}
 Description: ${config.config.pjson.description}
 `,
   ftparchive: (config: Config.IConfig) => `
 APT::FTPArchive::Release {
-  Origin "${config.pjson.author}";
+  Origin "${config.scopedEnvVar('AUTHOR') || config.pjson.author}";
   Suite  "stable";
 `
 }
