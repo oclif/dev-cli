@@ -43,7 +43,7 @@ if exist "%LOCALAPPDATA%\\${config.dirname}\\client\\bin\\${config.bin}.cmd" (
 )
 `,
   sh: (config: Config.IConfig) => `#!/bin/sh
-basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\\\,/,g')")
 
 "$basedir/../client/bin/${config.bin}.cmd" "$@"
 ret=$?
