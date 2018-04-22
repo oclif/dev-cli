@@ -1,3 +1,11 @@
+<a name="1.13.6"></a>
+## [1.13.6](https://github.com/oclif/dev-cli/compare/v1.13.5...v1.13.6) (2018-04-22)
+
+
+### Bug Fixes
+
+* windows script fix ([b58916f](https://github.com/oclif/dev-cli/commit/b58916f))
+
 <a name="1.13.5"></a>
 ## [1.13.5](https://github.com/oclif/dev-cli/compare/v1.13.4...v1.13.5) (2018-04-21)
 
