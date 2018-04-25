@@ -1,3 +1,12 @@
+<a name="1.13.8"></a>
+## [1.13.8](https://github.com/oclif/dev-cli/compare/v1.13.7...v1.13.8) (2018-04-25)
+
+
+### Bug Fixes
+
+* node 10 no longer has linux-x86 ([ac9c5f3](https://github.com/oclif/dev-cli/commit/ac9c5f3))
+* only use linux targets ([1e9b078](https://github.com/oclif/dev-cli/commit/1e9b078))
+
 <a name="1.13.7"></a>
 ## [1.13.7](https://github.com/oclif/dev-cli/compare/v1.13.6...v1.13.7) (2018-04-24)
 
