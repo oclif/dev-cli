@@ -47,7 +47,9 @@ export default class PackDeb extends Command {
       await qq.x(`dpkg --build "${workspace}" "${qq.join(dist, `${versionedDebBase}.deb`)}"`)
     }
 
-    const arches = _.uniq(buildConfig.targets.map(t => t.arch))
+    const arches = _.uniq(buildConfig.targets
+      .filter(t => t.platform === 'linux')
+      .map(t => t.arch))
     for (let a of arches) await build(a)
 
     await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
