@@ -1,3 +1,12 @@
+<a name="1.13.9"></a>
+## [1.13.9](https://github.com/oclif/dev-cli/compare/v1.13.8...v1.13.9) (2018-04-27)
+
+
+### Bug Fixes
+
+* error if identifier is not set ([9de6c28](https://github.com/oclif/dev-cli/commit/9de6c28))
+* only set signing key if defined ([46085f1](https://github.com/oclif/dev-cli/commit/46085f1))
+
 <a name="1.13.8"></a>
 ## [1.13.8](https://github.com/oclif/dev-cli/compare/v1.13.7...v1.13.8) (2018-04-25)
 
