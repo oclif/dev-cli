@@ -13,7 +13,7 @@ export default class PackMacos extends Command {
   }
 
   async run() {
-    if (process.platform !== 'darwin') throw new Error('must be run from macos')
+    if (process.platform !== 'darwin') this.error('must be run from macos')
     const {flags} = this.parse(PackMacos)
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
@@ -29,6 +29,7 @@ export default class PackMacos extends Command {
     await writeScript('preinstall')
     await writeScript('postinstall')
     const c = config.pjson.oclif as any
+    if (!c.macos || !c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
     const args = [
       '--root', buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
       '--identifier', c.macos.identifier,
