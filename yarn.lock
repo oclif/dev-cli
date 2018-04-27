@@ -54,9 +54,9 @@
     debug "^3.1.0"
     semver "^5.5.0"
 
-"@oclif/command@^1.4.15":
-  version "1.4.15"
-  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.15.tgz#1886c7dd88a40fbc29427bbca04bdb0e1a538133"
+"@oclif/command@^1.4.16":
+  version "1.4.16"
+  resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.4.16.tgz#4e1cdae611d1eac28bfd3481797b38b8638767c0"
   dependencies:
     "@oclif/errors" "^1.0.6"
     "@oclif/parser" "^3.3.3"
@@ -190,9 +190,9 @@
   version "4.14.106"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.106.tgz#6093e9a02aa567ddecfe9afadca89e53e5dce4dd"
 
-"@types/lodash@^4.14.107":
-  version "4.14.107"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.107.tgz#b2d2ae3958bfb8ff828495cbe12214af9e4d035e"
+"@types/lodash@^4.14.108":
+  version "4.14.108"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -292,9 +292,9 @@ atob@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.0.tgz#ab2b150e51d7b122b9efc8d7340c06b6c41076bc"
 
-aws-sdk@^2.227.1:
-  version "2.227.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.227.1.tgz#e0051fa680f29cd83d66f4b751aafbc6beebe9ab"
+aws-sdk@^2.229.1:
+  version "2.229.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.229.1.tgz#6123c8acee0de534a0585e1375ee19c4de54a39e"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -437,6 +437,14 @@ chalk@^2.3.0, chalk@^2.3.2:
 chalk@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.0.tgz#a060a297a6b57e15b61ca63ce84995daa0fe6e52"
+  dependencies:
+    ansi-styles "^3.2.1"
+    escape-string-regexp "^1.0.5"
+    supports-color "^5.3.0"
+
+chalk@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
@@ -896,6 +904,16 @@ http-call@^5.1.0:
     tslib "^1.9.0"
     tunnel-agent "^0.6.0"
 
+http-call@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/http-call/-/http-call-5.1.1.tgz#0110095d455b876c64cc9fe820b3f836cc552ea7"
+  dependencies:
+    content-type "^1.0.4"
+    debug "^3.1.0"
+    is-retry-allowed "^1.1.0"
+    is-stream "^1.1.0"
+    tunnel-agent "^0.6.0"
+
 ieee754@1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
@@ -1156,6 +1174,10 @@ lodash.templatesettings@^4.0.0:
 lodash@^4.0.0, lodash@^4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+
+lodash@^4.17.10:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 lru-cache@^4.0.1:
   version "4.1.2"
@@ -1431,18 +1453,18 @@ punycode@1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
 
-qqjs@^0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/qqjs/-/qqjs-0.3.7.tgz#eb7d481d3cf3e8c9744da0d21d917d1a4b2080d9"
+qqjs@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/qqjs/-/qqjs-0.3.8.tgz#8374d5cb53a2fa51104a3abd2e7371708b7ad913"
   dependencies:
-    chalk "^2.3.2"
+    chalk "^2.4.1"
     debug "^3.1.0"
     execa "^0.10.0"
     fs-extra "^5.0.0"
     get-stream "^3.0.0"
     glob "^7.1.2"
     globby "^8.0.1"
-    http-call "^5.1.0"
+    http-call "^5.1.1"
     load-json-file "^4.0.0"
     pkg-dir "^2.0.0"
     tar-fs "^1.16.0"
@@ -1776,9 +1798,9 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-ts-node@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-6.0.0.tgz#46c25f8498593a9248eeea16906f1598fa098140"
+ts-node@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-6.0.1.tgz#e2dd65abcadae530d2b2109cfd19202ba9f90402"
   dependencies:
     arrify "^1.0.0"
     chalk "^2.3.0"
