@@ -69,9 +69,17 @@ export async function buildConfig(root: string): Promise<IConfig> {
       if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), config.s3Key('baseDir', target))
       return qq.join(base, config.s3Key('baseDir', target))
     },
-    targets: (updateConfig.node.targets || []).map(t => {
+    targets: (updateConfig.node.targets || TARGETS).map(t => {
       const [platform, arch] = t.split('-') as [Config.PlatformTypes, Config.ArchTypes]
       return {platform, arch}
     }),
   }
 }
+
+const TARGETS = [
+  'linux-x64',
+  'linux-arm',
+  'win32-x64',
+  'win32-x86',
+  'darwin-x64',
+]

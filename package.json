@@ -71,13 +71,7 @@
         "debounce": 60
       },
       "node": {
-        "version": "10.0.0",
-        "targets": [
-          "win32-x64",
-          "win32-x86",
-          "linux-x64",
-          "darwin-x64"
-        ]
+        "version": "10.0.0"
       },
       "s3": {
         "bucket": "oclif-staging",
