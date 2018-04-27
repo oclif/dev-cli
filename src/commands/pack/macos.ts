@@ -35,9 +35,9 @@ export default class PackMacos extends Command {
       '--identifier', c.macos.identifier,
       '--version', buildConfig.version,
       '--install-location', `/usr/local/lib/${config.dirname}`,
-      '--sign', c.macos.sign,
       '--scripts', scriptsDir,
     ]
+    if (c.macos.sign) args.push('--sign', c.macos.sign)
     if (process.env.OSX_KEYCHAIN) args.push('--keychain', process.env.OSX_KEYCHAIN)
     args.push(dist)
     await qq.x('pkgbuild', args)
