@@ -1,3 +1,11 @@
+<a name="1.13.11"></a>
+## [1.13.11](https://github.com/oclif/dev-cli/compare/v1.13.10...v1.13.11) (2018-04-27)
+
+
+### Bug Fixes
+
+* default to all targets ([fa495f8](https://github.com/oclif/dev-cli/commit/fa495f8))
+
 <a name="1.13.10"></a>
 ## [1.13.10](https://github.com/oclif/dev-cli/compare/v1.13.9...v1.13.10) (2018-04-27)
 
