@@ -31,9 +31,9 @@ export default class Manifest extends Command {
     }
     const file = path.join(plugin.root, 'oclif.manifest.json')
     fs.writeFileSync(file, JSON.stringify(plugin.manifest))
-    if (this.config.pjson.files.includes('.oclif.manifest.json')) {
+    if (this.config.pjson.files.find((f: string) => f.endsWith('.oclif.manifest.json'))) {
       const pjson = await fs.readJSON('package.json')
-      pjson.files = pjson.files.map((f: string) => f === '.oclif.manifest.json' ? 'oclif.manifest.json' : f)
+      pjson.files = pjson.files.map((f: string) => f.replace(/\.oclif\.manifest\.json$/, 'oclif.manifest.json'))
       await fs.outputJSON('package.json', pjson, {spaces: 2})
     }
     this.log(`wrote manifest to ${file}`)
