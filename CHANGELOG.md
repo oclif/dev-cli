@@ -1,3 +1,11 @@
+<a name="1.13.15"></a>
+## [1.13.15](https://github.com/oclif/dev-cli/compare/v1.13.14...v1.13.15) (2018-05-03)
+
+
+### Bug Fixes
+
+* path of pjson reading for oclif manifest renaming ([4b301f6](https://github.com/oclif/dev-cli/commit/4b301f6))
+
 <a name="1.13.14"></a>
 ## [1.13.14](https://github.com/oclif/dev-cli/compare/v1.13.13...v1.13.14) (2018-05-03)
 
