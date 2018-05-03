@@ -1,3 +1,12 @@
+<a name="1.13.14"></a>
+## [1.13.14](https://github.com/oclif/dev-cli/compare/v1.13.13...v1.13.14) (2018-05-03)
+
+
+### Bug Fixes
+
+* manifest with leading slash ([f6ec36e](https://github.com/oclif/dev-cli/commit/f6ec36e))
+* rename oclif manifest to not be a dotfile ([6fb3dc6](https://github.com/oclif/dev-cli/commit/6fb3dc6))
+
 <a name="1.13.13"></a>
 ## [1.13.13](https://github.com/oclif/dev-cli/compare/v1.13.12...v1.13.13) (2018-05-01)
 
