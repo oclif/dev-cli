@@ -2,7 +2,7 @@
 
 import {Command} from '@oclif/command'
 import * as Config from '@oclif/config'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import * as path from 'path'
 
 export default class Manifest extends Command {
@@ -12,7 +12,7 @@ export default class Manifest extends Command {
   ]
 
   async run() {
-    try { fs.unlinkSync('.oclif.manifest.json') } catch {}
+    try { fs.unlinkSync('oclif.manifest.json') } catch {}
     const {args} = this.parse(Manifest)
     const root = path.resolve(args.path)
     let plugin = new Config.Plugin({root, type: 'core', ignoreManifest: true, errorOnManifestCreate: true})
@@ -29,8 +29,13 @@ export default class Manifest extends Command {
     if (process.env.OCLIF_NEXT_VERSION) {
       plugin.manifest.version = process.env.OCLIF_NEXT_VERSION
     }
-    const file = path.join(plugin.root, '.oclif.manifest.json')
+    const file = path.join(plugin.root, 'oclif.manifest.json')
     fs.writeFileSync(file, JSON.stringify(plugin.manifest))
+    if (this.config.pjson.files.includes('.oclif.manifest.json')) {
+      const pjson = await fs.readJSON('package.json')
+      pjson.files = pjson.files.map((f: string) => f === '.oclif.manifest.json' ? 'oclif.manifest.json' : f)
+      await fs.outputJSON('package.json', pjson, {spaces: 2})
+    }
     this.log(`wrote manifest to ${file}`)
   }
 }
