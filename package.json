@@ -8,10 +8,10 @@
   },
   "bugs": "https://github.com/oclif/dev-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.4.19",
+    "@oclif/command": "^1.4.20",
     "@oclif/config": "^1.6.17",
     "@oclif/errors": "^1.0.8",
-    "@oclif/plugin-help": "^1.2.7",
+    "@oclif/plugin-help": "^1.2.10",
     "cli-ux": "^3.4.1",
     "debug": "^3.1.0",
     "fs-extra": "^6.0.0",
@@ -22,7 +22,7 @@
     "tslib": "^1.9.0"
   },
   "devDependencies": {
-    "@oclif/plugin-legacy": "^1.0.13",
+    "@oclif/plugin-legacy": "^1.0.14",
     "@oclif/test": "^1.0.6",
     "@oclif/tslint": "^1.1.0",
     "@types/chai": "^4.1.3",
