@@ -51,7 +51,8 @@ export async function buildConfig(root: string): Promise<IConfig> {
   const _gitSha = await gitSha(root, {short: true})
   const version = config.version.includes('-') ? `${config.version}.${_gitSha}` : config.version
   const tmp = await Tmp(config)
-  const updateConfig = config.pjson.oclif.update
+  const updateConfig = config.pjson.oclif.update || {}
+  updateConfig.s3 = updateConfig.s3 || {}
   return {
     root,
     gitSha: _gitSha,

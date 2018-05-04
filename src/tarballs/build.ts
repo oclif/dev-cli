@@ -1,4 +1,5 @@
 import {ArchTypes, PlatformTypes} from '@oclif/config'
+import * as Errors from '@oclif/errors'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
@@ -43,6 +44,8 @@ export async function build(c: IConfig, options: {
     qq.cd(c.workspace())
     const pjson = await qq.readJSON('package.json')
     pjson.version = c.version
+    pjson.oclif.update = pjson.oclif.update || {}
+    pjson.oclif.update.s3 = pjson.oclif.update.s3 || {}
     pjson.oclif.update.s3.bucket = c.s3Config.bucket
     await qq.writeJSON('package.json', pjson)
   }
@@ -85,6 +88,7 @@ export async function build(c: IConfig, options: {
     if (options.pack === false) return
     await pack(workspace, c.dist(key))
     if (xz) await pack(workspace, c.dist(config.s3Key('versioned', '.tar.xz', target)))
+    if (!c.updateConfig.s3.host) return
     const manifest: IManifest = {
       rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
       version: c.version,
@@ -105,6 +109,10 @@ export async function build(c: IConfig, options: {
     if (options.pack === false) return
     await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.gz')))
     if (xz) await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.xz')))
+    if (!c.updateConfig.s3.host) {
+      Errors.warn('No S3 bucket or host configured. CLI will not be able to update.')
+      return
+    }
     const manifest: IManifest = {
       version: c.version,
       baseDir: config.s3Key('baseDir'),
