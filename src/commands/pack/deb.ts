@@ -38,7 +38,7 @@ export default class PackDeb extends Command {
       await qq.mkdirp([workspace, 'usr/bin'])
       await qq.mkdirp([workspace, 'usr/lib'])
       await qq.mv(buildConfig.workspace(target), [workspace, 'usr/lib', config.dirname])
-      await qq.write([workspace, 'usr/lib', config.dirname, 'bin', config.bin], scripts.bin())
+      await qq.write([workspace, 'usr/lib', config.dirname, 'bin', config.bin], scripts.bin(config))
       await qq.write([workspace, 'DEBIAN/control'], scripts.control(buildConfig, debArch(arch)))
       await qq.chmod([workspace, 'usr/lib', config.dirname, 'bin', config.bin], 0o755)
       await qq.x(`ln -s "../lib/${config.dirname}/bin/${config.bin}" "${workspace}/usr/bin/${config.bin}"`)
@@ -68,7 +68,7 @@ export default class PackDeb extends Command {
 }
 
 const scripts = {
-  bin: () => `#!/usr/bin/env bash
+  bin: (config: Config.IConfig) => `#!/usr/bin/env bash
 set -e
 echoerr() { echo "$@" 1>&2; }
 get_script_dir () {
@@ -84,6 +84,7 @@ get_script_dir () {
   echo "\$DIR"
 }
 DIR=\$(get_script_dir)
+export ${config.scopedEnvVar('UPDATE_INSTRUCTIONS')}="update with \"sudo apt update && sudo apt install ${config.bin}\""
 \$DIR/node \$DIR/run "\$@"
 `,
   control: (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
