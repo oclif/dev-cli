@@ -1,3 +1,11 @@
+<a name="1.13.17"></a>
+## [1.13.17](https://github.com/oclif/dev-cli/compare/v1.13.16...v1.13.17) (2018-05-04)
+
+
+### Bug Fixes
+
+* do not require s3 credentials to pack ([a5b73e0](https://github.com/oclif/dev-cli/commit/a5b73e0))
+
 <a name="1.13.16"></a>
 ## [1.13.16](https://github.com/oclif/dev-cli/compare/v1.13.15...v1.13.16) (2018-05-04)
 
