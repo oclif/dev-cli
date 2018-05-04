@@ -84,7 +84,7 @@ get_script_dir () {
   echo "\$DIR"
 }
 DIR=\$(get_script_dir)
-export ${config.scopedEnvVar('UPDATE_INSTRUCTIONS')}="update with \"sudo apt update && sudo apt install ${config.bin}\""
+export ${config.scopedEnvVar('UPDATE_INSTRUCTIONS')}="update with \\"sudo apt update && sudo apt install ${config.bin}\\""
 \$DIR/node \$DIR/run "\$@"
 `,
   control: (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
