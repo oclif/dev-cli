@@ -1,3 +1,12 @@
+<a name="1.13.18"></a>
+## [1.13.18](https://github.com/oclif/dev-cli/compare/v1.13.17...v1.13.18) (2018-05-04)
+
+
+### Bug Fixes
+
+* add deb update instructions ([45c62de](https://github.com/oclif/dev-cli/commit/45c62de))
+* quote escaping ([1c9724f](https://github.com/oclif/dev-cli/commit/1c9724f))
+
 <a name="1.13.17"></a>
 ## [1.13.17](https://github.com/oclif/dev-cli/compare/v1.13.16...v1.13.17) (2018-05-04)
 
