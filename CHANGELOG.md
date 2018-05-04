@@ -1,3 +1,11 @@
+<a name="1.13.16"></a>
+## [1.13.16](https://github.com/oclif/dev-cli/compare/v1.13.15...v1.13.16) (2018-05-04)
+
+
+### Bug Fixes
+
+* use dotfile manifest when set like that in files ([75aa0f5](https://github.com/oclif/dev-cli/commit/75aa0f5))
+
 <a name="1.13.15"></a>
 ## [1.13.15](https://github.com/oclif/dev-cli/compare/v1.13.14...v1.13.15) (2018-05-03)
 
