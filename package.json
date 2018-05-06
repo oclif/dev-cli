@@ -12,7 +12,7 @@
     "@oclif/config": "^1.6.17",
     "@oclif/errors": "^1.0.8",
     "@oclif/plugin-help": "^1.2.10",
-    "cli-ux": "^3.4.1",
+    "cli-ux": "^4.0.0",
     "debug": "^3.1.0",
     "fs-extra": "^6.0.0",
     "lodash": "^4.17.10",
