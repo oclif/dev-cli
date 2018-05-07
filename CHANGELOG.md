@@ -1,3 +1,11 @@
+<a name="1.13.19"></a>
+## [1.13.19](https://github.com/oclif/dev-cli/compare/v1.13.18...v1.13.19) (2018-05-07)
+
+
+### Bug Fixes
+
+* updated deps ([1556e1e](https://github.com/oclif/dev-cli/commit/1556e1e))
+
 <a name="1.13.18"></a>
 ## [1.13.18](https://github.com/oclif/dev-cli/compare/v1.13.17...v1.13.18) (2018-05-04)
 
