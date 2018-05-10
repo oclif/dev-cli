@@ -4,7 +4,7 @@ import * as qq from 'qqjs'
 import {log} from '../log'
 
 export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}: {nodeVersion: string, output: string, platform: string, arch: string, tmp: string}) {
-  if (arch === 'arm') arch = 'armv7l'
+  if (arch === 'arm') arch = 'armv6l'
   let nodeBase = `node-v${nodeVersion}-${platform}-${arch}`
   let tarball = path.join(tmp, 'node', `${nodeBase}.tar.xz`)
   let url = `https://nodejs.org/dist/v${nodeVersion}/${nodeBase}.tar.xz`
