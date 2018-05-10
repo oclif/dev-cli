@@ -1,3 +1,12 @@
+<a name="1.13.20"></a>
+## [1.13.20](https://github.com/oclif/dev-cli/compare/v1.13.19...v1.13.20) (2018-05-10)
+
+
+### Bug Fixes
+
+* updated deps ([a0b8ab7](https://github.com/oclif/dev-cli/commit/a0b8ab7))
+* use armv6l for better raspberry pi support ([be0e385](https://github.com/oclif/dev-cli/commit/be0e385))
+
 <a name="1.13.19"></a>
 ## [1.13.19](https://github.com/oclif/dev-cli/compare/v1.13.18...v1.13.19) (2018-05-07)
 
