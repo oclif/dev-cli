@@ -17,6 +17,8 @@ export default class PackMacos extends Command {
     const {flags} = this.parse(PackMacos)
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
+    const c = config.pjson.oclif as any
+    if (!c.macos || !c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
     await Tarballs.build(buildConfig, {platform: 'darwin', pack: false})
     const dist = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     await qq.emptyDir(path.dirname(dist))
@@ -28,8 +30,6 @@ export default class PackMacos extends Command {
     }
     await writeScript('preinstall')
     await writeScript('postinstall')
-    const c = config.pjson.oclif as any
-    if (!c.macos || !c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
     const args = [
       '--root', buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
       '--identifier', c.macos.identifier,
