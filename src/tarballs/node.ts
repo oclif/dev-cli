@@ -1,7 +1,17 @@
+import {error} from '@oclif/errors'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
 import {log} from '../log'
+
+async function checkFor7Zip() {
+  try {
+    await qq.x('7z', {stdio: [0, null, 2]})
+  } catch (err) {
+    if (err.code === 127) error('install 7-zip to package windows tarball')
+    else throw err
+  }
+}
 
 export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}: {nodeVersion: string, output: string, platform: string, arch: string, tmp: string}) {
   if (arch === 'arm') arch = 'armv6l'
@@ -9,6 +19,7 @@ export async function fetchNodeBinary({nodeVersion, output, platform, arch, tmp}
   let tarball = path.join(tmp, 'node', `${nodeBase}.tar.xz`)
   let url = `https://nodejs.org/dist/v${nodeVersion}/${nodeBase}.tar.xz`
   if (platform === 'win32') {
+    await checkFor7Zip()
     nodeBase = `node-v${nodeVersion}-win-${arch}`
     tarball = path.join(tmp, 'node', `${nodeBase}.7z`)
     url = `https://nodejs.org/dist/v${nodeVersion}/${nodeBase}.7z`

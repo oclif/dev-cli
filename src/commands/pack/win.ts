@@ -12,6 +12,7 @@ export default class PackWin extends Command {
   }
 
   async run() {
+    await this.checkForNSIS()
     const {flags} = this.parse(PackWin)
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
@@ -27,6 +28,15 @@ export default class PackWin extends Command {
       const o = buildConfig.dist(`win/${config.bin}-v${buildConfig.version}-${arch}.exe`)
       await qq.mv([installerBase, 'installer.exe'], o)
       this.log(`built ${o}`)
+    }
+  }
+
+  private async checkForNSIS() {
+    try {
+      await qq.x('makensis', {stdio: [0, null, 2]})
+    } catch (err) {
+      if (err.code === 127) this.error('install makensis')
+      else throw err
     }
   }
 }
