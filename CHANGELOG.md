@@ -1,3 +1,11 @@
+<a name="1.13.22"></a>
+## [1.13.22](https://github.com/oclif/dev-cli/compare/v1.13.21...v1.13.22) (2018-05-16)
+
+
+### Bug Fixes
+
+* check earlier if macos.identifier is set ([#35](https://github.com/oclif/dev-cli/issues/35)) ([2e0e4eb](https://github.com/oclif/dev-cli/commit/2e0e4eb))
+
 <a name="1.13.21"></a>
 ## [1.13.21](https://github.com/oclif/dev-cli/compare/v1.13.20...v1.13.21) (2018-05-15)
 
