@@ -89,8 +89,9 @@ export async function build(c: IConfig, options: {
     await pack(workspace, c.dist(key))
     if (xz) await pack(workspace, c.dist(config.s3Key('versioned', '.tar.xz', target)))
     if (!c.updateConfig.s3.host) return
+    const rollout = (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout)
     const manifest: IManifest = {
-      rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
+      rollout: rollout === false ? undefined : rollout,
       version: c.version,
       channel: c.channel,
       baseDir: config.s3Key('baseDir', target),
