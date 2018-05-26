@@ -35,6 +35,7 @@ export default class PackWin extends Command {
     try {
       await qq.x('makensis', {stdio: [0, null, 2]})
     } catch (err) {
+      if (err.code === 1) return
       if (err.code === 127) this.error('install makensis')
       else throw err
     }

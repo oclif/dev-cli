@@ -63,9 +63,9 @@
     debug "^3.1.0"
     semver "^5.5.0"
 
-"@oclif/config@^1.6.18":
-  version "1.6.18"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.6.18.tgz#25693cb4badb81489a8c5f846761630dca8c516c"
+"@oclif/config@^1.6.19":
+  version "1.6.19"
+  resolved "https://registry.npmjs.org/@oclif/config/-/config-1.6.19.tgz#727aee1e0859d18c56c0fa3e1ec08826f28a7aac"
   dependencies:
     debug "^3.1.0"
 
@@ -92,6 +92,16 @@
 "@oclif/errors@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@oclif/errors/-/errors-1.1.1.tgz#2ff4ea9043491ae548e0c8545b91e260c6c0d64f"
+  dependencies:
+    clean-stack "^1.3.0"
+    fs-extra "^6.0.1"
+    indent-string "^3.2.0"
+    strip-ansi "^4.0.0"
+    wrap-ansi "^3.0.1"
+
+"@oclif/errors@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@oclif/errors/-/errors-1.1.2.tgz#2a54aae07a7655cc4523cae270d0a50cbc5dbef3"
   dependencies:
     clean-stack "^1.3.0"
     fs-extra "^6.0.1"
@@ -150,11 +160,11 @@
   dependencies:
     fancy-test "^1.0.6"
 
-"@oclif/tslint@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@oclif/tslint/-/tslint-1.1.1.tgz#4d89d0fadbd233b8cd797d43557b5e987b0880a1"
+"@oclif/tslint@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@oclif/tslint/-/tslint-1.1.2.tgz#23503ebb56c25556242e23e9df8706efc0b1fafb"
   dependencies:
-    tslint-xo "^0.7.2"
+    tslint-xo "^0.8.0"
 
 "@types/chai@^4.1.3":
   version "4.1.3"
@@ -196,9 +206,13 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash@*", "@types/lodash@^4.14.108":
+"@types/lodash@*":
   version "4.14.108"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
+
+"@types/lodash@^4.14.109":
+  version "4.14.109"
+  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.109.tgz#b1c4442239730bf35cabaf493c772b18c045886d"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -212,9 +226,9 @@
   version "8.10.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.11.tgz#971ea8cb91adbe0b74e3fbd867dec192d5893a5f"
 
-"@types/node@^10.0.9":
-  version "10.0.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.9.tgz#7cb73a6ef9cf4e41e5354e114e824bfdfd96a6b4"
+"@types/node@^10.1.2":
+  version "10.1.2"
+  resolved "https://registry.npmjs.org/@types/node/-/node-10.1.2.tgz#1b928a0baa408fc8ae3ac012cc81375addc147c6"
 
 "@types/supports-color@^5.3.0":
   version "5.3.0"
@@ -302,9 +316,9 @@ atob@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-aws-sdk@^2.239.1:
-  version "2.239.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.239.1.tgz#299a3e611e5c47b39230bd1f51e2d25d1fbdb345"
+aws-sdk@^2.247.1:
+  version "2.247.1"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.247.1.tgz#be5f220d40665ac91d3a84a51f029fa05560c4ee"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -433,12 +447,12 @@ cardinal@^1.0.0:
     ansicolors "~0.2.1"
     redeyed "~1.0.0"
 
-cardinal@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/cardinal/-/cardinal-2.0.1.tgz#2431630e6c006253b803967249b2d72e50d1985d"
+cardinal@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/cardinal/-/cardinal-2.1.1.tgz#7cc1055d822d212954d07b085dea251cc7bc5505"
   dependencies:
     ansicolors "~0.3.2"
-    redeyed "~2.0.0"
+    redeyed "~2.1.0"
 
 chai@^4.1.2:
   version "4.1.2"
@@ -509,20 +523,21 @@ cli-ux@^3.4.1:
     strip-ansi "^4.0.0"
     supports-color "^5.4.0"
 
-cli-ux@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/cli-ux/-/cli-ux-4.3.0.tgz#048f6334ef50cc5ab7cc0d51725c3888c75cbc41"
+cli-ux@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/cli-ux/-/cli-ux-4.4.0.tgz#b7536e144b48d18d960bb695cbac3707178f1e90"
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     "@oclif/screen" "^1.0.2"
     ansi-styles "^3.2.1"
-    cardinal "^2.0.0"
+    cardinal "^2.1.1"
     chalk "^2.4.1"
     clean-stack "^1.3.0"
     extract-stack "^1.0.0"
     fs-extra "^6.0.1"
     hyperlinker "^1.0.0"
     indent-string "^3.2.0"
+    is-wsl "^1.1.0"
     lodash "^4.17.10"
     password-prompt "^1.0.6"
     semver "^5.5.0"
@@ -547,11 +562,7 @@ color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
-commander@2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
-
-commander@^2.12.1:
+commander@2.15.1, commander@^2.12.1:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
@@ -874,9 +885,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-growl@1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.3.tgz#1926ba90cf3edfe2adb4927f5880bc22c66c790f"
+growl@1.10.5:
+  version "1.10.5"
+  resolved "https://registry.npmjs.org/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
 
 has-ansi@^2.0.0:
   version "2.0.0"
@@ -1115,6 +1126,10 @@ is-windows@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
 
+is-wsl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
+
 isarray@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
@@ -1295,21 +1310,21 @@ mkdirp@0.5.1, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-5.1.1.tgz#b774c75609dac05eb48f4d9ba1d827b97fde8a7b"
+mocha@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npmjs.org/mocha/-/mocha-5.2.0.tgz#6d8ae508f59167f940f2b5b3c4a612ae50c90ae6"
   dependencies:
     browser-stdout "1.3.1"
-    commander "2.11.0"
+    commander "2.15.1"
     debug "3.1.0"
     diff "3.5.0"
     escape-string-regexp "1.0.5"
     glob "7.1.2"
-    growl "1.10.3"
+    growl "1.10.5"
     he "1.1.1"
     minimatch "3.0.4"
     mkdirp "0.5.1"
-    supports-color "4.4.0"
+    supports-color "5.4.0"
 
 ms@2.0.0:
   version "2.0.0"
@@ -1540,9 +1555,9 @@ redeyed@~1.0.0:
   dependencies:
     esprima "~3.0.0"
 
-redeyed@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/redeyed/-/redeyed-2.0.0.tgz#e7ae722cd4ce4dbc537cb5810fef3de2ac76ff12"
+redeyed@~2.1.0:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/redeyed/-/redeyed-2.1.1.tgz#8984b5815d99cb220469c99eeeffe38913e6cc0b"
   dependencies:
     esprima "~4.0.0"
 
@@ -1784,21 +1799,15 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
-supports-color@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
-  dependencies:
-    has-flag "^2.0.0"
-
-supports-color@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
-
-supports-color@^5.0.0, supports-color@^5.1.0, supports-color@^5.3.0, supports-color@^5.4.0:
+supports-color@5.4.0, supports-color@^5.0.0, supports-color@^5.1.0, supports-color@^5.3.0, supports-color@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.4.0.tgz#1c6b337402c2137605efe19f10fec390f6faab54"
   dependencies:
     has-flag "^3.0.0"
+
+supports-color@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
 supports-hyperlinks@^1.0.1:
   version "1.0.1"
@@ -1860,9 +1869,9 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-ts-node@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-6.0.3.tgz#28bf74bcad134fad17f7469dad04638ece03f0f4"
+ts-node@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.npmjs.org/ts-node/-/ts-node-6.0.5.tgz#977c1c931da7a2b09ae2930101f0104a5c2271e9"
   dependencies:
     arrify "^1.0.0"
     chalk "^2.3.0"
@@ -1889,9 +1898,9 @@ tslint-consistent-codestyle@^1.11.0:
     tslib "^1.7.1"
     tsutils "^2.24.0"
 
-tslint-eslint-rules@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/tslint-eslint-rules/-/tslint-eslint-rules-5.1.0.tgz#3232b318da55dbb5a83e3f5d657c1ddbb27b9ff2"
+tslint-eslint-rules@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.npmjs.org/tslint-eslint-rules/-/tslint-eslint-rules-5.3.1.tgz#10dec4361df0b3e4385d91ff8e0226bda4ec2ad4"
   dependencies:
     doctrine "0.7.2"
     tslib "1.9.0"
@@ -1903,12 +1912,12 @@ tslint-microsoft-contrib@^5.0.2:
   dependencies:
     tsutils "^2.12.1"
 
-tslint-xo@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/tslint-xo/-/tslint-xo-0.7.2.tgz#7523e9f2819e23c5ce66b501e4b76067c1e6f637"
+tslint-xo@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.npmjs.org/tslint-xo/-/tslint-xo-0.8.0.tgz#2a729485e5698159bcf2cd86339bbca6fc5a45dc"
   dependencies:
     tslint-consistent-codestyle "^1.11.0"
-    tslint-eslint-rules "^5.1.0"
+    tslint-eslint-rules "^5.3.1"
     tslint-microsoft-contrib "^5.0.2"
 
 tslint@^5.10.0:
