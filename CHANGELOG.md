@@ -1,3 +1,11 @@
+<a name="1.13.27"></a>
+## [1.13.27](https://github.com/oclif/dev-cli/compare/v1.13.26...v1.13.27) (2018-05-30)
+
+
+### Bug Fixes
+
+* config root finding ([89e8ac3](https://github.com/oclif/dev-cli/commit/89e8ac3))
+
 <a name="1.13.26"></a>
 ## [1.13.26](https://github.com/oclif/dev-cli/compare/v1.13.25...v1.13.26) (2018-05-30)
 
