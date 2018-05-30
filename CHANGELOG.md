@@ -1,3 +1,11 @@
+<a name="1.13.26"></a>
+## [1.13.26](https://github.com/oclif/dev-cli/compare/v1.13.25...v1.13.26) (2018-05-30)
+
+
+### Bug Fixes
+
+* path of index.js commands ([15ed4c5](https://github.com/oclif/dev-cli/commit/15ed4c5))
+
 <a name="1.13.25"></a>
 ## [1.13.25](https://github.com/oclif/dev-cli/compare/v1.13.24...v1.13.25) (2018-05-30)
 
