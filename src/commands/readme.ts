@@ -107,7 +107,7 @@ USAGE
       ...topics.map(t => {
         return compact([
           `* [\`${config.bin} ${t.name}\`](docs/${t.name.replace(/:/g, '/')}.md)`,
-          t.description,
+          template({config})(t.description || '').trim().split('\n')[0]
         ]).join(' - ')
       }),
     ].join('\n').trim() + '\n'
