@@ -160,6 +160,12 @@ USAGE
     let commandsDir = plugin.pjson.oclif.commands
     if (!repo || !repo.url || !commandsDir) return
     let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
+    if (process.platform !== 'win32') {
+      // TODO: make this also work on windows
+      let base = plugin.name === this.config.name ? this.config.root : `${this.config.root}/node_modules/${plugin.name}`
+      commandPath = require.resolve(base + '/' + commandPath.replace(/\.js$/, ''))
+      commandPath = commandPath.replace(base + '/', '')
+    }
     if (plugin.pjson.devDependencies.typescript) {
       commandPath = commandPath.replace(/^lib\//, 'src/')
       commandPath = commandPath.replace(/\.js$/, '.ts')
