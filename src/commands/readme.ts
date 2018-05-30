@@ -119,7 +119,8 @@ USAGE
       bin,
       '='.repeat(bin.length),
       '',
-      topic.description,
+      template({config})(topic.description || '').trim(),
+      '',
       this.commands(config, commands),
     ].join('\n').trim() + '\n'
     fs.outputFileSync(file, doc)
