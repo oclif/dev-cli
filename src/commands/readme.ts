@@ -162,7 +162,7 @@ USAGE
     let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
     if (process.platform !== 'win32') {
       // TODO: make this also work on windows
-      let base = plugin.name === this.config.name ? this.config.root : `${this.config.root}/node_modules/${plugin.name}`
+      let base = plugin.name === config.name ? config.root : `${config.root}/node_modules/${plugin.name}`
       commandPath = require.resolve(base + '/' + commandPath.replace(/\.js$/, ''))
       commandPath = commandPath.replace(base + '/', '')
     }
