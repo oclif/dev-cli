@@ -1,3 +1,12 @@
+<a name="1.13.25"></a>
+## [1.13.25](https://github.com/oclif/dev-cli/compare/v1.13.24...v1.13.25) (2018-05-30)
+
+
+### Bug Fixes
+
+* templatize topic descriptions ([22cc896](https://github.com/oclif/dev-cli/commit/22cc896))
+* use first line of topic descriptions ([8d6e1ce](https://github.com/oclif/dev-cli/commit/8d6e1ce))
+
 <a name="1.13.24"></a>
 ## [1.13.24](https://github.com/oclif/dev-cli/compare/v1.13.23...v1.13.24) (2018-05-29)
 
