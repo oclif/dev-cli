@@ -1,3 +1,11 @@
+<a name="1.13.29"></a>
+## [1.13.29](https://github.com/oclif/dev-cli/compare/v1.13.28...v1.13.29) (2018-05-31)
+
+
+### Bug Fixes
+
+* use COLUMNS ([b0b4715](https://github.com/oclif/dev-cli/commit/b0b4715))
+
 <a name="1.13.28"></a>
 ## [1.13.28](https://github.com/oclif/dev-cli/compare/v1.13.27...v1.13.28) (2018-05-31)
 
