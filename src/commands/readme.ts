@@ -98,7 +98,7 @@ USAGE
         path.join('.', 'docs', topic.name.replace(/:/g, '/') + '.md'),
         config,
         topic,
-        commands.filter(c => c.id.startsWith(topic.name)),
+        commands.filter(c => c.id === topic.name || c.id.startsWith(topic.name + ':')),
       )
     }
 
