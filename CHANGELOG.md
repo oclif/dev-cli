@@ -1,3 +1,11 @@
+<a name="1.13.28"></a>
+## [1.13.28](https://github.com/oclif/dev-cli/compare/v1.13.27...v1.13.28) (2018-05-31)
+
+
+### Bug Fixes
+
+* ensure topic docs only have specific topic ([d9c0386](https://github.com/oclif/dev-cli/commit/d9c0386))
+
 <a name="1.13.27"></a>
 ## [1.13.27](https://github.com/oclif/dev-cli/compare/v1.13.26...v1.13.27) (2018-05-30)
 
