@@ -10,6 +10,7 @@ import * as path from 'path'
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
+const columns = parseInt(process.env.COLUMNS!, 10) || 120
 
 function slugify(input: string): string {
   return _.kebabCase(input.trim().replace(/:/g, '')).replace(/[^a-zA-Z0-9\- ]/g, '')
@@ -140,7 +141,7 @@ USAGE
   renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
     let title = template({config})(c.description || '').trim().split('\n')[0]
-    const help = new Help(config, {stripAnsi: true, maxWidth: 120})
+    const help = new Help(config, {stripAnsi: true, maxWidth: columns})
     const header = () => `## \`${config.bin} ${this.commandUsage(c)}\``
     return compact([
       header(),
