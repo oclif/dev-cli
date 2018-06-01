@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@oclif/plugin-legacy": "^1.0.15",
-    "@oclif/test": "^1.0.8",
+    "@oclif/test": "^1.0.9",
     "@oclif/tslint": "^1.1.2",
     "@types/chai": "^4.1.3",
     "@types/execa": "^0.9.0",
