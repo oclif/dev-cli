@@ -1,3 +1,13 @@
+<a name="1.13.30"></a>
+## [1.13.30](https://github.com/oclif/dev-cli/compare/v1.13.29...v1.13.30) (2018-06-01)
+
+
+### Bug Fixes
+
+* typescript 2.9 ([59ba01a](https://github.com/oclif/dev-cli/commit/59ba01a))
+* updated deps ([82ff451](https://github.com/oclif/dev-cli/commit/82ff451))
+* updated deps ([2e32621](https://github.com/oclif/dev-cli/commit/2e32621))
+
 <a name="1.13.29"></a>
 ## [1.13.29](https://github.com/oclif/dev-cli/compare/v1.13.28...v1.13.29) (2018-05-31)
 
