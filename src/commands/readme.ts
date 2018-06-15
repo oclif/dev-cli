@@ -156,24 +156,12 @@ USAGE
     if (!pluginName) return
     let plugin = config.plugins.find(p => p.name === c.pluginName)
     if (!plugin) return
-    normalize(plugin.pjson)
-    let repo = plugin.pjson.repository
-    let commandsDir = plugin.pjson.oclif.commands
-    if (!repo || !repo.url || !commandsDir) return
-    let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
-    if (process.platform !== 'win32') {
-      // TODO: make this also work on windows
-      let base = plugin.name === config.name ? config.root : `${config.root}/node_modules/${plugin.name}`
-      commandPath = require.resolve(base + '/' + commandPath.replace(/\.js$/, ''))
-      commandPath = commandPath.replace(base + '/', '')
-    }
-    if (plugin.pjson.devDependencies.typescript) {
-      commandPath = commandPath.replace(/^lib\//, 'src/')
-      commandPath = commandPath.replace(/\.js$/, '.ts')
-    }
-    repo = repo.url.split('+')[1].replace(/\.git$/, '')
+    const repo = this.repo(plugin)
+    if (!repo) return
     let label = plugin.name
     let version = plugin.version
+    let commandPath = this.commandPath(config, plugin, c)
+    if (!commandPath) return
     if (config.name === plugin.name) {
       label = commandPath
       version = process.env.OCLIF_NEXT_VERSION || version
@@ -181,7 +169,44 @@ USAGE
     return `_See code: [${label}](${repo}/blob/v${version}/${commandPath})_`
   }
 
-  commandUsage(command: Config.Command): string {
+  private repo(plugin: Config.IPlugin): string | undefined {
+    const pjson = {...plugin.pjson}
+    normalize(pjson)
+    let repo = pjson.repository && pjson.repository.url
+    if (!repo) return
+    let url = new URL(repo)
+    if (!['github.com', 'gitlab.com'].includes(url.hostname)) return
+    return `https://${url.hostname}${url.pathname.replace(/\.git$/, '')}`
+  }
+
+  /**
+   * fetches the path to a command
+   */
+  private commandPath(config: Config.IConfig, plugin: Config.IPlugin, c: Config.Command): string | undefined {
+    let commandsDir = plugin.pjson.oclif.commands
+    if (!commandsDir || process.platform === 'win32') return
+    let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
+    let root = config.root
+    let base: string
+    while (root !== '/') {
+      base = plugin.name === config.name ? root : `${root}/node_modules/${plugin.name}`
+      try {
+        commandPath = require.resolve(base + '/node_modules/' + commandPath.replace(/\.js$/, ''))
+        break
+      } catch (err) {
+        if (err.code !== 'MODULE_NOT_FOUND') throw err
+        root = path.dirname(root)
+      }
+    }
+    commandPath = commandPath.replace(base! + '/', '')
+    if (plugin.pjson.devDependencies.typescript) {
+      commandPath = commandPath.replace(/^lib\//, 'src/')
+      commandPath = commandPath.replace(/\.js$/, '.ts')
+    }
+    return commandPath
+  }
+
+  private commandUsage(command: Config.Command): string {
     const arg = (arg: Config.Command.Arg) => {
       let name = arg.name.toUpperCase()
       if (arg.required) return `${name}`
