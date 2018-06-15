@@ -23,7 +23,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.13.31 linux-x64 node-v9.11.1
+@oclif/dev-cli/1.13.32 linux-x64 node-v9.11.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -73,7 +73,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/manifest.ts)_
 
 ## `oclif-dev pack`
 
@@ -90,7 +90,7 @@ DESCRIPTION
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
 ```
 
-_See code: [src/commands/pack/index.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/pack/index.ts)_
+_See code: [src/commands/pack.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/pack.ts)_
 
 ## `oclif-dev pack:deb`
 
@@ -104,7 +104,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/pack/deb.ts)_
+_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/pack/deb.ts)_
 
 ## `oclif-dev pack:macos`
 
@@ -118,7 +118,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/pack/macos.ts)_
+_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/pack/macos.ts)_
 
 ## `oclif-dev pack:win`
 
@@ -132,7 +132,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/pack/win.ts)_
+_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/pack/win.ts)_
 
 ## `oclif-dev publish`
 
@@ -147,7 +147,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/index.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/publish/index.ts)_
+_See code: [src/commands/publish.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/publish.ts)_
 
 ## `oclif-dev publish:deb`
 
@@ -161,7 +161,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/publish/deb.ts)_
+_See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/publish/deb.ts)_
 
 ## `oclif-dev publish:macos`
 
@@ -175,7 +175,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/publish/macos.ts)_
+_See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/publish/macos.ts)_
 
 ## `oclif-dev publish:win`
 
@@ -189,7 +189,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/publish/win.ts)_
+_See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/publish/win.ts)_
 
 ## `oclif-dev readme`
 
@@ -210,5 +210,5 @@ DESCRIPTION
   <!-- commands -->
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.13.31/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.13.32/src/commands/readme.ts)_
 <!-- commandsstop -->
