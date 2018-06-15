@@ -6,6 +6,7 @@ import Help from '@oclif/plugin-help'
 import * as fs from 'fs-extra'
 import * as _ from 'lodash'
 import * as path from 'path'
+import {URL} from 'url'
 
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
