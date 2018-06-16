@@ -7,7 +7,10 @@ import {log} from '../../log'
 import * as Tarballs from '../../tarballs'
 
 export default class Publish extends Command {
-  static description = 'publish an oclif CLI to S3'
+  static description = `publish an oclif CLI to S3
+
+"aws-sdk" will need to be installed as a devDependency to publish.
+`
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
