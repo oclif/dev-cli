@@ -1,3 +1,11 @@
+<a name="1.13.33"></a>
+## [1.13.33](https://github.com/oclif/dev-cli/compare/v1.13.32...v1.13.33) (2018-06-16)
+
+
+### Bug Fixes
+
+* better error if aws-sdk is missing ([#43](https://github.com/oclif/dev-cli/issues/43)) ([3694551](https://github.com/oclif/dev-cli/commit/3694551))
+
 <a name="1.13.32"></a>
 ## [1.13.32](https://github.com/oclif/dev-cli/compare/v1.13.31...v1.13.32) (2018-06-15)
 
