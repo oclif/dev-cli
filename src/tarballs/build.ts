@@ -66,7 +66,7 @@ export async function build(c: IConfig, options: {
     const toRemove = await qq.globby([
       'node_modules/**/README*',
       '**/CHANGELOG*',
-      '**/*.ts',
+      '**/*.d.ts',
     ], {nocase: true})
     await qq.rm(...toRemove)
     await qq.rmIfEmpty('.')
