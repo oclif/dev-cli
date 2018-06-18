@@ -60,17 +60,6 @@ export async function build(c: IConfig, options: {
       await qq.x('npm install --production')
     }
   }
-  const prune = async () => {
-    // removes unnecessary files to make the tarball smaller
-    qq.cd(c.workspace())
-    const toRemove = await qq.globby([
-      'node_modules/**/README*',
-      '**/CHANGELOG*',
-      '**/*.d.ts',
-    ], {nocase: true})
-    await qq.rm(...toRemove)
-    await qq.rmIfEmpty('.')
-  }
   const buildTarget = async (target: {platform: PlatformTypes, arch: ArchTypes}) => {
     const workspace = c.workspace(target)
     const key = config.s3Key('versioned', '.tar.gz', target)
@@ -134,7 +123,6 @@ export async function build(c: IConfig, options: {
   await extractCLI(await packCLI())
   await updatePJSON()
   await addDependencies()
-  await prune()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
   for (let target of c.targets) {
