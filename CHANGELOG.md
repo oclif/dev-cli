@@ -1,3 +1,12 @@
+<a name="1.13.34"></a>
+## [1.13.34](https://github.com/oclif/dev-cli/compare/v1.13.33...v1.13.34) (2018-06-18)
+
+
+### Bug Fixes
+
+* Modify prune to only remove *.d.ts files, not all .ts files ([#44](https://github.com/oclif/dev-cli/issues/44)) ([a831bdc](https://github.com/oclif/dev-cli/commit/a831bdc))
+* remove prune ([fd25750](https://github.com/oclif/dev-cli/commit/fd25750))
+
 <a name="1.13.33"></a>
 ## [1.13.33](https://github.com/oclif/dev-cli/compare/v1.13.32...v1.13.33) (2018-06-16)
 
