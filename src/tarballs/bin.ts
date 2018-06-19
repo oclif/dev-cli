@@ -4,6 +4,7 @@ import * as qq from 'qqjs'
 export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
   const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
   const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
+  const clientHomeEnvVar = config.scopedEnvVarKey('OCLIF_CLIENT_HOME')
   const writeWin32 = async () => {
     const {bin} = config
     await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
@@ -52,7 +53,8 @@ get_script_dir () {
 DIR=\$(get_script_dir)
 CLI_HOME=\$(cd && pwd)
 XDG_DATA_HOME=\${XDG_DATA_HOME:="\$CLI_HOME/.local/share"}
-BIN_PATH="\$XDG_DATA_HOME/${config.dirname}/client/bin/${config.bin}"
+CLIENT_HOME=\${${clientHomeEnvVar}:=$XDG_DATA_HOME/${config.dirname}/client}
+BIN_PATH="\$CLIENT_HOME/bin/${config.bin}"
 if [ -z "\$${redirectedEnvVar}" ] && [ -x "\$BIN_PATH" ] && [[ ! "\$DIR/${config.bin}" -ef "\$BIN_PATH" ]]; then
   if [ "\$DEBUG" == "*" ]; then
     echoerr "\$BIN_PATH" "\$@"
