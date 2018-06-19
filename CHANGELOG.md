@@ -1,3 +1,11 @@
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/oclif/dev-cli/compare/v1.13.34...v1.14.0) (2018-06-19)
+
+
+### Features
+
+* support OCLIF_CLIENT_HOME env var ([#46](https://github.com/oclif/dev-cli/issues/46)) ([a49ddb8](https://github.com/oclif/dev-cli/commit/a49ddb8))
+
 <a name="1.13.34"></a>
 ## [1.13.34](https://github.com/oclif/dev-cli/compare/v1.13.33...v1.13.34) (2018-06-18)
 
