@@ -1,3 +1,11 @@
+<a name="1.15.0"></a>
+# [1.15.0](https://github.com/oclif/dev-cli/compare/v1.14.0...v1.15.0) (2018-06-20)
+
+
+### Features
+
+* added repositoryPrefix to allow customizing code URLs ([bce2fe4](https://github.com/oclif/dev-cli/commit/bce2fe4))
+
 <a name="1.14.0"></a>
 # [1.14.0](https://github.com/oclif/dev-cli/compare/v1.13.34...v1.14.0) (2018-06-19)
 
