@@ -24,6 +24,8 @@ The readme must have any of the following tags inside of it for it to be replace
 <!-- usage -->
 # Commands
 <!-- commands -->
+
+Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 `
   static flags = {
     multi: flags.boolean({description: 'create a different markdown page for each topic'})
@@ -167,7 +169,8 @@ USAGE
       label = commandPath
       version = process.env.OCLIF_NEXT_VERSION || version
     }
-    return `_See code: [${label}](${repo}/blob/v${version}/${commandPath})_`
+    const template = plugin.pjson.oclif.repositoryPrefix || '<%- repo %>/blob/v<%- version %>/<%- commandPath %>'
+    return `_See code: [${label}](${_.template(template)({repo, version, commandPath, config, c})})_`
   }
 
   private repo(plugin: Config.IPlugin): string | undefined {
