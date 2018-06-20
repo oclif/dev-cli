@@ -18,7 +18,6 @@
     "lodash": "^4.17.10",
     "normalize-package-data": "^2.4.0",
     "qqjs": "^0.3.10",
-    "require-resolve": "^0.0.2",
     "tslib": "^1.9.2"
   },
   "devDependencies": {

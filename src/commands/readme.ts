@@ -163,7 +163,7 @@ USAGE
     if (!repo) return
     let label = plugin.name
     let version = plugin.version
-    let commandPath = this.commandPath(config, plugin, c)
+    let commandPath = this.commandPath(plugin, c)
     if (!commandPath) return
     if (config.name === plugin.name) {
       label = commandPath
@@ -186,28 +186,19 @@ USAGE
   /**
    * fetches the path to a command
    */
-  private commandPath(config: Config.IConfig, plugin: Config.IPlugin, c: Config.Command): string | undefined {
+  private commandPath(plugin: Config.IPlugin, c: Config.Command): string | undefined {
     let commandsDir = plugin.pjson.oclif.commands
-    if (!commandsDir || process.platform === 'win32') return
-    let commandPath = `${commandsDir.replace('./', '')}/${c.id.replace(/:/g, '/')}.js`
-    let root = config.root
-    let base: string
-    while (root !== '/') {
-      base = plugin.name === config.name ? root : `${root}/node_modules/${plugin.name}`
-      try {
-        commandPath = require.resolve(base + '/node_modules/' + commandPath.replace(/\.js$/, ''))
-        break
-      } catch (err) {
-        if (err.code !== 'MODULE_NOT_FOUND') throw err
-        root = path.dirname(root)
-      }
-    }
-    commandPath = commandPath.replace(base! + '/', '')
+    if (!commandsDir) return
+    let p = path.join(plugin.root, commandsDir, ...c.id.split(':'))
+    if (fs.pathExistsSync(path.join(p, 'index.js'))) p = path.join(p, 'index.js')
+    else p = p + '.js'
+    if (!fs.pathExistsSync(p)) return
+    p = p.replace(plugin.root + '/', '')
     if (plugin.pjson.devDependencies.typescript) {
-      commandPath = commandPath.replace(/^lib\//, 'src/')
-      commandPath = commandPath.replace(/\.js$/, '.ts')
+      p = p.replace(/^lib\//, 'src/')
+      p = p.replace(/\.js$/, '.ts')
     }
-    return commandPath
+    return p
   }
 
   private commandUsage(command: Config.Command): string {
