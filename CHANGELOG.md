@@ -1,3 +1,11 @@
+<a name="1.15.2"></a>
+## [1.15.2](https://github.com/oclif/dev-cli/compare/v1.15.1...v1.15.2) (2018-06-20)
+
+
+### Bug Fixes
+
+* fixed doc urls when only ts files are available ([01945c3](https://github.com/oclif/dev-cli/commit/01945c3))
+
 <a name="1.15.1"></a>
 ## [1.15.1](https://github.com/oclif/dev-cli/compare/v1.15.0...v1.15.1) (2018-06-20)
 
