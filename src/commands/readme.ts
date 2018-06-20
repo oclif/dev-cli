@@ -190,12 +190,24 @@ USAGE
     let commandsDir = plugin.pjson.oclif.commands
     if (!commandsDir) return
     let p = path.join(plugin.root, commandsDir, ...c.id.split(':'))
-    if (fs.pathExistsSync(path.join(p, 'index.js'))) p = path.join(p, 'index.js')
-    else p = p + '.js'
-    if (!fs.pathExistsSync(p)) return
-    p = p.replace(plugin.root + '/', '')
+    if (fs.pathExistsSync(path.join(p, 'index.js'))) {
+      p = path.join(p, 'index.js')
+    } else if (fs.pathExistsSync(p + '.js')) {
+      p = p + '.js'
+    } else if (plugin.pjson.devDependencies.typescript) {
+      // check if non-compiled scripts are available
+      let base = p.replace(plugin.root + path.sep, '')
+      p = path.join(plugin.root, base.replace(new RegExp('^lib' + path.sep), 'src' + path.sep))
+      if (fs.pathExistsSync(path.join(p, 'index.ts'))) {
+        p = path.join(p, 'index.ts')
+      } else if (fs.pathExistsSync(p + '.ts')) {
+        p = p + '.ts'
+      } else return
+
+    } else return
+    p = p.replace(plugin.root + path.sep, '')
     if (plugin.pjson.devDependencies.typescript) {
-      p = p.replace(/^lib\//, 'src/')
+      p = p.replace(new RegExp('^lib' + path.sep), 'src' + path.sep)
       p = p.replace(/\.js$/, '.ts')
     }
     return p
