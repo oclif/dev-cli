@@ -1,3 +1,11 @@
+<a name="1.15.1"></a>
+## [1.15.1](https://github.com/oclif/dev-cli/compare/v1.15.0...v1.15.1) (2018-06-20)
+
+
+### Bug Fixes
+
+* index commands readme links ([039907f](https://github.com/oclif/dev-cli/commit/039907f))
+
 <a name="1.15.0"></a>
 # [1.15.0](https://github.com/oclif/dev-cli/compare/v1.14.0...v1.15.0) (2018-06-20)
 
