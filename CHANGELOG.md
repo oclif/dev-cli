@@ -1,3 +1,11 @@
+<a name="1.15.3"></a>
+## [1.15.3](https://github.com/oclif/dev-cli/compare/v1.15.2...v1.15.3) (2018-06-21)
+
+
+### Bug Fixes
+
+* **readme:** windows readme generation ([98576ab](https://github.com/oclif/dev-cli/commit/98576ab))
+
 <a name="1.15.2"></a>
 ## [1.15.2](https://github.com/oclif/dev-cli/compare/v1.15.1...v1.15.2) (2018-06-20)
 
