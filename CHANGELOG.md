@@ -1,3 +1,11 @@
+<a name="1.15.4"></a>
+## [1.15.4](https://github.com/oclif/dev-cli/compare/v1.15.3...v1.15.4) (2018-06-26)
+
+
+### Bug Fixes
+
+* **deb:** UPDATE_INSTRUCTIONS env var ([4f81da8](https://github.com/oclif/dev-cli/commit/4f81da8))
+
 <a name="1.15.3"></a>
 ## [1.15.3](https://github.com/oclif/dev-cli/compare/v1.15.2...v1.15.3) (2018-06-21)
 
