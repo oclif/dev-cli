@@ -14,7 +14,7 @@
     "@oclif/plugin-help": "^2.0.5",
     "cli-ux": "^4.7.2",
     "debug": "^3.1.0",
-    "fs-extra": "^6.0.1",
+    "fs-extra": "^7.0.0",
     "lodash": "^4.17.10",
     "normalize-package-data": "^2.4.0",
     "qqjs": "^0.3.10",
