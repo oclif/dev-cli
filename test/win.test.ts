@@ -18,7 +18,7 @@ describe('publish:win', () => {
     qq.cd(root)
   })
   afterEach(async () => {
-    qq.x(`aws s3 rm --recursive s3://oclif/dev-cli/channels/${testRun}`)
+    await qq.x(`aws s3 rm --recursive s3://oclif/dev-cli/channels/${testRun}`)
     qq.cd([__dirname, '..'])
     pjson.version = originalVersion
     await qq.writeJSON(pjsonPath, pjson)
