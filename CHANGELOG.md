@@ -1,3 +1,11 @@
+<a name="1.17.0"></a>
+# [1.17.0](https://github.com/oclif/dev-cli/compare/v1.16.0...v1.17.0) (2018-08-17)
+
+
+### Features
+
+* typescript 3 ([08b2a22](https://github.com/oclif/dev-cli/commit/08b2a22))
+
 <a name="1.16.0"></a>
 # [1.16.0](https://github.com/oclif/dev-cli/compare/v1.15.4...v1.16.0) (2018-08-17)
 
