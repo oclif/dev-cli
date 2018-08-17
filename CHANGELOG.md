@@ -1,3 +1,11 @@
+<a name="1.16.0"></a>
+# [1.16.0](https://github.com/oclif/dev-cli/compare/v1.15.4...v1.16.0) (2018-08-17)
+
+
+### Features
+
+* typescript 3.x ([df5ef71](https://github.com/oclif/dev-cli/commit/df5ef71))
+
 <a name="1.15.4"></a>
 ## [1.15.4](https://github.com/oclif/dev-cli/compare/v1.15.3...v1.15.4) (2018-06-26)
 
