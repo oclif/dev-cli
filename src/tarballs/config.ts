@@ -44,7 +44,7 @@ async function Tmp(config: Config.IConfig) {
   return tmp
 }
 
-export async function buildConfig(root: string): Promise<IConfig> {
+export async function buildConfig(root: string, targets?: string[]): Promise<IConfig> {
   const config = await Config.load({root: path.resolve(root), devPlugins: false, userPlugins: false})
   const channel = config.channel
   root = config.root
@@ -70,7 +70,7 @@ export async function buildConfig(root: string): Promise<IConfig> {
       if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), config.s3Key('baseDir', target))
       return qq.join(base, config.s3Key('baseDir', target))
     },
-    targets: (updateConfig.node.targets || TARGETS).map(t => {
+    targets: (targets || updateConfig.node.targets || TARGETS).map(t => {
       const [platform, arch] = t.split('-') as [Config.PlatformTypes, Config.ArchTypes]
       return {platform, arch}
     }),

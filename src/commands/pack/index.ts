@@ -11,13 +11,15 @@ This can be used to create oclif CLIs that use the system node or that come prel
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
+    targets: flags.string({char: 't', description: 'comma-separated targets to pack (e.g.: linux-arm,win32-x64)'}),
   }
 
   async run() {
     const prevCwd = qq.cwd()
     if (process.platform === 'win32') throw new Error('pack does not function on windows')
     const {flags} = this.parse(Pack)
-    const buildConfig = await Tarballs.buildConfig(flags.root)
+    const targets = flags.targets !== undefined ? flags.targets.split(',') : undefined
+    const buildConfig = await Tarballs.buildConfig(flags.root, targets)
     await Tarballs.build(buildConfig)
     qq.cd(prevCwd)
   }
