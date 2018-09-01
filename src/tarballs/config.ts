@@ -2,6 +2,8 @@ import * as Config from '@oclif/config'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
+import {compact} from '../util'
+
 export interface IConfig {
   root: string
   gitSha: string
@@ -44,7 +46,7 @@ async function Tmp(config: Config.IConfig) {
   return tmp
 }
 
-export async function buildConfig(root: string, targets?: string[]): Promise<IConfig> {
+export async function buildConfig(root: string, options: {xz?: boolean, targets?: string[]} = {}): Promise<IConfig> {
   const config = await Config.load({root: path.resolve(root), devPlugins: false, userPlugins: false})
   const channel = config.channel
   root = config.root
@@ -61,7 +63,7 @@ export async function buildConfig(root: string, targets?: string[]): Promise<ICo
     updateConfig,
     version,
     channel,
-    xz: !!updateConfig.s3.xz,
+    xz: typeof options.xz === 'boolean' ? options.xz : !!updateConfig.s3.xz,
     dist: (...args: string[]) => path.join(config.root, 'dist', ...args),
     s3Config: updateConfig.s3,
     nodeVersion: updateConfig.node.version || process.versions.node,
@@ -70,7 +72,7 @@ export async function buildConfig(root: string, targets?: string[]): Promise<ICo
       if (target && target.platform) return qq.join(base, [target.platform, target.arch].join('-'), config.s3Key('baseDir', target))
       return qq.join(base, config.s3Key('baseDir', target))
     },
-    targets: (targets || updateConfig.node.targets || TARGETS).map(t => {
+    targets: compact(options.targets || updateConfig.node.targets || TARGETS).map(t => {
       const [platform, arch] = t.split('-') as [Config.PlatformTypes, Config.ArchTypes]
       return {platform, arch}
     }),
