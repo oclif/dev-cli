@@ -1,3 +1,12 @@
+<a name="1.18.0"></a>
+# [1.18.0](https://github.com/oclif/dev-cli/compare/v1.17.0...v1.18.0) (2018-09-01)
+
+
+### Features
+
+* --targets flag on pack ([b1fdd21](https://github.com/oclif/dev-cli/commit/b1fdd21))
+* add --no-xz flag to pack ([c0a1fbb](https://github.com/oclif/dev-cli/commit/c0a1fbb))
+
 <a name="1.17.0"></a>
 # [1.17.0](https://github.com/oclif/dev-cli/compare/v1.16.0...v1.17.0) (2018-08-17)
 
