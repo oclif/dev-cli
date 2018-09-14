@@ -14,6 +14,7 @@ jobs:
             - v6-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
             - v6-yarn-{{checksum ".circleci/config.yml"}}
       - run: yarn
+      - run: yarn check
       - run: .circleci/loadgpg
       - run: yarn add -D nyc@13 @oclif/nyc-config@1
       - run: ./node_modules/.bin/tsc
