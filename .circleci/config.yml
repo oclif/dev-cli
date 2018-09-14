@@ -13,7 +13,7 @@ jobs:
           keys:
             - v6-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
             - v6-yarn-{{checksum ".circleci/config.yml"}}
-      - run: .circleci/greenkeeper
+      - run: yarn
       - run: .circleci/loadgpg
       - run: yarn add -D nyc@11 @oclif/nyc-config@1
       - run: ./node_modules/.bin/tsc
