@@ -28,31 +28,31 @@ describe('publish', () => {
   })
 
   skipIfWindows
-  .command(['pack'])
-  .command(['publish'])
-  .it('publishes valid releases', async () => {
-    const manifest = async (url: string, nodeVersion: string) => {
-      const manifest = await qq.readJSON(url)
-      const test = async (url: string, expectedSha: string, nodeVersion: string) => {
-        const xz = url.endsWith('.tar.xz')
-        const ext = xz ? '.tar.xz' : '.tar.gz'
-        await qq.download(url, `oclif-dev${ext}`)
-        const receivedSha = await qq.hash('sha256', `oclif-dev${ext}`)
-        expect(receivedSha).to.equal(expectedSha)
-        if (xz) {
+    .command(['pack'])
+    .command(['publish'])
+    .it('publishes valid releases', async () => {
+      const manifest = async (url: string, nodeVersion: string) => {
+        const manifest = await qq.readJSON(url)
+        const test = async (url: string, expectedSha: string, nodeVersion: string) => {
+          const xz = url.endsWith('.tar.xz')
+          const ext = xz ? '.tar.xz' : '.tar.gz'
+          await qq.download(url, `oclif-dev${ext}`)
+          const receivedSha = await qq.hash('sha256', `oclif-dev${ext}`)
+          expect(receivedSha).to.equal(expectedSha)
+          if (xz) {
           await qq.x('tar xJf oclif-dev.tar.xz')
         } else {
           await qq.x('tar xzf oclif-dev.tar.gz')
         }
-        const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
-        const sha = await gitSha(process.cwd(), {short: true})
-        expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${nodeVersion}`)
-        await qq.rm('oclif-dev')
+          const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
+          const sha = await gitSha(process.cwd(), {short: true})
+          expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${nodeVersion}`)
+          await qq.rm('oclif-dev')
+        }
+        await test(manifest.gz, manifest.sha256gz, nodeVersion)
+        await test(manifest.xz, manifest.sha256xz, nodeVersion)
       }
-      await test(manifest.gz, manifest.sha256gz, nodeVersion)
-      await test(manifest.xz, manifest.sha256xz, nodeVersion)
-    }
-    await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/version`, process.versions.node)
-    await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/${target}`, pjson.oclif.update.node.version)
-  })
+      await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/version`, process.versions.node)
+      await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/${target}`, pjson.oclif.update.node.version)
+    })
 })

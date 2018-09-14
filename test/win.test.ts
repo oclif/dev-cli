@@ -25,10 +25,10 @@ describe('publish:win', () => {
   })
 
   skipIfWindows
-  .command(['pack:win'])
-  .command(['publish:win'])
-  .it('publishes valid releases', async () => {
-    await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x64.exe`)
-    await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x86.exe`)
-  })
+    .command(['pack:win'])
+    .command(['publish:win'])
+    .it('publishes valid releases', async () => {
+      await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x64.exe`)
+      await qq.download(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/oclif-dev-x86.exe`)
+    })
 })

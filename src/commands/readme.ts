@@ -70,14 +70,14 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 
   toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
-    .map(l => l.slice(2))
-    .map(l => `* [${l}](#${slugify(l)})`)
-    .join('\n')
+      .map(l => l.slice(2))
+      .map(l => `* [${l}](#${slugify(l)})`)
+      .join('\n')
   }
 
   usage(config: Config.IConfig): string {
-      return [
-        `\`\`\`sh-session
+    return [
+      `\`\`\`sh-session
 $ npm install -g ${config.name}
 $ ${config.bin} COMMAND
 running command...
@@ -88,7 +88,7 @@ USAGE
   $ ${config.bin} COMMAND
 ...
 \`\`\`\n`,
-      ].join('\n').trim()
+    ].join('\n').trim()
   }
 
   multiCommands(config: Config.IConfig, commands: Config.Command[]): string {
