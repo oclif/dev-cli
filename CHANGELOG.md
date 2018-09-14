@@ -1,3 +1,12 @@
+## [1.18.1](https://github.com/oclif/dev-cli/compare/v1.18.0...v1.18.1) (2018-09-14)
+
+
+### Bug Fixes
+
+* lint issue ([6650cc1](https://github.com/oclif/dev-cli/commit/6650cc1))
+* remove greenkeeper-lockfile ([b3287b7](https://github.com/oclif/dev-cli/commit/b3287b7))
+* updated nyc ([3d9318f](https://github.com/oclif/dev-cli/commit/3d9318f))
+
 <a name="1.18.0"></a>
 # [1.18.0](https://github.com/oclif/dev-cli/compare/v1.17.0...v1.18.0) (2018-09-01)
 
