@@ -40,10 +40,10 @@ describe('publish', () => {
           const receivedSha = await qq.hash('sha256', `oclif-dev${ext}`)
           expect(receivedSha).to.equal(expectedSha)
           if (xz) {
-          await qq.x('tar xJf oclif-dev.tar.xz')
-        } else {
-          await qq.x('tar xzf oclif-dev.tar.gz')
-        }
+            await qq.x('tar xJf oclif-dev.tar.xz')
+          } else {
+            await qq.x('tar xzf oclif-dev.tar.gz')
+          }
           const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
           const sha = await gitSha(process.cwd(), {short: true})
           expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${nodeVersion}`)
