@@ -15,7 +15,7 @@ jobs:
             - v6-yarn-{{checksum ".circleci/config.yml"}}
       - run: yarn
       - run: .circleci/loadgpg
-      - run: yarn add -D nyc@11 @oclif/nyc-config@1
+      - run: yarn add -D nyc@13 @oclif/nyc-config@1
       - run: ./node_modules/.bin/tsc
       - run: ./bin/run --version
       - run: ./bin/run --help
@@ -40,7 +40,7 @@ jobs:
       - run: |
           export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
           semantic-release -e @oclif/semantic-release
-      - run: yarn add -D nyc@11 @oclif/nyc-config@1
+      - run: yarn add -D nyc@13 @oclif/nyc-config@1
       - save_cache:
           key: v6-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
           paths:
