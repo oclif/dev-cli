@@ -28,6 +28,7 @@ The readme must have any of the following tags inside of it for it to be replace
 Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 `
   static flags = {
+    dir: flags.string({description: 'output directory for multi docs', default: 'docs', required: true}),
     multi: flags.boolean({description: 'create a different markdown page for each topic'})
   }
 
@@ -50,7 +51,7 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
     commands = uniqBy(commands, c => c.id)
     commands = sortBy(commands, c => c.id)
     readme = this.replaceTag(readme, 'usage', this.usage(config))
-    readme = this.replaceTag(readme, 'commands', flags.multi ? this.multiCommands(config, commands) : this.commands(config, commands))
+    readme = this.replaceTag(readme, 'commands', flags.multi ? this.multiCommands(config, commands, flags.dir) : this.commands(config, commands))
     readme = this.replaceTag(readme, 'toc', this.toc(config, readme))
 
     readme = readme.trimRight()
@@ -91,7 +92,7 @@ USAGE
     ].join('\n').trim()
   }
 
-  multiCommands(config: Config.IConfig, commands: Config.Command[]): string {
+  multiCommands(config: Config.IConfig, commands: Config.Command[], dir: string): string {
     let topics = config.topics
     topics = topics.filter(t => !t.hidden && !t.name.includes(':'))
     topics = topics.filter(t => commands.find(c => c.id.startsWith(t.name)))
@@ -99,7 +100,7 @@ USAGE
     topics = uniqBy(topics, t => t.name)
     for (let topic of topics) {
       this.createTopicFile(
-        path.join('.', 'docs', topic.name.replace(/:/g, '/') + '.md'),
+        path.join('.', dir, topic.name.replace(/:/g, '/') + '.md'),
         config,
         topic,
         commands.filter(c => c.id === topic.name || c.id.startsWith(topic.name + ':')),
@@ -110,7 +111,7 @@ USAGE
       '# Command Topics\n',
       ...topics.map(t => {
         return compact([
-          `* [\`${config.bin} ${t.name}\`](docs/${t.name.replace(/:/g, '/')}.md)`,
+          `* [\`${config.bin} ${t.name}\`](${dir}/${t.name.replace(/:/g, '/')}.md)`,
           template({config})(t.description || '').trim().split('\n')[0]
         ]).join(' - ')
       }),
