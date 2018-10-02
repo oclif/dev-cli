@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/oclif/dev-cli/compare/v1.18.1...v1.19.0) (2018-10-02)
+
+
+### Features
+
+* add dir flag to readme ([#65](https://github.com/oclif/dev-cli/issues/65)) ([4874a22](https://github.com/oclif/dev-cli/commit/4874a22))
+
 ## [1.18.1](https://github.com/oclif/dev-cli/compare/v1.18.0...v1.18.1) (2018-09-14)
 
 
