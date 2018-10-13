@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/oclif/dev-cli/compare/v1.19.0...v1.19.1) (2018-10-13)
+
+
+### Bug Fixes
+
+* use package-lock or npm-shrinkwrap ([1ce4cbe](https://github.com/oclif/dev-cli/commit/1ce4cbe))
+
 # [1.19.0](https://github.com/oclif/dev-cli/compare/v1.18.1...v1.19.0) (2018-10-02)
 
 
