@@ -56,7 +56,11 @@ export async function build(c: IConfig, options: {
       await qq.cp([c.root, 'yarn.lock'], '.')
       await qq.x('yarn --no-progress --production --non-interactive')
     } else {
-      await qq.cp([c.root, 'package-lock.json'], '.')
+      let lockpath = qq.join(c.root, 'package-lock.json')
+      if (!await qq.exists(lockpath)) {
+        lockpath = qq.join(c.root, 'npm-shrinkwrap.json')
+      }
+      await qq.cp(lockpath, '.')
       await qq.x('npm install --production')
     }
   }
