@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/oclif/dev-cli/compare/v1.19.1...v1.19.2) (2018-10-13)
+
+
+### Bug Fixes
+
+* remove greenkeeper badge ([d946f0d](https://github.com/oclif/dev-cli/commit/d946f0d))
+
 ## [1.19.1](https://github.com/oclif/dev-cli/compare/v1.19.0...v1.19.1) (2018-10-13)
 
 
