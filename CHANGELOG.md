@@ -1,3 +1,10 @@
+## [1.19.3](https://github.com/oclif/dev-cli/compare/v1.19.2...v1.19.3) (2018-10-20)
+
+
+### Bug Fixes
+
+* **pack:** Change macos preinstall/postinstall scripts path ([#68](https://github.com/oclif/dev-cli/issues/68)) ([b181ad4](https://github.com/oclif/dev-cli/commit/b181ad4))
+
 ## [1.19.2](https://github.com/oclif/dev-cli/compare/v1.19.1...v1.19.2) (2018-10-13)
 
 
