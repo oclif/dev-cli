@@ -23,6 +23,7 @@ const aws = {
     const creds = {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      sessionToken: process.env.AWS_SESSION_TOKEN,
     }
     if (!creds.accessKeyId) throw new Error('AWS_ACCESS_KEY_ID not set')
     if (!creds.secretAccessKey) throw new Error('AWS_SECRET_ACCESS_KEY not set')
