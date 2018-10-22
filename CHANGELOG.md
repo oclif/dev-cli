@@ -1,3 +1,10 @@
+## [1.19.4](https://github.com/oclif/dev-cli/compare/v1.19.3...v1.19.4) (2018-10-22)
+
+
+### Bug Fixes
+
+* **publish:** support temporary aws credentials ([#70](https://github.com/oclif/dev-cli/issues/70)) ([a1a1cd6](https://github.com/oclif/dev-cli/commit/a1a1cd6))
+
 ## [1.19.3](https://github.com/oclif/dev-cli/compare/v1.19.2...v1.19.3) (2018-10-20)
 
 
