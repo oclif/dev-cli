@@ -1,3 +1,10 @@
+## [1.19.5](https://github.com/oclif/dev-cli/compare/v1.19.4...v1.19.5) (2018-11-27)
+
+
+### Bug Fixes
+
+* Removes extra spaces around TOC items ([#76](https://github.com/oclif/dev-cli/issues/76)) ([f739c1c](https://github.com/oclif/dev-cli/commit/f739c1c))
+
 ## [1.19.4](https://github.com/oclif/dev-cli/compare/v1.19.3...v1.19.4) (2018-10-22)
 
 
