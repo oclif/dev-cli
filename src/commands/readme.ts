@@ -71,7 +71,7 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 
   toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
-      .map(l => l.slice(2))
+      .map(l => l.trim().slice(2))
       .map(l => `* [${l}](#${slugify(l)})`)
       .join('\n')
   }
