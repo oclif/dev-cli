@@ -18,7 +18,7 @@ export default class PublishWin extends Command {
     const {s3Config, version, config} = buildConfig
     const S3Options = {
       Bucket: s3Config.bucket!,
-      ACL: 'public-read',
+      ACL: s3Config.acl || 'public-read',
     }
 
     let root = buildConfig.channel === 'stable' ? '' : `channels/${buildConfig.channel}/`
