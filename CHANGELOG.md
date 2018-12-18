@@ -1,3 +1,7 @@
+# [1.21.0](https://github.com/oclif/dev-cli/compare/v1.20.0...v1.21.0) (2018-12-18)
+
+
+
 # [1.20.0](https://github.com/oclif/dev-cli/compare/v1.19.5...v1.20.0) (2018-12-18)
 
 
