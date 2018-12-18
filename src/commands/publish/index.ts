@@ -27,7 +27,7 @@ export default class Publish extends Command {
     if (!await qq.exists(dist(config.s3Key('versioned', {ext: '.tar.gz'})))) this.error('run "oclif-dev pack" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
-      ACL: 'public-read',
+      ACL: s3Config.acl || 'public-read',
     }
     // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}

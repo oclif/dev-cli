@@ -20,7 +20,7 @@ export default class PublishDeb extends Command {
     if (!await qq.exists(dist('Release'))) this.error('run "oclif-dev pack:deb" before publishing')
     const S3Options = {
       Bucket: s3Config.bucket!,
-      ACL: 'public-read',
+      ACL: s3Config.acl || 'public-read',
     }
 
     const remoteBase = buildConfig.channel === 'stable' ? 'apt' : `channels/${buildConfig.channel}/apt`
