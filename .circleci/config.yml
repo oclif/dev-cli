@@ -55,9 +55,9 @@ workflows:
   "@oclif/dev-cli":
     jobs:
       - test
-      - release:
-          context: org-global
-          filters:
-            branches: {only: master}
-          requires:
-            - test
+      # - release:
+      #     context: org-global
+      #     filters:
+      #       branches: {only: master}
+      #     requires:
+      #       - test
