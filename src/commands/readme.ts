@@ -180,7 +180,6 @@ USAGE
     let repo = pjson.repository && pjson.repository.url
     if (!repo) return
     let url = new URL(repo)
-    if (!['github.com', 'gitlab.com'].includes(url.hostname)) return
     return `https://${url.hostname}${url.pathname.replace(/\.git$/, '')}`
   }
 
