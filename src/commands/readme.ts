@@ -177,10 +177,10 @@ USAGE
   private repo(plugin: Config.IPlugin): string | undefined {
     const pjson = {...plugin.pjson}
     normalize(pjson)
-    let repo = pjson.repository && pjson.repository.url
+    const repo = pjson.repository && pjson.repository.url
     if (!repo) return
-    let url = new URL(repo)
-    if (!['github.com', 'gitlab.com'].includes(url.hostname)) return
+    const url = new URL(repo)
+    if (!['github.com', 'gitlab.com'].includes(url.hostname) && !pjson.oclif.repositoryPrefix) return
     return `https://${url.hostname}${url.pathname.replace(/\.git$/, '')}`
   }
 
