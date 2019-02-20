@@ -12,10 +12,7 @@ import {castArray, compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
 const columns = parseInt(process.env.COLUMNS!, 10) || 120
-
-function slugify(input: string): string {
-  return _.kebabCase(input.trim().replace(/:/g, '')).replace(/[^a-zA-Z0-9\- ]/g, '')
-}
+const slugify = new (require('github-slugger') as any)()
 
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
@@ -72,7 +69,7 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
   toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
       .map(l => l.trim().slice(2))
-      .map(l => `* [${l}](#${slugify(l)})`)
+      .map(l => `* [${l}](#${slugify.slug(l)})`)
       .join('\n')
   }
 
@@ -135,7 +132,7 @@ USAGE
     return [
       ...commands.map(c => {
         let usage = this.commandUsage(c)
-        return `* [\`${config.bin} ${usage}\`](#${slugify(`${config.bin}-${usage}`)})`
+        return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
       }),
       '',
       ...commands.map(c => this.renderCommand(config, c)).map(s => s.trim() + '\n'),
