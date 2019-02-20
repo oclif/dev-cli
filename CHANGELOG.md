@@ -1,3 +1,13 @@
+## [1.21.1](https://github.com/oclif/dev-cli/compare/v1.21.0...v1.21.1) (2019-02-20)
+
+
+### Bug Fixes
+
+* allow custom git domains ([#81](https://github.com/oclif/dev-cli/issues/81)) ([37e28d9](https://github.com/oclif/dev-cli/commit/37e28d9))
+* improve slugging ([#89](https://github.com/oclif/dev-cli/issues/89)) ([d3aef73](https://github.com/oclif/dev-cli/commit/d3aef73))
+
+
+
 # [1.21.0](https://github.com/oclif/dev-cli/compare/v1.20.0...v1.21.0) (2018-12-18)
 
 
@@ -544,7 +554,7 @@
 
 ### Bug Fixes
 
-* refactor to use s3Key/s3Url from [@oclif](https://github.com/oclif)/config ([8c96067](https://github.com/oclif/dev-cli/commit/8c96067))
+* refactor to use s3Key/s3Url from @oclif/config ([8c96067](https://github.com/oclif/dev-cli/commit/8c96067))
 
 
 
@@ -1403,7 +1413,7 @@
 
 ### Bug Fixes
 
-* use [@anycli](https://github.com/anycli)/errors ([feb3c0f](https://github.com/oclif/dev-cli/commit/feb3c0f))
+* use @anycli/errors ([feb3c0f](https://github.com/oclif/dev-cli/commit/feb3c0f))
 
 
 
