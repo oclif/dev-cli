@@ -1,3 +1,12 @@
+## [1.21.2](https://github.com/oclif/dev-cli/compare/v1.21.1...v1.21.2) (2019-02-21)
+
+
+### Bug Fixes
+
+* https://github.com/oclif/dev-cli/issues/91 ([91a2f4e](https://github.com/oclif/dev-cli/commit/91a2f4e))
+
+
+
 ## [1.21.1](https://github.com/oclif/dev-cli/compare/v1.21.0...v1.21.1) (2019-02-20)
 
 
