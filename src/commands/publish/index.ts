@@ -14,7 +14,6 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-    deb: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
   }
 
   buildConfig!: Tarballs.IConfig
