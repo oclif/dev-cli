@@ -1,3 +1,13 @@
+## [1.21.3](https://github.com/oclif/dev-cli/compare/v1.21.2...v1.21.3) (2019-03-08)
+
+
+### Bug Fixes
+
+* correct required node version ([2b1b942](https://github.com/oclif/dev-cli/commit/2b1b942))
+* remove unused flag ([77d1d1e](https://github.com/oclif/dev-cli/commit/77d1d1e))
+
+
+
 ## [1.21.2](https://github.com/oclif/dev-cli/compare/v1.21.1...v1.21.2) (2019-02-21)
 
 
