@@ -1,3 +1,12 @@
+## [1.21.4](https://github.com/oclif/dev-cli/compare/v1.21.3...v1.21.4) (2019-03-27)
+
+
+### Bug Fixes
+
+* template usage like plugin-help ([9c9be3d](https://github.com/oclif/dev-cli/commit/9c9be3d))
+
+
+
 ## [1.21.3](https://github.com/oclif/dev-cli/compare/v1.21.2...v1.21.3) (2019-03-08)
 
 
