@@ -131,7 +131,7 @@ USAGE
   commands(config: Config.IConfig, commands: Config.Command[]): string {
     return [
       ...commands.map(c => {
-        let usage = this.commandUsage(c)
+        let usage = this.commandUsage(config, c)
         return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
       }),
       '',
@@ -141,9 +141,9 @@ USAGE
 
   renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
-    let title = template({config})(c.description || '').trim().split('\n')[0]
+    let title = template({config, command: c})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: columns})
-    const header = () => `## \`${config.bin} ${this.commandUsage(c)}\``
+    const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
     return compact([
       header(),
       title,
@@ -212,7 +212,7 @@ USAGE
     return p
   }
 
-  private commandUsage(command: Config.Command): string {
+  private commandUsage(config: Config.IConfig, command: Config.Command): string {
     const arg = (arg: Config.Command.Arg) => {
       let name = arg.name.toUpperCase()
       if (arg.required) return `${name}`
@@ -227,6 +227,6 @@ USAGE
       ]).join(' ')
     }
     let usages = castArray(command.usage)
-    return usages.length === 0 ? defaultUsage() : usages[0]
+    return template({config, command})(usages.length === 0 ? defaultUsage() : usages[0])
   }
 }
