@@ -1,3 +1,12 @@
+# [1.22.0](https://github.com/oclif/dev-cli/compare/v1.21.4...v1.22.0) (2019-03-28)
+
+
+### Features
+
+* configure s3 endpoint with env variable ([#93](https://github.com/oclif/dev-cli/issues/93)) ([2ce9b39](https://github.com/oclif/dev-cli/commit/2ce9b39))
+
+
+
 ## [1.21.4](https://github.com/oclif/dev-cli/compare/v1.21.3...v1.21.4) (2019-03-27)
 
 
