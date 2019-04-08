@@ -33,6 +33,9 @@ const aws = {
     try {
       return cache.s3 = cache.s3 || new (require('aws-sdk/clients/s3') as typeof S3)({
         ...this.creds,
+        region: process.env.AWS_REGION,
+        sslEnabled: process.env.AWS_SSL_ENABLED === undefined ? undefined : process.env.AWS_SSL_ENABLED === 'true',
+        s3ForcePathStyle: process.env.AWS_S3_FORCE_PATH_STYLE === undefined ? undefined : process.env.AWS_S3_FORCE_PATH_STYLE === 'true',
         endpoint: process.env.AWS_S3_ENDPOINT,
       })
     } catch (err) {
