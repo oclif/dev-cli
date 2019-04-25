@@ -1,3 +1,12 @@
+## [1.22.1](https://github.com/oclif/dev-cli/compare/v1.22.0...v1.22.1) (2019-04-25)
+
+
+### Bug Fixes
+
+* armv6l -> armv7l ([a2eff7a](https://github.com/oclif/dev-cli/commit/a2eff7a))
+
+
+
 # [1.22.0](https://github.com/oclif/dev-cli/compare/v1.21.4...v1.22.0) (2019-03-28)
 
 
