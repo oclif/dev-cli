@@ -164,7 +164,7 @@ USAGE
     let commandPath = this.commandPath(plugin, c)
     if (!commandPath) return
     if (config.name === plugin.name) {
-      label = commandPath
+      label = commandPath.replace(/\\/g, '/')
       version = process.env.OCLIF_NEXT_VERSION || version
     }
     const template = plugin.pjson.oclif.repositoryPrefix || '<%- repo %>/blob/v<%- version %>/<%- commandPath %>'
