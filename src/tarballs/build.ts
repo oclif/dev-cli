@@ -27,6 +27,7 @@ export async function build(c: IConfig, options: {
   const {xz, config} = c
   const prevCwd = qq.cwd()
   const packCLI = async () => {
+    await qq.rm('tsconfig.buildinfo')
     const stdout = await qq.x.stdout('npm', ['pack', '--unsafe-perm'], {cwd: c.root})
     return path.join(c.root, stdout.split('\n').pop()!)
   }
