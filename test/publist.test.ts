@@ -1,6 +1,7 @@
 import {expect, test} from '@oclif/test'
 import * as qq from 'qqjs'
 
+import aws from '../src/aws'
 import {gitSha} from '../src/tarballs'
 
 const pjson = require('../package.json')
@@ -10,6 +11,7 @@ const target = [process.platform, process.arch].join('-')
 
 const skipIfWindows = process.platform === 'win32' ? test.skip() : test
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
+let s3UploadedFiles: string[] = []
 
 describe('publish', () => {
   beforeEach(async () => {
@@ -55,4 +57,44 @@ describe('publish', () => {
       await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/version`, process.versions.node)
       await manifest(`https://oclif-staging.s3.amazonaws.com/channels/${testRun}/${target}`, pjson.oclif.update.node.version)
     })
+
+  describe('with filter', () => {
+    skipIfWindows
+      .stub(qq, 'x', ({
+        stdout: () => Promise.resolve(),
+        exec: () => Promise.resolve()
+      }))
+      .stub(qq, 'exists', () => true)
+      .stub(aws, 's3', () => ({
+        uploadFile: (file: string) => {
+          s3UploadedFiles.push(file)
+        }
+      }))
+      .command(['publish', '-t', 'linux-x64'])
+      .it('publishes only the specified target', async () => {
+        expect(s3UploadedFiles.join()).to.contain('linux-x64')
+        expect(s3UploadedFiles.join()).to.not.contain('win32-x64')
+        expect(s3UploadedFiles.join()).to.not.contain('darwin-x64')
+      })
+  })
+
+  describe('without filter', () => {
+    skipIfWindows
+      .stub(qq, 'x', ({
+        stdout: () => Promise.resolve(),
+        exec: () => Promise.resolve()
+      }))
+      .stub(qq, 'exists', () => true)
+      .stub(aws, 's3', () => ({
+        uploadFile: (file: string) => {
+          s3UploadedFiles.push(file)
+        }
+      }))
+      .command(['publish'])
+      .it('publishes all', async () => {
+        expect(s3UploadedFiles.join()).to.contain('linux-x64')
+        expect(s3UploadedFiles.join()).to.contain('win32-x64')
+        expect(s3UploadedFiles.join()).to.contain('darwin-x64')
+      })
+  })
 })
