@@ -1,3 +1,12 @@
+## [1.22.2](https://github.com/oclif/dev-cli/compare/v1.22.1...v1.22.2) (2019-07-29)
+
+
+### Bug Fixes
+
+* add write-json-file types back ([f638bca](https://github.com/oclif/dev-cli/commit/f638bca))
+
+
+
 ## [1.22.1](https://github.com/oclif/dev-cli/compare/v1.22.0...v1.22.1) (2019-04-25)
 
 
