@@ -147,7 +147,7 @@ USAGE
     return compact([
       header(),
       title,
-      '```\n' + help.command(c).trim() + '\n```',
+      '```bash\n' + help.command(c).trim() + '\n```',
       this.commandCode(config, c),
     ]).join('\n\n')
   }
