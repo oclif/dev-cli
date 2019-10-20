@@ -47,9 +47,21 @@ export async function build(c: IConfig, options: {
     pjson.oclif.update = pjson.oclif.update || {}
     pjson.oclif.update.s3 = pjson.oclif.update.s3 || {}
     pjson.oclif.update.s3.bucket = c.s3Config.bucket
+
+    let localDependencies: {[key: string]: string} | undefined
+    if (pjson.dependencies) {
+      // correct relative file path dependencies
+      const dependencies = pjson.dependencies as {[key: string]: string}
+      const localPrefix = 'file:'
+      localDependencies = Object.entries(dependencies).filter(([, value]) => value.startsWith(localPrefix))
+        .map(([key, value]) => ({[key]: path.relative(c.workspace(), path.resolve(c.root, value.substr(localPrefix.length)))}))
+        .reduce((prev, curr) => ({...prev, ...curr}), {})
+      Object.entries(localDependencies).forEach(([key, value]) => dependencies[key] = `${localPrefix}./${value}`)
+    }
     await qq.writeJSON('package.json', pjson)
+    return {localDependencies}
   }
-  const addDependencies = async () => {
+  const addDependencies = async (options?: {localDependencies: {[key: string]: string} | undefined}) => {
     qq.cd(c.workspace())
     const yarn = await qq.exists.sync([c.root, 'yarn.lock'])
     if (yarn) {
@@ -62,6 +74,24 @@ export async function build(c: IConfig, options: {
       }
       await qq.cp(lockpath, '.')
       await qq.x('npm install --production')
+
+      // install local dependencies
+      if (options && options.localDependencies) {
+        for (let depName of Object.keys(options.localDependencies)) {
+          const depPath = path.resolve(c.workspace(), options.localDependencies[depName])
+          const targetPath = path.resolve(c.workspace(), 'node_modules', depName)
+          let deleted: boolean
+          try {
+            await qq.rm(targetPath)
+            deleted = true
+          } catch {
+            deleted = false
+          }
+          if (deleted) {
+            await qq.cp(depPath, targetPath)
+          }
+        }
+      }
     }
   }
   const buildTarget = async (target: {platform: PlatformTypes, arch: ArchTypes}) => {
@@ -125,8 +155,8 @@ export async function build(c: IConfig, options: {
   }
   log(`gathering workspace for ${config.bin} to ${c.workspace()}`)
   await extractCLI(await packCLI())
-  await updatePJSON()
-  await addDependencies()
+  const packageResults = await updatePJSON()
+  await addDependencies(packageResults)
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
   for (let target of c.targets) {
