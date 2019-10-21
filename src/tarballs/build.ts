@@ -74,21 +74,22 @@ export async function build(c: IConfig, options: {
       }
       await qq.cp(lockpath, '.')
       await qq.x('npm install --production')
-    }
-    // install local dependencies
-    if (options && options.localDependencies) {
-      for (let depName of Object.keys(options.localDependencies)) {
-        const depPath = path.resolve(c.workspace(), options.localDependencies[depName])
-        const targetPath = path.resolve(c.workspace(), 'node_modules', depName)
-        let deleted: boolean
-        try {
-          await qq.rm(targetPath)
-          deleted = true
-        } catch {
-          deleted = false
-        }
-        if (deleted) {
-          await qq.cp(depPath, targetPath)
+
+      // install local dependencies
+      if (options && options.localDependencies) {
+        for (let depName of Object.keys(options.localDependencies)) {
+          const depPath = path.resolve(c.workspace(), options.localDependencies[depName])
+          const targetPath = path.resolve(c.workspace(), 'node_modules', depName)
+          let deleted: boolean
+          try {
+            await qq.rm(targetPath)
+            deleted = true
+          } catch {
+            deleted = false
+          }
+          if (deleted) {
+            await qq.cp(depPath, targetPath)
+          }
         }
       }
     }
