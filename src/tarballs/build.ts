@@ -53,10 +53,11 @@ export async function build(c: IConfig, options: {
       // correct relative file path dependencies
       const dependencies = pjson.dependencies as {[key: string]: string}
       const localPrefix = 'file:'
-      localDependencies = Object.entries(dependencies).filter(([, value]) => value.startsWith(localPrefix))
-        .map(([key, value]) => ({[key]: path.relative(c.workspace(), path.resolve(c.root, value.substr(localPrefix.length)))}))
+      localDependencies = Object.entries(dependencies)
+        .filter(([, value]) => value.startsWith(localPrefix))
+        .map(([dependencyName, filePath]) => ({[dependencyName]: path.relative(c.workspace(), path.resolve(c.root, filePath.substr(localPrefix.length)))}))
         .reduce((prev, curr) => ({...prev, ...curr}), {})
-      Object.entries(localDependencies).forEach(([key, value]) => dependencies[key] = `${localPrefix}./${value}`)
+      Object.entries(localDependencies).forEach(([dependencyName, path]) => dependencies[dependencyName] = `${localPrefix}./${path}`)
     }
     await qq.writeJSON('package.json', pjson)
     return {localDependencies}
