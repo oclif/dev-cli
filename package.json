@@ -85,12 +85,13 @@
   "repository": "oclif/dev-cli",
   "scripts": {
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
+    "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "rm -f oclif.manifest.json",
-    "posttest": "tsc -p test --noEmit && tslint -p test -t stylish",
+    "posttest": "yarn lint",
     "prepack": "rm -rf lib && tsc && node ./bin/run manifest",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "npm run changelog && node ./bin/run readme && git add README.md"
+    "version": "npm run changelog && node ./bin/run readme && git add README.md",
+    "pretest": "tsc -p test --noEmit"
   },
   "types": "lib/index.d.ts"
 }
