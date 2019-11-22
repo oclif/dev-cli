@@ -43,18 +43,15 @@ export default class PackMacos extends Command {
     }
     await writeScript('preinstall')
     await writeScript('postinstall')
+    /* eslint-disable array-element-newline */
     const args = [
-      '--root',
-      buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
-      '--identifier',
-      c.macos.identifier,
-      '--version',
-      buildConfig.version,
-      '--install-location',
-      `/usr/local/lib/${config.dirname}`,
-      '--scripts',
-      scriptsDir,
+      '--root', buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
+      '--identifier', c.macos.identifier,
+      '--version', buildConfig.version,
+      '--install-location', `/usr/local/lib/${config.dirname}`,
+      '--scripts', scriptsDir,
     ]
+    /* eslint-enable array-element-newline */
     if (c.macos.sign) args.push('--sign', c.macos.sign)
     if (process.env.OSX_KEYCHAIN) args.push('--keychain', process.env.OSX_KEYCHAIN)
     args.push(dist)
