@@ -4,45 +4,8 @@ import * as qq from 'qqjs'
 
 import * as Tarballs from '../../tarballs'
 
-export default class PackWin extends Command {
-  static description = 'create windows installer from oclif CLI'
-
-  static flags = {
-    root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
-  }
-
-  async run() {
-    await this.checkForNSIS()
-    const {flags} = this.parse(PackWin)
-    const buildConfig = await Tarballs.buildConfig(flags.root)
-    const {config} = buildConfig
-    await Tarballs.build(buildConfig, {platform: 'win32', pack: false})
-    const arches = buildConfig.targets.filter(t => t.platform === 'win32').map(t => t.arch)
-    for (let arch of arches) {
-      const installerBase = qq.join(buildConfig.tmp, `windows-${arch}-installer`)
-      await qq.write([installerBase, `bin/${config.bin}.cmd`], scripts.cmd(config))
-      await qq.write([installerBase, `bin/${config.bin}`], scripts.sh(config))
-      await qq.write([installerBase, `${config.bin}.nsi`], scripts.nsis(config, arch))
-      await qq.mv(buildConfig.workspace({platform: 'win32', arch}), [installerBase, 'client'])
-      await qq.x(`makensis ${installerBase}/${config.bin}.nsi | grep -v "\\[compress\\]" | grep -v "^File: Descending to"`)
-      const o = buildConfig.dist(`win/${config.bin}-v${buildConfig.version}-${arch}.exe`)
-      await qq.mv([installerBase, 'installer.exe'], o)
-      this.log(`built ${o}`)
-    }
-  }
-
-  private async checkForNSIS() {
-    try {
-      await qq.x('makensis', {stdio: [0, null, 2]})
-    } catch (err) {
-      if (err.code === 1) return
-      if (err.code === 127) this.error('install makensis')
-      else throw err
-    }
-  }
-}
-
 const scripts = {
+  /* eslint-disable no-useless-escape */
   cmd: (config: Config.IConfig) => `@echo off
 setlocal enableextensions
 
@@ -223,5 +186,50 @@ done:
   Pop $R2
   Exch $R1 ; $R1=old$R1, stack=[result,...]
 FunctionEnd
-`
+`,
+  /* eslint-enable no-useless-escape */
+}
+
+export default class PackWin extends Command {
+  static description = 'create windows installer from oclif CLI'
+
+  static flags = {
+    root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
+  }
+
+  async run() {
+    await this.checkForNSIS()
+    const {flags} = this.parse(PackWin)
+    const buildConfig = await Tarballs.buildConfig(flags.root)
+    const {config} = buildConfig
+    await Tarballs.build(buildConfig, {platform: 'win32', pack: false})
+    const arches = buildConfig.targets.filter(t => t.platform === 'win32').map(t => t.arch)
+    for (const arch of arches) {
+      const installerBase = qq.join(buildConfig.tmp, `windows-${arch}-installer`)
+      // eslint-disable-next-line no-await-in-loop
+      await qq.write([installerBase, `bin/${config.bin}.cmd`], scripts.cmd(config))
+      // eslint-disable-next-line no-await-in-loop
+      await qq.write([installerBase, `bin/${config.bin}`], scripts.sh(config))
+      // eslint-disable-next-line no-await-in-loop
+      await qq.write([installerBase, `${config.bin}.nsi`], scripts.nsis(config, arch))
+      // eslint-disable-next-line no-await-in-loop
+      await qq.mv(buildConfig.workspace({platform: 'win32', arch}), [installerBase, 'client'])
+      // eslint-disable-next-line no-await-in-loop
+      await qq.x(`makensis ${installerBase}/${config.bin}.nsi | grep -v "\\[compress\\]" | grep -v "^File: Descending to"`)
+      const o = buildConfig.dist(`win/${config.bin}-v${buildConfig.version}-${arch}.exe`)
+      // eslint-disable-next-line no-await-in-loop
+      await qq.mv([installerBase, 'installer.exe'], o)
+      this.log(`built ${o}`)
+    }
+  }
+
+  private async checkForNSIS() {
+    try {
+      await qq.x('makensis', {stdio: [0, null, 2]})
+    } catch (error) {
+      if (error.code === 1) return
+      if (error.code === 127) this.error('install makensis')
+      else throw error
+    }
+  }
 }
