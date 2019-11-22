@@ -37,6 +37,7 @@ export async function build(c: IConfig, options: {
     tarball = qq.join([c.workspace(), tarball])
     qq.cd(c.workspace())
     await qq.x(`tar -xzf ${tarball}`)
+    // eslint-disable-next-line no-await-in-loop
     for (const f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
     await qq.rm('package', tarball, 'bin/run.cmd')
   }
@@ -131,6 +132,7 @@ export async function build(c: IConfig, options: {
   await buildBaseTarball()
   for (const target of c.targets) {
     if (!options.platform || options.platform === target.platform) {
+      // eslint-disable-next-line no-await-in-loop
       await buildTarget(target)
     }
   }

@@ -14,6 +14,43 @@ function debArch(arch: Config.ArchTypes) {
 
 const debVersion = (buildConfig: Tarballs.IConfig) => `${buildConfig.version.split('-')[0]}-1`
 
+const scripts = {
+  /* eslint-disable no-useless-escape */
+  bin: (config: Config.IConfig) => `#!/usr/bin/env bash
+set -e
+echoerr() { echo "$@" 1>&2; }
+get_script_dir () {
+  SOURCE="\${BASH_SOURCE[0]}"
+  # While \$SOURCE is a symlink, resolve it
+  while [ -h "\$SOURCE" ]; do
+    DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
+    SOURCE="\$( readlink "\$SOURCE" )"
+    # If \$SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
+    [[ \$SOURCE != /* ]] && SOURCE="\$DIR/\$SOURCE"
+  done
+  DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
+  echo "\$DIR"
+}
+DIR=\$(get_script_dir)
+export ${config.scopedEnvVarKey('UPDATE_INSTRUCTIONS')}="update with \\"sudo apt update && sudo apt install ${config.bin}\\""
+\$DIR/node \$DIR/run "\$@"
+`,
+  /* eslint-enable no-useless-escape */
+  control: (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
+Version: ${debVersion(config)}
+Section: main
+Priority: standard
+Architecture: ${arch}
+Maintainer: ${config.config.scopedEnvVar('AUTHOR') || config.config.pjson.author}
+Description: ${config.config.pjson.description}
+`,
+  ftparchive: (config: Config.IConfig) => `
+APT::FTPArchive::Release {
+  Origin "${config.scopedEnvVar('AUTHOR') || config.pjson.author}";
+  Suite  "stable";
+`,
+}
+
 export default class PackDeb extends Command {
   static description = 'pack CLI into debian package'
 
@@ -50,6 +87,7 @@ export default class PackDeb extends Command {
     const arches = _.uniq(buildConfig.targets
     .filter(t => t.platform === 'linux')
     .map(t => t.arch))
+    // eslint-disable-next-line no-await-in-loop
     for (const a of arches) await build(a)
 
     await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
@@ -67,37 +105,3 @@ export default class PackDeb extends Command {
   }
 }
 
-const scripts = {
-  bin: (config: Config.IConfig) => `#!/usr/bin/env bash
-set -e
-echoerr() { echo "$@" 1>&2; }
-get_script_dir () {
-  SOURCE="\${BASH_SOURCE[0]}"
-  # While \$SOURCE is a symlink, resolve it
-  while [ -h "\$SOURCE" ]; do
-    DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
-    SOURCE="\$( readlink "\$SOURCE" )"
-    # If \$SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
-    [[ \$SOURCE != /* ]] && SOURCE="\$DIR/\$SOURCE"
-  done
-  DIR="\$( cd -P "\$( dirname "\$SOURCE" )" && pwd )"
-  echo "\$DIR"
-}
-DIR=\$(get_script_dir)
-export ${config.scopedEnvVarKey('UPDATE_INSTRUCTIONS')}="update with \\"sudo apt update && sudo apt install ${config.bin}\\""
-\$DIR/node \$DIR/run "\$@"
-`,
-  control: (config: Tarballs.IConfig, arch: string) => `Package: ${config.config.bin}
-Version: ${debVersion(config)}
-Section: main
-Priority: standard
-Architecture: ${arch}
-Maintainer: ${config.config.scopedEnvVar('AUTHOR') || config.config.pjson.author}
-Description: ${config.config.pjson.description}
-`,
-  ftparchive: (config: Config.IConfig) => `
-APT::FTPArchive::Release {
-  Origin "${config.scopedEnvVar('AUTHOR') || config.pjson.author}";
-  Suite  "stable";
-`,
-}

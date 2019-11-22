@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 

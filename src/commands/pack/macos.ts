@@ -5,6 +5,19 @@ import * as qq from 'qqjs'
 
 import * as Tarballs from '../../tarballs'
 
+const scripts = {
+  preinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
+sudo rm -rf /usr/local/lib/${config.dirname}
+sudo rm -rf /usr/local/${config.bin}
+sudo rm -rf /usr/local/bin/${config.bin}
+`,
+  postinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
+set -x
+sudo mkdir -p /usr/local/bin
+sudo ln -sf /usr/local/lib/${config.dirname}/bin/${config.bin} /usr/local/bin/${config.bin}
+`,
+}
+
 export default class PackMacos extends Command {
   static description = 'pack CLI into MacOS .pkg'
 
@@ -49,15 +62,3 @@ export default class PackMacos extends Command {
   }
 }
 
-const scripts = {
-  preinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
-sudo rm -rf /usr/local/lib/${config.dirname}
-sudo rm -rf /usr/local/${config.bin}
-sudo rm -rf /usr/local/bin/${config.bin}
-`,
-  postinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
-set -x
-sudo mkdir -p /usr/local/bin
-sudo ln -sf /usr/local/lib/${config.dirname}/bin/${config.bin} /usr/local/bin/${config.bin}
-`,
-}

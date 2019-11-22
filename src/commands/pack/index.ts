@@ -19,7 +19,7 @@ This can be used to create oclif CLIs that use the system node or that come prel
     const prevCwd = qq.cwd()
     if (process.platform === 'win32') throw new Error('pack does not function on windows')
     const {flags} = this.parse(Pack)
-    const targets = flags.targets !== undefined ? flags.targets.split(',') : undefined
+    const targets = flags.targets ? flags.targets.split(',') : undefined
     const buildConfig = await Tarballs.buildConfig(flags.root, {xz: flags.xz, targets})
     await Tarballs.build(buildConfig)
     qq.cd(prevCwd)

@@ -38,8 +38,7 @@ describe('publish:deb', () => {
     await qq.x('apt-get update')
     await qq.x('apt-get install -y oclif-dev')
     await qq.x('oclif-dev --version')
-    let stdout
-    stdout = await qq.x.stdout('oclif-dev', ['--version'])
+    const stdout = await qq.x.stdout('oclif-dev', ['--version'])
     expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${pjson.oclif.update.node.version}`)
   })
 })

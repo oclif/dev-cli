@@ -1,5 +1,3 @@
-// tslint:disable no-implicit-dependencies
-
 import {Command} from '@oclif/command'
 import * as Config from '@oclif/config'
 import * as fs from 'fs-extra'
@@ -22,7 +20,6 @@ export default class Manifest extends Command {
     if (!plugin) throw new Error('plugin not found')
     await plugin.load()
     if (!plugin.valid) {
-      // @ts-ignore
       const p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
       const {PluginLegacy} = require(p)
       delete plugin.name

@@ -43,7 +43,8 @@ export default class Publish extends Command {
       const manifest = config.s3Key('manifest', options)
       await aws.s3.uploadFile(dist(manifest), {...ManifestS3Options, Key: manifest})
     }
-    if (targets.length) log('uploading targets')
+    if (targets.length > 0) log('uploading targets')
+    // eslint-disable-next-line no-await-in-loop
     for (const target of targets) await uploadTarball(target)
     log('uploading vanilla')
     await uploadTarball()

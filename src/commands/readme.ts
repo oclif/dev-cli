@@ -34,7 +34,6 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
     const {flags} = this.parse(Readme)
     const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
     try {
-      // @ts-ignore
       const p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
       const plugin = new Config.Plugin({root: p, type: 'core'})
       await plugin.load()
@@ -182,6 +181,7 @@ USAGE
     return `https://${url.hostname}${url.pathname.replace(/\.git$/, '')}`
   }
 
+  // eslint-disable-next-line valid-jsdoc
   /**
    * fetches the path to a command
    */
