@@ -24,9 +24,10 @@ The readme must have any of the following tags inside of it for it to be replace
 
 Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 `
+
   static flags = {
     dir: flags.string({description: 'output directory for multi docs', default: 'docs', required: true}),
-    multi: flags.boolean({description: 'create a different markdown page for each topic'})
+    multi: flags.boolean({description: 'create a different markdown page for each topic'}),
   }
 
   async run() {
@@ -34,8 +35,8 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
     const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
     try {
       // @ts-ignore
-      let p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
-      let plugin = new Config.Plugin({root: p, type: 'core'})
+      const p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
+      const plugin = new Config.Plugin({root: p, type: 'core'})
       await plugin.load()
       config.plugins.push(plugin)
     } catch {}
@@ -68,9 +69,9 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 
   toc(__: Config.IConfig, readme: string): string {
     return readme.split('\n').filter(l => l.startsWith('# '))
-      .map(l => l.trim().slice(2))
-      .map(l => `* [${l}](#${slugify.slug(l)})`)
-      .join('\n')
+    .map(l => l.trim().slice(2))
+    .map(l => `* [${l}](#${slugify.slug(l)})`)
+    .join('\n')
   }
 
   usage(config: Config.IConfig): string {
@@ -95,7 +96,7 @@ USAGE
     topics = topics.filter(t => commands.find(c => c.id.startsWith(t.name)))
     topics = sortBy(topics, t => t.name)
     topics = uniqBy(topics, t => t.name)
-    for (let topic of topics) {
+    for (const topic of topics) {
       this.createTopicFile(
         path.join('.', dir, topic.name.replace(/:/g, '/') + '.md'),
         config,
@@ -109,7 +110,7 @@ USAGE
       ...topics.map(t => {
         return compact([
           `* [\`${config.bin} ${t.name}\`](${dir}/${t.name.replace(/:/g, '/')}.md)`,
-          template({config})(t.description || '').trim().split('\n')[0]
+          template({config})(t.description || '').trim().split('\n')[0],
         ]).join(' - ')
       }),
     ].join('\n').trim() + '\n'
@@ -117,7 +118,7 @@ USAGE
 
   createTopicFile(file: string, config: Config.IConfig, topic: Config.Topic, commands: Config.Command[]) {
     const bin = `\`${config.bin} ${topic.name}\``
-    let doc = [
+    const doc = [
       bin,
       '='.repeat(bin.length),
       '',
@@ -131,7 +132,7 @@ USAGE
   commands(config: Config.IConfig, commands: Config.Command[]): string {
     return [
       ...commands.map(c => {
-        let usage = this.commandUsage(config, c)
+        const usage = this.commandUsage(config, c)
         return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
       }),
       '',
@@ -141,7 +142,7 @@ USAGE
 
   renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
-    let title = template({config, command: c})(c.description || '').trim().split('\n')[0]
+    const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: columns})
     const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
     return compact([
@@ -153,15 +154,15 @@ USAGE
   }
 
   commandCode(config: Config.IConfig, c: Config.Command): string | undefined {
-    let pluginName = c.pluginName
+    const pluginName = c.pluginName
     if (!pluginName) return
-    let plugin = config.plugins.find(p => p.name === c.pluginName)
+    const plugin = config.plugins.find(p => p.name === c.pluginName)
     if (!plugin) return
     const repo = this.repo(plugin)
     if (!repo) return
     let label = plugin.name
     let version = plugin.version
-    let commandPath = this.commandPath(plugin, c)
+    const commandPath = this.commandPath(plugin, c)
     if (!commandPath) return
     if (config.name === plugin.name) {
       label = commandPath
@@ -185,24 +186,23 @@ USAGE
    * fetches the path to a command
    */
   private commandPath(plugin: Config.IPlugin, c: Config.Command): string | undefined {
-    let commandsDir = plugin.pjson.oclif.commands
+    const commandsDir = plugin.pjson.oclif.commands
     if (!commandsDir) return
     let p = path.join(plugin.root, commandsDir, ...c.id.split(':'))
     const libRegex = new RegExp('^lib' + (path.sep === '\\' ? '\\\\' : path.sep))
     if (fs.pathExistsSync(path.join(p, 'index.js'))) {
       p = path.join(p, 'index.js')
     } else if (fs.pathExistsSync(p + '.js')) {
-      p = p + '.js'
+      p += '.js'
     } else if (plugin.pjson.devDependencies.typescript) {
       // check if non-compiled scripts are available
-      let base = p.replace(plugin.root + path.sep, '')
+      const base = p.replace(plugin.root + path.sep, '')
       p = path.join(plugin.root, base.replace(libRegex, 'src' + path.sep))
       if (fs.pathExistsSync(path.join(p, 'index.ts'))) {
         p = path.join(p, 'index.ts')
       } else if (fs.pathExistsSync(p + '.ts')) {
-        p = p + '.ts'
+        p += '.ts'
       } else return
-
     } else return
     p = p.replace(plugin.root + path.sep, '')
     if (plugin.pjson.devDependencies.typescript) {
@@ -214,7 +214,7 @@ USAGE
 
   private commandUsage(config: Config.IConfig, command: Config.Command): string {
     const arg = (arg: Config.Command.Arg) => {
-      let name = arg.name.toUpperCase()
+      const name = arg.name.toUpperCase()
       if (arg.required) return `${name}`
       return `[${name}]`
     }
@@ -226,7 +226,7 @@ USAGE
         command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
       ]).join(' ')
     }
-    let usages = castArray(command.usage)
+    const usages = castArray(command.usage)
     return template({config, command})(usages.length === 0 ? defaultUsage() : usages[0])
   }
 }

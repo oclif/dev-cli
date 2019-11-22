@@ -14,15 +14,15 @@ const pack = async (from: string, to: string) => {
   qq.cd(path.dirname(from))
   await qq.mkdirp(path.dirname(to))
   log(`packing tarball from ${qq.prettifyPaths(from)} to ${qq.prettifyPaths(to)}`)
-  await (to.endsWith('gz')
-    ? qq.x('tar', ['czf', to, path.basename(from)])
-    : qq.x(`tar c ${path.basename(from)} | xz > ${to}`))
+  await (to.endsWith('gz') ?
+    qq.x('tar', ['czf', to, path.basename(from)]) :
+    qq.x(`tar c ${path.basename(from)} | xz > ${to}`))
   qq.cd(prevCwd)
 }
 
 export async function build(c: IConfig, options: {
-  platform?: string
-  pack?: boolean
+  platform?: string;
+  pack?: boolean;
 } = {}) {
   const {xz, config} = c
   const prevCwd = qq.cwd()
@@ -37,7 +37,7 @@ export async function build(c: IConfig, options: {
     tarball = qq.join([c.workspace(), tarball])
     qq.cd(c.workspace())
     await qq.x(`tar -xzf ${tarball}`)
-    for (let f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
+    for (const f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
     await qq.rm('package', tarball, 'bin/run.cmd')
   }
   const updatePJSON = async () => {
@@ -64,7 +64,7 @@ export async function build(c: IConfig, options: {
       await qq.x('npm install --production')
     }
   }
-  const buildTarget = async (target: {platform: PlatformTypes, arch: ArchTypes}) => {
+  const buildTarget = async (target: {platform: PlatformTypes; arch: ArchTypes}) => {
     const workspace = c.workspace(target)
     const key = config.s3Key('versioned', '.tar.gz', target)
     const base = path.basename(key)
@@ -95,7 +95,7 @@ export async function build(c: IConfig, options: {
       node: {
         compatible: config.pjson.engines.node,
         recommended: c.nodeVersion,
-      }
+      },
     }
     await qq.writeJSON(c.dist(config.s3Key('manifest', target)), manifest)
   }
@@ -129,7 +129,7 @@ export async function build(c: IConfig, options: {
   await addDependencies()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
-  for (let target of c.targets) {
+  for (const target of c.targets) {
     if (!options.platform || options.platform === target.platform) {
       await buildTarget(target)
     }

@@ -1,7 +1,7 @@
 import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
 
-export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig, baseWorkspace: string, nodeVersion: string}) {
+export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig; baseWorkspace: string; nodeVersion: string}) {
   const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
   const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
   const clientHomeEnvVar = config.scopedEnvVarKey('OCLIF_CLIENT_HOME')
@@ -26,11 +26,11 @@ if exist "%~dp0..\\bin\\node.exe" (
 )
 `)
     // await qq.write([output, 'bin', config.bin], `#!/bin/sh
-// basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
-// "$basedir/../client/bin/${config.bin}.cmd" "$@"
-// ret=$?
-// exit $ret
-// `)
+    // basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+    // "$basedir/../client/bin/${config.bin}.cmd" "$@"
+    // ret=$?
+    // exit $ret
+    // `)
   }
   const writeUnix = async () => {
     const bin = qq.join([baseWorkspace, 'bin', config.bin])

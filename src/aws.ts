@@ -9,15 +9,15 @@ const debug = Debug.new('aws')
 
 export namespace upload {
   export interface Options {
-    localFile: string
+    localFile: string;
     s3Params: {
-      Bucket: string
-      Key: string
-    }
+      Bucket: string;
+      Key: string;
+    };
   }
 }
 
-const cache: {s3?: S3, cloudfront?: CloudFront} = {}
+const cache: {s3?: S3; cloudfront?: CloudFront} = {}
 const aws = {
   get creds() {
     const creds = {
@@ -40,7 +40,9 @@ const aws = {
       throw err
     }
   },
-  get cloudfront() { return cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)(this.creds) },
+  get cloudfront() {
+    return cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)(this.creds)
+  },
 }
 
 export default {
@@ -73,7 +75,7 @@ export default {
         })
       }),
     }
-  }
+  },
 }
 
 // export const getObject = (options: S3.Types.GetObjectRequest) => new Promise<S3.GetObjectOutput>((resolve, reject) => {

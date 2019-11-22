@@ -18,7 +18,7 @@ export default class PackWin extends Command {
     const {config} = buildConfig
     await Tarballs.build(buildConfig, {platform: 'win32', pack: false})
     const arches = buildConfig.targets.filter(t => t.platform === 'win32').map(t => t.arch)
-    for (let arch of arches) {
+    for (const arch of arches) {
       const installerBase = qq.join(buildConfig.tmp, `windows-${arch}-installer`)
       await qq.write([installerBase, `bin/${config.bin}.cmd`], scripts.cmd(config))
       await qq.write([installerBase, `bin/${config.bin}`], scripts.sh(config))
@@ -223,5 +223,5 @@ done:
   Pop $R2
   Exch $R1 ; $R1=old$R1, stack=[result,...]
 FunctionEnd
-`
+`,
 }

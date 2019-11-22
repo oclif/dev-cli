@@ -30,7 +30,7 @@ export default class Publish extends Command {
     }
     // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
-    const uploadTarball = async (options?: {platform: PlatformTypes, arch: ArchTypes}) => {
+    const uploadTarball = async (options?: {platform: PlatformTypes; arch: ArchTypes}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
       const releaseTarballs = async (ext: '.tar.gz' | '.tar.xz') => {
         const versioned = config.s3Key('versioned', ext, options)

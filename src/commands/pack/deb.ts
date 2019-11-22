@@ -30,7 +30,7 @@ export default class PackDeb extends Command {
     const dist = buildConfig.dist('deb')
     await qq.emptyDir(dist)
     const build = async (arch: Config.ArchTypes) => {
-      const target: {platform: 'linux', arch: Config.ArchTypes} = {platform: 'linux', arch}
+      const target: {platform: 'linux'; arch: Config.ArchTypes} = {platform: 'linux', arch}
       const versionedDebBase = `${config.bin}_${debVersion(buildConfig)}_${debArch(arch)}`
       const workspace = qq.join(buildConfig.tmp, 'apt', `${versionedDebBase}.apt`)
       await qq.rm(workspace)
@@ -48,9 +48,9 @@ export default class PackDeb extends Command {
     }
 
     const arches = _.uniq(buildConfig.targets
-      .filter(t => t.platform === 'linux')
-      .map(t => t.arch))
-    for (let a of arches) await build(a)
+    .filter(t => t.platform === 'linux')
+    .map(t => t.arch))
+    for (const a of arches) await build(a)
 
     await qq.x('apt-ftparchive packages . > Packages', {cwd: dist})
     await qq.x('gzip -c Packages > Packages.gz', {cwd: dist})
@@ -99,5 +99,5 @@ Description: ${config.config.pjson.description}
 APT::FTPArchive::Release {
   Origin "${config.scopedEnvVar('AUTHOR') || config.pjson.author}";
   Suite  "stable";
-`
+`,
 }
