@@ -11,7 +11,7 @@ const target = [process.platform, process.arch].join('-')
 
 const skipIfWindows = process.platform === 'win32' ? test.skip() : test
 const testRun = `test-${Math.random().toString().split('.')[1].slice(0, 4)}`
-let s3UploadedFiles: string[] = []
+const s3UploadedFiles: string[] = []
 
 describe('publish', () => {
   beforeEach(async () => {
@@ -61,41 +61,41 @@ describe('publish', () => {
 
   describe('with filter', () => {
     skipIfWindows
-      .stub(qq, 'x', ({
-        stdout: () => Promise.resolve(),
-        exec: () => Promise.resolve()
-      }))
-      .stub(qq, 'exists', () => true)
-      .stub(aws, 's3', () => ({
-        uploadFile: (file: string) => {
-          s3UploadedFiles.push(file)
-        }
-      }))
-      .command(['publish', '-t', 'linux-x64'])
-      .it('publishes only the specified target', async () => {
-        expect(s3UploadedFiles.join()).to.contain('linux-x64')
-        expect(s3UploadedFiles.join()).to.not.contain('win32-x64')
-        expect(s3UploadedFiles.join()).to.not.contain('darwin-x64')
-      })
+    .stub(qq, 'x', ({
+      stdout: () => Promise.resolve(),
+      exec: () => Promise.resolve(),
+    }))
+    .stub(qq, 'exists', () => true)
+    .stub(aws, 's3', () => ({
+      uploadFile: (file: string) => {
+        s3UploadedFiles.push(file)
+      },
+    }))
+    .command(['publish', '-t', 'linux-x64'])
+    .it('publishes only the specified target', async () => {
+      expect(s3UploadedFiles.join()).to.contain('linux-x64')
+      expect(s3UploadedFiles.join()).to.not.contain('win32-x64')
+      expect(s3UploadedFiles.join()).to.not.contain('darwin-x64')
+    })
   })
 
   describe('without filter', () => {
     skipIfWindows
-      .stub(qq, 'x', ({
-        stdout: () => Promise.resolve(),
-        exec: () => Promise.resolve()
-      }))
-      .stub(qq, 'exists', () => true)
-      .stub(aws, 's3', () => ({
-        uploadFile: (file: string) => {
-          s3UploadedFiles.push(file)
-        }
-      }))
-      .command(['publish'])
-      .it('publishes all', async () => {
-        expect(s3UploadedFiles.join()).to.contain('linux-x64')
-        expect(s3UploadedFiles.join()).to.contain('win32-x64')
-        expect(s3UploadedFiles.join()).to.contain('darwin-x64')
-      })
+    .stub(qq, 'x', ({
+      stdout: () => Promise.resolve(),
+      exec: () => Promise.resolve(),
+    }))
+    .stub(qq, 'exists', () => true)
+    .stub(aws, 's3', () => ({
+      uploadFile: (file: string) => {
+        s3UploadedFiles.push(file)
+      },
+    }))
+    .command(['publish'])
+    .it('publishes all', async () => {
+      expect(s3UploadedFiles.join()).to.contain('linux-x64')
+      expect(s3UploadedFiles.join()).to.contain('win32-x64')
+      expect(s3UploadedFiles.join()).to.contain('darwin-x64')
+    })
   })
 })
