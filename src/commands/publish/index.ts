@@ -32,7 +32,7 @@ export default class Publish extends Command {
     }
     // for (let target of targets) await this.uploadNodeBinary(target)
     const ManifestS3Options = {...S3Options, CacheControl: 'max-age=86400', ContentType: 'application/json'}
-    const uploadTarball = async (options?: {platform: PlatformTypes, arch: ArchTypes}) => {
+    const uploadTarball = async (options?: {platform: PlatformTypes; arch: ArchTypes}) => {
       const TarballS3Options = {...S3Options, CacheControl: 'max-age=604800'}
       const releaseTarballs = async (ext: '.tar.gz' | '.tar.xz') => {
         const versioned = config.s3Key('versioned', ext, options)
@@ -45,7 +45,8 @@ export default class Publish extends Command {
       const manifest = config.s3Key('manifest', options)
       await aws.s3.uploadFile(dist(manifest), {...ManifestS3Options, Key: manifest})
     }
-    if (targets.length) log('uploading targets')
+    if (targets.length > 0) log('uploading targets')
+    // eslint-disable-next-line no-await-in-loop
     for (const target of targets) await uploadTarball(target)
     log('uploading vanilla')
     await uploadTarball()

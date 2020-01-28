@@ -9,6 +9,7 @@ import {Command} from '@oclif/command'
 
 export default class Publish extends Command {
   static description = 'publish an oclif CLI to GitHub Releases'
+
   static hidden = true
 
   static flags = {
@@ -58,9 +59,9 @@ export default class Publish extends Command {
     //   await this.addFileToRelease(release, `${tarball}.tar.gz`)
     //   if (flags.xz) await this.addFileToRelease(release, `${tarball}.tar.xz`)
     // }
-  // }
+    // }
 
-  // async findOrCreateRelease({owner, repo, tag, prerelease, draft, commitish}: {owner: string, repo: string, tag: string, prerelease: boolean, draft: boolean, commitish: string}) {
+    // async findOrCreateRelease({owner, repo, tag, prerelease, draft, commitish}: {owner: string, repo: string, tag: string, prerelease: boolean, draft: boolean, commitish: string}) {
     // const findRelease = async () => {
     //   const {data} = await this.octokit.repos.getReleaseByTag({owner, repo, tag})
     //   action(`found existing release ${tag}`)
@@ -84,7 +85,7 @@ export default class Publish extends Command {
     //   this.debug(err)
     // }
     // return createRelease()
-  // }
+    // }
 
   // async addFileToRelease(release: {upload_url: string}, file: string) {
     // action(`uploading ${file}`)

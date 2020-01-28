@@ -5,6 +5,19 @@ import * as qq from 'qqjs'
 
 import * as Tarballs from '../../tarballs'
 
+const scripts = {
+  preinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
+sudo rm -rf /usr/local/lib/${config.dirname}
+sudo rm -rf /usr/local/${config.bin}
+sudo rm -rf /usr/local/bin/${config.bin}
+`,
+  postinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
+set -x
+sudo mkdir -p /usr/local/bin
+sudo ln -sf /usr/local/lib/${config.dirname}/bin/${config.bin} /usr/local/bin/${config.bin}
+`,
+}
+
 export default class PackMacos extends Command {
   static description = 'pack CLI into MacOS .pkg'
 
@@ -30,6 +43,7 @@ export default class PackMacos extends Command {
     }
     await writeScript('preinstall')
     await writeScript('postinstall')
+    /* eslint-disable array-element-newline */
     const args = [
       '--root', buildConfig.workspace({platform: 'darwin', arch: 'x64'}),
       '--identifier', c.macos.identifier,
@@ -37,6 +51,7 @@ export default class PackMacos extends Command {
       '--install-location', `/usr/local/lib/${config.dirname}`,
       '--scripts', scriptsDir,
     ]
+    /* eslint-enable array-element-newline */
     if (c.macos.sign) args.push('--sign', c.macos.sign)
     if (process.env.OSX_KEYCHAIN) args.push('--keychain', process.env.OSX_KEYCHAIN)
     args.push(dist)
@@ -44,15 +59,3 @@ export default class PackMacos extends Command {
   }
 }
 
-const scripts = {
-  preinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
-sudo rm -rf /usr/local/lib/${config.dirname}
-sudo rm -rf /usr/local/${config.bin}
-sudo rm -rf /usr/local/bin/${config.bin}
-`,
-  postinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
-set -x
-sudo mkdir -p /usr/local/bin
-sudo ln -sf /usr/local/lib/${config.dirname}/bin/${config.bin} /usr/local/bin/${config.bin}
-`,
-}
