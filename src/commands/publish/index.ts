@@ -14,6 +14,7 @@ export default class Publish extends Command {
 
   static flags = {
     root: flags.string({char: 'r', description: 'path to oclif CLI root', default: '.', required: true}),
+    targets: flags.string({char: 't', description: 'comma-separated targets to pack (e.g.: linux-arm,win32-x64)'}),
   }
 
   buildConfig!: Tarballs.IConfig
@@ -21,7 +22,8 @@ export default class Publish extends Command {
   async run() {
     const {flags} = this.parse(Publish)
     if (process.platform === 'win32') throw new Error('publish does not function on windows')
-    this.buildConfig = await Tarballs.buildConfig(flags.root)
+    const targetOpts = flags.targets ? flags.targets.split(',') : undefined
+    this.buildConfig = await Tarballs.buildConfig(flags.root, {targets: targetOpts})
     const {s3Config, targets, dist, version, config} = this.buildConfig
     if (!await qq.exists(dist(config.s3Key('versioned', {ext: '.tar.gz'})))) this.error('run "oclif-dev pack" before publishing')
     const S3Options = {
