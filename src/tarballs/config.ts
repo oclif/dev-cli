@@ -1,4 +1,5 @@
 import * as Config from '@oclif/config'
+import * as fs from 'fs'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
@@ -15,7 +16,7 @@ const TARGETS = [
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IConfig {
   root: string;
-  gitSha: string;
+  vcsRevision: string | null;
   config: Config.IConfig;
   nodeVersion: string;
   version: string;
@@ -45,9 +46,21 @@ export interface IManifest {
   };
 }
 
-export function gitSha(cwd: string, options: {short?: boolean} = {}) {
+function isGitRepo(cwd: string): boolean {
+  const dir = path.join(cwd, '.git')
+  return fs.existsSync(dir) && fs.lstatSync(dir).isDirectory()
+}
+
+function gitSha(cwd: string, options: {short?: boolean} = {}): Promise<string> {
   const args = options.short ? ['rev-parse', '--short', 'HEAD'] : ['rev-parse', 'HEAD']
   return qq.x.stdout('git', args, {cwd})
+}
+
+export function getVcsRevision(cwd: string, options: {short?: boolean} = {}): Promise<string | null> {
+  if (isGitRepo(cwd)) {
+    return gitSha(cwd, options)
+  }
+  return Promise.resolve(null)
 }
 
 async function Tmp(config: Config.IConfig) {
@@ -60,15 +73,15 @@ export async function buildConfig(root: string, options: {xz?: boolean; targets?
   const config = await Config.load({root: path.resolve(root), devPlugins: false, userPlugins: false})
   const channel = config.channel
   root = config.root
-  const _gitSha = await gitSha(root, {short: true})
-  const version = config.version.includes('-') ? `${config.version}.${_gitSha}` : config.version
+  const _vcsRevision = await getVcsRevision(root, {short: true})
+  const version = config.version.includes('-') && _vcsRevision !== null ? `${config.version}.${_vcsRevision}` : config.version
   // eslint-disable-next-line new-cap
   const tmp = await Tmp(config)
   const updateConfig = config.pjson.oclif.update || {}
   updateConfig.s3 = updateConfig.s3 || {}
   return {
     root,
-    gitSha: _gitSha,
+    vcsRevision: _vcsRevision,
     config,
     tmp,
     updateConfig,

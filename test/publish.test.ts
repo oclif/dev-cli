@@ -2,7 +2,7 @@ import {expect, test} from '@oclif/test'
 import * as qq from 'qqjs'
 
 import aws from '../src/aws'
-import {gitSha} from '../src/tarballs'
+import {getVcsRevision} from '../src/tarballs'
 
 const pjson = require('../package.json')
 const pjsonPath = require.resolve('../package.json')
@@ -47,7 +47,7 @@ describe('publish', () => {
           await qq.x('tar xzf oclif-dev.tar.gz')
         }
         const stdout = await qq.x.stdout('./oclif-dev/bin/oclif-dev', ['--version'])
-        const sha = await gitSha(process.cwd(), {short: true})
+        const sha = await getVcsRevision(process.cwd(), {short: true})
         expect(stdout).to.contain(`@oclif/dev-cli/${pjson.version}.${sha} ${target} node-v${nodeVersion}`)
         await qq.rm('oclif-dev')
       }

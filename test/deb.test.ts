@@ -1,7 +1,7 @@
 import {expect, test} from '@oclif/test'
 import * as qq from 'qqjs'
 
-import {gitSha} from '../src/tarballs'
+import {getVcsRevision} from '../src/tarballs'
 
 const pjson = require('../package.json')
 const pjsonPath = require.resolve('../package.json')
@@ -31,7 +31,7 @@ describe('publish:deb', () => {
   .command(['pack:deb'])
   .command(['publish:deb'])
   .it('publishes valid releases', async () => {
-    const sha = await gitSha(process.cwd(), {short: true})
+    const sha = await getVcsRevision(process.cwd(), {short: true})
     qq.cd([__dirname, '..'])
     await qq.x('cat test/release.key | apt-key add -')
     await qq.x(`echo "deb https://oclif-staging.s3.amazonaws.com/channels/${testRun}/apt ./" > /etc/apt/sources.list.d/oclif-dev.list`)
