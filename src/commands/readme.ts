@@ -38,7 +38,7 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
       const plugin = new Config.Plugin({root: p, type: 'core'})
       await plugin.load()
       config.plugins.push(plugin)
-    } catch {}
+    } catch { }
     await config.runHook('init', {id: 'readme', argv: this.argv})
     let readme = await fs.readFile('README.md', 'utf8')
     let commands = config.commands
@@ -209,6 +209,7 @@ USAGE
       p = p.replace(libRegex, 'src' + path.sep)
       p = p.replace(/\.js$/, '.ts')
     }
+    p = p.replace(/\\/g, '/') // Replace windows '\' by '/'
     return p
   }
 
