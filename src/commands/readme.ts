@@ -79,9 +79,9 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 $ npm install -g ${config.name}
 $ ${config.bin} COMMAND
 running command...
-$ ${config.bin} (-v|--version|version)
+$ ${config.bin} (-v|-version|--version)
 ${config.name}/${process.env.OCLIF_NEXT_VERSION || config.version} ${process.platform}-${process.arch} node-v${process.versions.node}
-$ ${config.bin} --help [COMMAND]
+$ ${config.bin} (-h|-help|--help) [COMMAND]
 USAGE
   $ ${config.bin} COMMAND
 ...
