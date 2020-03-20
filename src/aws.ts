@@ -9,15 +9,15 @@ const debug = Debug.new('aws')
 
 export namespace upload {
   export interface Options {
-    localFile: string
+    localFile: string;
     s3Params: {
-      Bucket: string
-      Key: string
-    }
+      Bucket: string;
+      Key: string;
+    };
   }
 }
 
-const cache: {s3?: S3, cloudfront?: CloudFront} = {}
+const cache: {s3?: S3; cloudfront?: CloudFront} = {}
 const aws = {
   get creds() {
     const creds = {
@@ -31,16 +31,20 @@ const aws = {
   },
   get s3() {
     try {
-      return cache.s3 = cache.s3 || new (require('aws-sdk/clients/s3') as typeof S3)({
+      cache.s3 = cache.s3 || new (require('aws-sdk/clients/s3') as typeof S3)({
         ...this.creds,
         endpoint: process.env.AWS_S3_ENDPOINT,
       })
-    } catch (err) {
-      if (err.code === 'MODULE_NOT_FOUND') throw new Error(`${err.message}\naws-sdk is needed to run this command.\nInstall aws-sdk as a devDependency in your CLI. \`yarn add -D aws-sdk\``)
-      throw err
+      return cache.s3
+    } catch (error) {
+      if (error.code === 'MODULE_NOT_FOUND') throw new Error(`${error.message}\naws-sdk is needed to run this command.\nInstall aws-sdk as a devDependency in your CLI. \`yarn add -D aws-sdk\``)
+      throw error
     }
   },
-  get cloudfront() { return cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)(this.creds) },
+  get cloudfront() {
+    cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)(this.creds)
+    return cache.cloudfront
+  },
 }
 
 export default {
@@ -73,7 +77,7 @@ export default {
         })
       }),
     }
-  }
+  },
 }
 
 // export const getObject = (options: S3.Types.GetObjectRequest) => new Promise<S3.GetObjectOutput>((resolve, reject) => {

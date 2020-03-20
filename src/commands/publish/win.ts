@@ -21,7 +21,7 @@ export default class PublishWin extends Command {
       ACL: s3Config.acl || 'public-read',
     }
 
-    let root = buildConfig.channel === 'stable' ? '' : `channels/${buildConfig.channel}/`
+    const root = buildConfig.channel === 'stable' ? '' : `channels/${buildConfig.channel}/`
     const uploadWin = async (arch: 'x64' | 'x86') => {
       const exe = buildConfig.dist(`win/${config.bin}-v${buildConfig.version}-${arch}.exe`)
       if (await qq.exists(exe)) await aws.s3.uploadFile(exe, {...S3Options, CacheControl: 'max-age=86400', Key: `${root}${config.bin}-${arch}.exe`})
