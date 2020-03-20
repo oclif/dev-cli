@@ -76,11 +76,14 @@ export async function build(c: IConfig, options: {
       await qq.cp(lockpath, '.')
       await qq.x('npm install --production')
 
-      // install local dependencies
+      // install local folder dependencies
       if (options && options.localDependencies) {
+        const tarballRegex = /\.(?:tar|tgz\.gz|tgz)$/
         for (let depName of Object.keys(options.localDependencies)) {
-          const depPath = options.localDependencies[depName]
-          await qq.x('npx', ['install-local@^1.0.0', depPath])
+          if (!tarballRegex.test(depName)) {
+            const depPath = options.localDependencies[depName]
+            await qq.x('npx', ['@rizzlesauce/install-local@^1.0.1-rossa.1', depPath])
+          }
         }
       }
     }
