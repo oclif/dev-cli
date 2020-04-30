@@ -1,8 +1,8 @@
 import {test} from '@oclif/test'
 import * as qq from 'qqjs'
 
-const pjson = require('../package.json')
-const pjsonPath = require.resolve('../package.json')
+const pjson = require('../../package.json')
+const pjsonPath = require.resolve('../../package.json')
 const originalVersion = pjson.version
 
 const onlyMacos = process.platform === 'darwin' ? test : test.skip()
@@ -13,13 +13,13 @@ describe('publish:macos', () => {
     await qq.x(`aws s3 rm --recursive s3://oclif-staging/channels/${testRun}`)
     pjson.version = `${pjson.version}-${testRun}`
     await qq.writeJSON(pjsonPath, pjson)
-    const root = qq.join(__dirname, '../tmp/test/publish')
+    const root = qq.join(__dirname, '../../tmp/test/publish')
     await qq.emptyDir(root)
     qq.cd(root)
   })
   afterEach(async () => {
     await qq.x(`aws s3 rm --recursive s3://oclif/dev-cli/channels/${testRun}`)
-    qq.cd([__dirname, '..'])
+    qq.cd([__dirname, '..', '..'])
     pjson.version = originalVersion
     await qq.writeJSON(pjsonPath, pjson)
   })

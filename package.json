@@ -90,7 +90,9 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "yarn lint",
     "prepack": "rm -rf lib && tsc && node ./bin/run manifest",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "mocha --forbid-only \"test/unit/**/*.test.ts\"",
+    "test:integration": "mocha --forbid-only \"test/integration/**/*.test.ts\"",
     "version": "npm run changelog && node ./bin/run readme && git add README.md",
     "pretest": "tsc -p test --noEmit"
   },

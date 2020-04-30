@@ -15,21 +15,25 @@ helpers for oclif CLIs
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.22.2 darwin-x64 node-v10.2.1
+@oclif/dev-cli/1.21.3 darwin-x64 node-v12.16.1
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
 ...
 ```
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
 * [`oclif-dev help [COMMAND]`](#oclif-dev-help-command)
 * [`oclif-dev manifest [PATH]`](#oclif-dev-manifest-path)
@@ -203,8 +207,9 @@ USAGE
   $ oclif-dev readme
 
 OPTIONS
-  --dir=dir  (required) [default: docs] output directory for multi docs
-  --multi    create a different markdown page for each topic
+  -f, --commandlistformat=commandlistformat  [default: <%= bin %> <%= usage %>] format for the commands list
+  --dir=dir                                  (required) [default: docs] output directory for multi docs
+  --multi                                    create a different markdown page for each topic
 
 DESCRIPTION
   The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:

@@ -28,11 +28,15 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
   static flags = {
     dir: flags.string({description: 'output directory for multi docs', default: 'docs', required: true}),
     multi: flags.boolean({description: 'create a different markdown page for each topic'}),
+    commandlistformat: flags.string({description: 'format for the commands list', char: 'f', default: '<%= bin %> <%= usage %>'}),
   }
+
+  private commandFormat!: string
 
   async run() {
     const {flags} = this.parse(Readme)
     const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
+    this.commandFormat = flags.commandlistformat as string // there is always default
     try {
       const p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
       const plugin = new Config.Plugin({root: p, type: 'core'})
@@ -48,12 +52,23 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
     commands = uniqBy(commands, c => c.id)
     commands = sortBy(commands, c => c.id)
     readme = this.replaceTag(readme, 'usage', this.usage(config))
-    readme = this.replaceTag(readme, 'commands', flags.multi ? this.multiCommands(config, commands, flags.dir) : this.commands(config, commands))
+
+    const headerSize = this.headerSizeForContainingTag(readme, 'commands')
+    const tagBody = flags.multi ? this.multiCommands(config, commands, flags.dir) : this.commands(config, commands, headerSize)
+    readme = this.replaceTag(readme, 'commands', tagBody)
     readme = this.replaceTag(readme, 'toc', this.toc(config, readme))
 
     readme = readme.trimRight()
     readme += '\n'
     await fs.outputFile('README.md', readme)
+  }
+
+  headerSizeForContainingTag(readme: string, tag: string) {
+    const lines = readme.split('\n')
+    const linesToTag = _.takeWhile(lines, line => !line.includes(`<!-- ${tag} -->`))
+    const linesFromHeaderToTag = _.takeRightWhile(linesToTag, line => !/^#+\s/.test(line))
+    const match = /^(#+)\s/.exec(_.last(_.dropRight(linesToTag, linesFromHeaderToTag.length)) || '')
+    return match ? `#${match[1]}` : '##'
   }
 
   replaceTag(readme: string, tag: string, body: string): string {
@@ -128,27 +143,28 @@ USAGE
     fs.outputFileSync(file, doc)
   }
 
-  commands(config: Config.IConfig, commands: Config.Command[]): string {
+  commands(config: Config.IConfig, commands: Config.Command[], headerSize = '##'): string {
     return [
-      ...commands.map(c => {
-        const usage = this.commandUsage(config, c)
-        return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
+      ...commands.map(command => {
+        const commandInfo = this.commandInfo(config, command)
+        return `* [\`${commandInfo.label}\`](#${slugify.slug(`${commandInfo.index}`)})`
       }),
       '',
-      ...commands.map(c => this.renderCommand(config, c)).map(s => s.trim() + '\n'),
+      ...commands.map(commands => this.renderCommand(config, commands, headerSize)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
   }
 
-  renderCommand(config: Config.IConfig, c: Config.Command): string {
-    this.debug('rendering command', c.id)
-    const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
+  renderCommand(config: Config.IConfig, command: Config.Command, headerSize: string): string {
+    this.debug('rendering command', command.id)
+    const commandInfo = this.commandInfo(config, command)
+    let title = template({config, command})(command.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: columns})
-    const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
+    const header = () => `${headerSize} \`${commandInfo.label}\``
     return compact([
       header(),
       title,
-      '```\n' + help.command(c).trim() + '\n```',
-      this.commandCode(config, c),
+      '```\n' + help.command(command).trim() + '\n```',
+      this.commandCode(config, command),
     ]).join('\n\n')
   }
 
@@ -212,6 +228,12 @@ USAGE
     return p
   }
 
+  private commandInfo(config: Config.IConfig, command: Config.Command) {
+    let usage = this.commandUsage(config, command)
+    const label = template({config, command, usage, bin: config.bin})(this.commandFormat)
+    return {label, index: label.replace(/\s+/g, '-')}
+  }
+
   private commandUsage(config: Config.IConfig, command: Config.Command): string {
     const arg = (arg: Config.Command.Arg) => {
       const name = arg.name.toUpperCase()
@@ -219,8 +241,6 @@ USAGE
       return `[${name}]`
     }
     const defaultUsage = () => {
-      // const flags = Object.entries(command.flags)
-      // .filter(([, v]) => !v.hidden)
       return compact([
         command.id,
         command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
