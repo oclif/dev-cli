@@ -92,7 +92,7 @@
     "prepack": "rm -rf lib && tsc && node ./bin/run manifest",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "npm run changelog && node ./bin/run readme && git add README.md",
-    "pretest": "yarn build --noEmit",
+    "pretest": "yarn build --noEmit && tsc -p test --noEmit",
     "build": "rm -rf lib && tsc"
   },
   "types": "lib/index.d.ts"
