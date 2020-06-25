@@ -89,10 +89,11 @@
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "yarn lint",
-    "prepack": "rm -rf lib && tsc && node ./bin/run manifest",
+    "prepack": "yarn build && node ./bin/run manifest",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "npm run changelog && node ./bin/run readme && git add README.md",
-    "pretest": "tsc -p test --noEmit"
+    "pretest": "yarn build --noEmit && tsc -p test --noEmit",
+    "build": "rm -rf lib && tsc"
   },
   "types": "lib/index.d.ts"
 }
