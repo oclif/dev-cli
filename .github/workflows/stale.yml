@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/stale@v3
         with:
-          debug-only: true
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           days-before-stale: -1 # do not mark issues or pull requests as stale automatically
           days-before-close: 7 # wait 7 days before closing a stale issue
