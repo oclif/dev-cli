@@ -1,14 +1,14 @@
 // tslint:disable no-implicit-dependencies
-
 import {Command, flags} from '@oclif/command'
 import * as Config from '@oclif/config'
-import Help from '@oclif/plugin-help'
 import * as fs from 'fs-extra'
 import * as _ from 'lodash'
 import * as path from 'path'
 import {URL} from 'url'
+import stripAnsi = require('strip-ansi')
 
 import {castArray, compact, sortBy, template, uniqBy} from '../util'
+import {getHelpClass} from '@oclif/plugin-help'
 
 const normalize = require('normalize-package-data')
 const columns = parseInt(process.env.COLUMNS!, 10) || 120
@@ -145,13 +145,27 @@ USAGE
 
   renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
-    const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
-    const help = new Help(config, {stripAnsi: true, maxWidth: columns})
+    const HelpClass = getHelpClass(config)
+    const help = new HelpClass(config, {stripAnsi: true, maxWidth: columns})
+
     const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
+
+    const generateCommandHelp = () =>  {
+      const original = process.stdout.write
+      const chunks: string[] = []
+      process.stdout.write = (chunk: string | Buffer | Uint8Array) => {
+        chunks.push(String(chunk))
+        return true
+      }
+      help.showCommandHelp(c, config.topics)
+      process.stdout.write = original
+
+      return chunks.join('')
+    }
+
     return compact([
       header(),
-      title,
-      '```\n' + help.command(c).trim() + '\n```',
+      '```\n' + stripAnsi(generateCommandHelp().trim()) + '\n```',
       this.commandCode(config, c),
     ]).join('\n\n')
   }
