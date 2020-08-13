@@ -32,14 +32,18 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 
   async run() {
     const {flags} = this.parse(Readme)
-    const config = await Config.load({root: process.cwd(), devPlugins: false, userPlugins: false})
+    const cwd = process.cwd()
+    const readmePath = path.resolve(cwd, 'README.md')
+    const config = await Config.load({root: cwd, devPlugins: false, userPlugins: false})
+
     try {
-      const p = require.resolve('@oclif/plugin-legacy', {paths: [process.cwd()]})
+      const p = require.resolve('@oclif/plugin-legacy', {paths: [cwd]})
       const plugin = new Config.Plugin({root: p, type: 'core'})
       await plugin.load()
       config.plugins.push(plugin)
     } catch {}
     await (config.runHook as any)('init', {id: 'readme', argv: this.argv})
+    let readme = await fs.readFile(readmePath, 'utf8')
     let commands = config.commands
     commands = commands.filter(c => !c.hidden)
     commands = commands.filter(c => c.pluginType === 'core')
@@ -52,7 +56,8 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 
     readme = readme.trimRight()
     readme += '\n'
-    await fs.outputFile('README.md', readme)
+
+    await fs.outputFile(readmePath, readme)
   }
 
   replaceTag(readme: string, tag: string, body: string): string {
