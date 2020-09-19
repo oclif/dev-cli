@@ -17,9 +17,9 @@ const slugify = new (require('github-slugger') as any)()
 export default class Readme extends Command {
   static description = `adds commands to README.md in current directory
 The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
-# Usage
+## Usage
 <!-- usage -->
-# Commands
+## Commands
 <!-- commands -->
 
 Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
@@ -67,8 +67,8 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
   }
 
   toc(__: Config.IConfig, readme: string): string {
-    return readme.split('\n').filter(l => l.startsWith('# '))
-    .map(l => l.trim().slice(2))
+    return readme.split('\n').filter(l => l.startsWith('## '))
+    .map(l => l.trim().slice(3))
     .map(l => `* [${l}](#${slugify.slug(l)})`)
     .join('\n')
   }
@@ -105,7 +105,6 @@ USAGE
     }
 
     return [
-      '# Command Topics\n',
       ...topics.map(t => {
         return compact([
           `* [\`${config.bin} ${t.name}\`](${dir}/${t.name.replace(/:/g, '/')}.md)`,
@@ -118,36 +117,40 @@ USAGE
   createTopicFile(file: string, config: Config.IConfig, topic: Config.Topic, commands: Config.Command[]) {
     const bin = `\`${config.bin} ${topic.name}\``
     const doc = [
-      bin,
-      '='.repeat(bin.length),
+      `# The ${bin}`,
       '',
       template({config})(topic.description || '').trim(),
       '',
-      this.commands(config, commands),
+      this.commands(config, commands, true),
     ].join('\n').trim() + '\n'
     fs.outputFileSync(file, doc)
   }
 
-  commands(config: Config.IConfig, commands: Config.Command[]): string {
+  commands(config: Config.IConfig, commands: Config.Command[], multi = false): string {
     return [
       ...commands.map(c => {
         const usage = this.commandUsage(config, c)
         return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
       }),
       '',
-      ...commands.map(c => this.renderCommand(config, c)).map(s => s.trim() + '\n'),
+      ...commands.map(c => this.renderCommand(config, c, multi)).map(s => s.trim() + '\n'),
     ].join('\n').trim()
   }
 
-  renderCommand(config: Config.IConfig, c: Config.Command): string {
+  renderCommand(config: Config.IConfig, c: Config.Command, multi = false): string {
     this.debug('rendering command', c.id)
     const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: columns})
-    const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
+    const header = () => `${multi ? '##' : '###'} \`${config.bin} ${this.commandUsage(config, c)}\``
     return compact([
       header(),
       title,
-      '```\n' + help.command(c).trim() + '\n```',
+      [
+        '```sh-session',
+        `$ ${config.bin} ${c.id} --help`,
+        help.command(c).trim(),
+        '```',
+      ].join('\n'),
       this.commandCode(config, c),
     ]).join('\n\n')
   }

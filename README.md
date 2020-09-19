@@ -1,5 +1,4 @@
-@oclif/dev-cli
-===============
+# @oclif/dev-cli
 
 helpers for oclif CLIs
 
@@ -15,21 +14,23 @@ helpers for oclif CLIs
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-# Usage
+
+## Usage
 <!-- usage -->
 ```sh-session
 $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.22.2 darwin-x64 node-v10.2.1
+@oclif/dev-cli/1.22.2 linux-x64 node-v12.18.3
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
 ...
 ```
 <!-- usagestop -->
-# Commands
+
+## Commands
 <!-- commands -->
 * [`oclif-dev help [COMMAND]`](#oclif-dev-help-command)
 * [`oclif-dev manifest [PATH]`](#oclif-dev-manifest-path)
@@ -43,11 +44,12 @@ USAGE
 * [`oclif-dev publish:win`](#oclif-dev-publishwin)
 * [`oclif-dev readme`](#oclif-dev-readme)
 
-## `oclif-dev help [COMMAND]`
+### `oclif-dev help [COMMAND]`
 
 display help for oclif-dev
 
-```
+```sh-session
+$ oclif-dev help --help
 USAGE
   $ oclif-dev help [COMMAND]
 
@@ -58,13 +60,14 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `oclif-dev manifest [PATH]`
+### `oclif-dev manifest [PATH]`
 
 generates plugin manifest json
 
-```
+```sh-session
+$ oclif-dev manifest --help
 USAGE
   $ oclif-dev manifest [PATH]
 
@@ -74,11 +77,12 @@ ARGUMENTS
 
 _See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/manifest.ts)_
 
-## `oclif-dev pack`
+### `oclif-dev pack`
 
 packages oclif cli into tarballs
 
-```
+```sh-session
+$ oclif-dev pack --help
 USAGE
   $ oclif-dev pack
 
@@ -93,11 +97,12 @@ DESCRIPTION
 
 _See code: [src/commands/pack/index.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/index.ts)_
 
-## `oclif-dev pack:deb`
+### `oclif-dev pack:deb`
 
 pack CLI into debian package
 
-```
+```sh-session
+$ oclif-dev pack:deb --help
 USAGE
   $ oclif-dev pack:deb
 
@@ -107,11 +112,12 @@ OPTIONS
 
 _See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/deb.ts)_
 
-## `oclif-dev pack:macos`
+### `oclif-dev pack:macos`
 
 pack CLI into MacOS .pkg
 
-```
+```sh-session
+$ oclif-dev pack:macos --help
 USAGE
   $ oclif-dev pack:macos
 
@@ -121,11 +127,12 @@ OPTIONS
 
 _See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/macos.ts)_
 
-## `oclif-dev pack:win`
+### `oclif-dev pack:win`
 
 create windows installer from oclif CLI
 
-```
+```sh-session
+$ oclif-dev pack:win --help
 USAGE
   $ oclif-dev pack:win
 
@@ -135,16 +142,18 @@ OPTIONS
 
 _See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/win.ts)_
 
-## `oclif-dev publish`
+### `oclif-dev publish`
 
 publish an oclif CLI to S3
 
-```
+```sh-session
+$ oclif-dev publish --help
 USAGE
   $ oclif-dev publish
 
 OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
+  -r, --root=root        (required) [default: .] path to oclif CLI root
+  -t, --targets=targets  comma-separated targets to pack (e.g.: linux-arm,win32-x64)
 
 DESCRIPTION
   "aws-sdk" will need to be installed as a devDependency to publish.
@@ -152,11 +161,12 @@ DESCRIPTION
 
 _See code: [src/commands/publish/index.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/index.ts)_
 
-## `oclif-dev publish:deb`
+### `oclif-dev publish:deb`
 
 publish deb package built with pack:deb
 
-```
+```sh-session
+$ oclif-dev publish:deb --help
 USAGE
   $ oclif-dev publish:deb
 
@@ -166,11 +176,12 @@ OPTIONS
 
 _See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/deb.ts)_
 
-## `oclif-dev publish:macos`
+### `oclif-dev publish:macos`
 
 publish macos installers built with pack:macos
 
-```
+```sh-session
+$ oclif-dev publish:macos --help
 USAGE
   $ oclif-dev publish:macos
 
@@ -180,11 +191,12 @@ OPTIONS
 
 _See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/macos.ts)_
 
-## `oclif-dev publish:win`
+### `oclif-dev publish:win`
 
 publish windows installers built with pack:win
 
-```
+```sh-session
+$ oclif-dev publish:win --help
 USAGE
   $ oclif-dev publish:win
 
@@ -194,11 +206,12 @@ OPTIONS
 
 _See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/win.ts)_
 
-## `oclif-dev readme`
+### `oclif-dev readme`
 
 adds commands to README.md in current directory
 
-```
+```sh-session
+$ oclif-dev readme --help
 USAGE
   $ oclif-dev readme
 
@@ -208,9 +221,9 @@ OPTIONS
 
 DESCRIPTION
   The readme must have any of the following tags inside of it for it to be replaced or else it will do nothing:
-  # Usage
+  ## Usage
   <!-- usage -->
-  # Commands
+  ## Commands
   <!-- commands -->
 
   Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
