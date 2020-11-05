@@ -152,11 +152,15 @@ USAGE
 
     const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
 
-    return compact([
-      header(),
-      '```\n' + wrapper.formatCommand(c).trim() + '\n```',
-      this.commandCode(config, c),
-    ]).join('\n\n')
+    try {
+      return compact([
+        header(),
+        '```\n' + wrapper.formatCommand(c).trim() + '\n```',
+        this.commandCode(config, c),
+      ]).join('\n\n')
+    } catch (error) {
+      this.error(error.message)
+    }
   }
 
   commandCode(config: Config.IConfig, c: Config.Command): string | undefined {
