@@ -1,12 +1,8 @@
-import {HelpBase} from '@oclif/plugin-help'
+import {Help} from '@oclif/plugin-help'
 import {Command} from '@oclif/config'
 
-export default class CustomHelp extends HelpBase {
-  showHelp() {
-    console.log('TODO: showHelp')
-  }
-
-  showCommandHelp(command: Command) {
-    console.log(`Custom help for ${command.id}`)
+export default class CustomHelp extends Help {
+  formatCommand(command: Command) {
+    return `Custom help for ${command.id}`
   }
 }
