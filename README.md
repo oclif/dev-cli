@@ -22,7 +22,7 @@ $ npm install -g @oclif/dev-cli
 $ oclif-dev COMMAND
 running command...
 $ oclif-dev (-v|--version|version)
-@oclif/dev-cli/1.22.2 darwin-x64 node-v10.2.1
+@oclif/dev-cli/1.23.0 linux-x64 node-v12.0.0
 $ oclif-dev --help [COMMAND]
 USAGE
   $ oclif-dev COMMAND
@@ -58,7 +58,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `oclif-dev manifest [PATH]`
 
@@ -72,7 +72,7 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 ```
 
-_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/manifest.ts)_
+_See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/manifest.ts)_
 
 ## `oclif-dev pack`
 
@@ -91,7 +91,7 @@ DESCRIPTION
   This can be used to create oclif CLIs that use the system node or that come preloaded with a node binary.
 ```
 
-_See code: [src/commands/pack/index.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/index.ts)_
+_See code: [src/commands/pack/index.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/pack/index.ts)_
 
 ## `oclif-dev pack:deb`
 
@@ -105,7 +105,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/deb.ts)_
+_See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/pack/deb.ts)_
 
 ## `oclif-dev pack:macos`
 
@@ -119,7 +119,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/macos.ts)_
+_See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/pack/macos.ts)_
 
 ## `oclif-dev pack:win`
 
@@ -133,7 +133,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/pack/win.ts)_
+_See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/pack/win.ts)_
 
 ## `oclif-dev publish`
 
@@ -144,13 +144,14 @@ USAGE
   $ oclif-dev publish
 
 OPTIONS
-  -r, --root=root  (required) [default: .] path to oclif CLI root
+  -r, --root=root        (required) [default: .] path to oclif CLI root
+  -t, --targets=targets  comma-separated targets to pack (e.g.: linux-arm,win32-x64)
 
 DESCRIPTION
   "aws-sdk" will need to be installed as a devDependency to publish.
 ```
 
-_See code: [src/commands/publish/index.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/index.ts)_
+_See code: [src/commands/publish/index.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/publish/index.ts)_
 
 ## `oclif-dev publish:deb`
 
@@ -164,7 +165,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/deb.ts)_
+_See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/publish/deb.ts)_
 
 ## `oclif-dev publish:macos`
 
@@ -178,7 +179,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/macos.ts)_
+_See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/publish/macos.ts)_
 
 ## `oclif-dev publish:win`
 
@@ -192,7 +193,7 @@ OPTIONS
   -r, --root=root  (required) [default: .] path to oclif CLI root
 ```
 
-_See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/publish/win.ts)_
+_See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/publish/win.ts)_
 
 ## `oclif-dev readme`
 
@@ -216,5 +217,5 @@ DESCRIPTION
   Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 ```
 
-_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.22.2/src/commands/readme.ts)_
+_See code: [src/commands/readme.ts](https://github.com/oclif/dev-cli/blob/v1.23.0/src/commands/readme.ts)_
 <!-- commandsstop -->
