@@ -1,3 +1,17 @@
+# [1.23.0](https://github.com/oclif/dev-cli/compare/v1.22.2...v1.23.0) (2020-11-12)
+
+
+### Bug Fixes
+
+* rename publish.test.ts ([#130](https://github.com/oclif/dev-cli/issues/130)) ([1a90ece](https://github.com/oclif/dev-cli/commit/1a90ece6882e5385eda887e3de8ba28a87e125dd))
+
+
+### Features
+
+* publish only specified targets ([#117](https://github.com/oclif/dev-cli/issues/117)) ([6e7c356](https://github.com/oclif/dev-cli/commit/6e7c356d29a8c4318d69059f56e091eb834d0ddb))
+
+
+
 ## [1.22.2](https://github.com/oclif/dev-cli/compare/v1.22.1...v1.22.2) (2019-07-29)
 
 
