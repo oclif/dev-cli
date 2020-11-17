@@ -3,12 +3,14 @@
 import {Command, flags} from '@oclif/command'
 import * as Config from '@oclif/config'
 import Help from '@oclif/plugin-help'
+import CommandHelp from '@oclif/plugin-help/lib/command'
+import RootHelp from '@oclif/plugin-help/lib/root'
 import * as fs from 'fs-extra'
 import * as _ from 'lodash'
 import * as path from 'path'
 import {URL} from 'url'
 
-import {castArray, compact, sortBy, template, uniqBy} from '../util'
+import {compact, sortBy, template, uniqBy} from '../util'
 
 const normalize = require('normalize-package-data')
 const columns = parseInt(process.env.COLUMNS!, 10) || 120
@@ -74,17 +76,19 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
   }
 
   usage(config: Config.IConfig): string {
+    const rootHelp = new RootHelp(config, {
+      maxWidth: columns,
+    })
+    const usages = rootHelp.usageBase()
     return [
       `\`\`\`sh-session
 $ npm install -g ${config.name}
-$ ${config.bin} COMMAND
-running command...
 $ ${config.bin} (-v|--version|version)
 ${config.name}/${process.env.OCLIF_NEXT_VERSION || config.version} ${process.platform}-${process.arch} node-v${process.versions.node}
 $ ${config.bin} --help [COMMAND]
-USAGE
-  $ ${config.bin} COMMAND
-...
+USAGE`,
+      ...usages.map(u => `  ${u}`),
+`...
 \`\`\`\n`,
     ].join('\n').trim()
   }
@@ -132,7 +136,7 @@ USAGE
     return [
       ...commands.map(c => {
         const usage = this.commandUsage(config, c)
-        return `* [\`${config.bin} ${usage}\`](#${slugify.slug(`${config.bin}-${usage}`)})`
+        return `* [\`${usage}\`](#${slugify.slug(`${usage}`)})`
       }),
       '',
       ...commands.map(c => this.renderCommand(config, c)).map(s => s.trim() + '\n'),
@@ -143,7 +147,7 @@ USAGE
     this.debug('rendering command', c.id)
     const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
     const help = new Help(config, {stripAnsi: true, maxWidth: columns})
-    const header = () => `## \`${config.bin} ${this.commandUsage(config, c)}\``
+    const header = () => `## \`${this.commandUsage(config, c)}\``
     return compact([
       header(),
       title,
@@ -213,20 +217,13 @@ USAGE
   }
 
   private commandUsage(config: Config.IConfig, command: Config.Command): string {
-    const arg = (arg: Config.Command.Arg) => {
-      const name = arg.name.toUpperCase()
-      if (arg.required) return `${name}`
-      return `[${name}]`
-    }
-    const defaultUsage = () => {
-      // const flags = Object.entries(command.flags)
-      // .filter(([, v]) => !v.hidden)
-      return compact([
-        command.id,
-        command.args.filter(a => !a.hidden).map(a => arg(a)).join(' '),
-      ]).join(' ')
-    }
-    const usages = castArray(command.usage)
-    return template({config, command})(usages.length === 0 ? defaultUsage() : usages[0])
+    const commandHelp = new CommandHelp(command, config, {
+      maxWidth: columns,
+      stripAnsi: true,
+      usagePrefix: `${config.bin} `,
+    })
+    return commandHelp.usageBase(CommandHelp.getCommandFlags(command), {
+      omitCommandNameIfDefault: false,
+    })[0]
   }
 }
