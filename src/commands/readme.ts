@@ -42,8 +42,9 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
       await plugin.load()
       config.plugins.push(plugin)
     } catch {}
-    await (config.runHook as any)('init', {id: 'readme', argv: this.argv})
+    await (config as Config.Config).runHook('init', {id: 'readme', argv: this.argv})
     let readme = await fs.readFile(readmePath, 'utf8')
+
     let commands = config.commands
     commands = commands.filter(c => !c.hidden)
     commands = commands.filter(c => c.pluginType === 'core')
