@@ -221,6 +221,7 @@ USAGE
       p = p.replace(libRegex, 'src' + path.sep)
       p = p.replace(/\.js$/, '.ts')
     }
+    p = p.replace(/\\/g, '/') // Replace windows '\' by '/'
     return p
   }
 
