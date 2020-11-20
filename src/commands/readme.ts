@@ -146,7 +146,7 @@ USAGE
 
   renderCommand(config: Config.IConfig, c: Config.Command): string {
     this.debug('rendering command', c.id)
-
+    const title = template({config, command: c})(c.description || '').trim().split('\n')[0]
     const HelpClass = getHelpClass(config)
     const help = new HelpClass(config, {stripAnsi: true, maxWidth: columns})
     const wrapper = new HelpCompatibilityWrapper(help)
@@ -156,6 +156,7 @@ USAGE
     try {
       return compact([
         header(),
+        title,
         '```\n' + wrapper.formatCommand(c).trim() + '\n```',
         this.commandCode(config, c),
       ]).join('\n\n')

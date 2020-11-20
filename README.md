@@ -45,6 +45,8 @@ USAGE
 
 ## `oclif-dev help [COMMAND]`
 
+display help for oclif-dev
+
 ```
 USAGE
   $ oclif-dev help [COMMAND]
@@ -60,6 +62,8 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0
 
 ## `oclif-dev manifest [PATH]`
 
+generates plugin manifest json
+
 ```
 USAGE
   $ oclif-dev manifest [PATH]
@@ -71,6 +75,8 @@ ARGUMENTS
 _See code: [src/commands/manifest.ts](https://github.com/oclif/dev-cli/blob/v1.24.1/src/commands/manifest.ts)_
 
 ## `oclif-dev pack`
+
+packages oclif cli into tarballs
 
 ```
 USAGE
@@ -89,6 +95,8 @@ _See code: [src/commands/pack/index.ts](https://github.com/oclif/dev-cli/blob/v1
 
 ## `oclif-dev pack:deb`
 
+pack CLI into debian package
+
 ```
 USAGE
   $ oclif-dev pack:deb
@@ -100,6 +108,8 @@ OPTIONS
 _See code: [src/commands/pack/deb.ts](https://github.com/oclif/dev-cli/blob/v1.24.1/src/commands/pack/deb.ts)_
 
 ## `oclif-dev pack:macos`
+
+pack CLI into MacOS .pkg
 
 ```
 USAGE
@@ -113,6 +123,8 @@ _See code: [src/commands/pack/macos.ts](https://github.com/oclif/dev-cli/blob/v1
 
 ## `oclif-dev pack:win`
 
+create windows installer from oclif CLI
+
 ```
 USAGE
   $ oclif-dev pack:win
@@ -124,6 +136,8 @@ OPTIONS
 _See code: [src/commands/pack/win.ts](https://github.com/oclif/dev-cli/blob/v1.24.1/src/commands/pack/win.ts)_
 
 ## `oclif-dev publish`
+
+publish an oclif CLI to S3
 
 ```
 USAGE
@@ -141,6 +155,8 @@ _See code: [src/commands/publish/index.ts](https://github.com/oclif/dev-cli/blob
 
 ## `oclif-dev publish:deb`
 
+publish deb package built with pack:deb
+
 ```
 USAGE
   $ oclif-dev publish:deb
@@ -152,6 +168,8 @@ OPTIONS
 _See code: [src/commands/publish/deb.ts](https://github.com/oclif/dev-cli/blob/v1.24.1/src/commands/publish/deb.ts)_
 
 ## `oclif-dev publish:macos`
+
+publish macos installers built with pack:macos
 
 ```
 USAGE
@@ -165,6 +183,8 @@ _See code: [src/commands/publish/macos.ts](https://github.com/oclif/dev-cli/blob
 
 ## `oclif-dev publish:win`
 
+publish windows installers built with pack:win
+
 ```
 USAGE
   $ oclif-dev publish:win
@@ -176,6 +196,8 @@ OPTIONS
 _See code: [src/commands/publish/win.ts](https://github.com/oclif/dev-cli/blob/v1.24.1/src/commands/publish/win.ts)_
 
 ## `oclif-dev readme`
+
+adds commands to README.md in current directory
 
 ```
 USAGE
