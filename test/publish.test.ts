@@ -61,7 +61,7 @@ describe('publish', () => {
 
   describe('with filter', () => {
     skipIfWindows
-    .stub(qq, 'x', ({
+    .stub(qq, 'x', () => ({
       stdout: () => Promise.resolve(),
       exec: () => Promise.resolve(),
     }))
@@ -81,7 +81,7 @@ describe('publish', () => {
 
   describe('without filter', () => {
     skipIfWindows
-    .stub(qq, 'x', ({
+    .stub(qq, 'x', () => ({
       stdout: () => Promise.resolve(),
       exec: () => Promise.resolve(),
     }))
