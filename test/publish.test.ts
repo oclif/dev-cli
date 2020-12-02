@@ -61,7 +61,6 @@ describe('publish', () => {
 
   describe('with filter', () => {
     skipIfWindows
-    .stub(qq, 'exists', () => true)
     .stub(aws, 's3', () => ({
       uploadFile: (file: string) => {
         s3UploadedFiles.push(file)
@@ -77,7 +76,6 @@ describe('publish', () => {
 
   describe('without filter', () => {
     skipIfWindows
-    .stub(qq, 'exists', () => true)
     .stub(aws, 's3', () => ({
       uploadFile: (file: string) => {
         s3UploadedFiles.push(file)
