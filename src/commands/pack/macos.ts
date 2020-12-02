@@ -108,11 +108,10 @@ export default class PackMacos extends Command {
     const buildConfig = await Tarballs.buildConfig(flags.root)
     const {config} = buildConfig
     const c = config.pjson.oclif as OclifConfig
-    if (!c.macos || !c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
+    if (!c.macos) this.error('package.json is missing an oclif.macos config')
+    if (!c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
     const macos = c.macos
-    if (!macos) throw new Error()
     const packageIdentifier = macos.identifier
-    if (packageIdentifier === undefined) throw new Error()
     await Tarballs.build(buildConfig, {platform: 'darwin', pack: false})
     const dist = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     await qq.emptyDir(path.dirname(dist))
