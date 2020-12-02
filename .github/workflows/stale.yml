@@ -1,0 +1,23 @@
+name: Close stale issues
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-stale: -1 # do not mark issues or pull requests as stale automatically
+          days-before-close: 7 # wait 7 days before closing a stale issue
+          stale-issue-label: stale
+          stale-pr-label: stale
+          close-issue-message:
+            A week has passed since we marked this issue as stale and
+            we’ve received no further feedback or input. As a result,
+            we are automatically closing it.
+            See https://oclif.io/docs/how_we_work for more
+            information on our stale issue policy.

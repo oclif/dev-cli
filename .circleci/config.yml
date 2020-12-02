@@ -34,7 +34,7 @@ jobs:
       - checkout
       - run: .circleci/loadgpg
       - restore_cache: *restore_cache
-      - run: yarn global add @oclif/semantic-release@3 semantic-release@15
+      - run: yarn global add @oclif/semantic-release@3 semantic-release@17
       - run: yarn --frozen-lockfile
       - run: ./bin/run pack
       - run: ./bin/run pack:deb
@@ -60,9 +60,10 @@ workflows:
     jobs:
       - node-12
       - node-10
-      # - release:
-      #     context: org-global
-      #     filters:
-      #       branches: {only: master}
-      #     requires:
-      #       - test
+      - release:
+          context: org-global
+          filters:
+            branches: {only: master}
+          requires:
+            - node-12
+            - node-10
