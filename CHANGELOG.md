@@ -1,3 +1,12 @@
+## [1.24.1](https://github.com/oclif/dev-cli/compare/v1.24.0...v1.24.1) (2020-11-20)
+
+
+### Bug Fixes
+
+* README links generation on Windows ([#266](https://github.com/oclif/dev-cli/issues/266)) ([dea13d8](https://github.com/oclif/dev-cli/commit/dea13d8912e5ba8f5d1fa6538d5bade04f40bf2a))
+
+
+
 # [1.24.0](https://github.com/oclif/dev-cli/compare/v1.23.1...v1.24.0) (2020-11-19)
 
 
