@@ -21,7 +21,7 @@ export default class PublishMacos extends Command {
       ACL: s3Config.acl || 'public-read',
     }
 
-    let root = buildConfig.channel === 'stable' ? '' : `channels/${buildConfig.channel}/`
+    const root = buildConfig.channel === 'stable' ? '' : `channels/${buildConfig.channel}/`
     const pkg = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     if (await qq.exists(pkg)) await aws.s3.uploadFile(pkg, {...S3Options, CacheControl: 'max-age=86400', Key: `${root}${config.bin}.pkg`})
 
