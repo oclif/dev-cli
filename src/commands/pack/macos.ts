@@ -9,7 +9,7 @@ type OclifConfig = {
   macos?: {
     identifier?: string;
     sign?: string;
-  }
+  };
 }
 
 const scripts = {
