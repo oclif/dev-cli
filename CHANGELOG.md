@@ -1,3 +1,12 @@
+# [1.25.0](https://github.com/oclif/dev-cli/compare/v1.24.4...v1.25.0) (2020-12-02)
+
+
+### Features
+
+* add macos uninstaller ([#137](https://github.com/oclif/dev-cli/issues/137)) ([6e3b34b](https://github.com/oclif/dev-cli/commit/6e3b34bba96de037211fd9699b0a59a41fc2f654))
+
+
+
 ## [1.24.4](https://github.com/oclif/dev-cli/compare/v1.24.3...v1.24.4) (2020-12-02)
 
 
