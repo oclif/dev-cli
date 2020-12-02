@@ -1,3 +1,12 @@
+## [1.24.2](https://github.com/oclif/dev-cli/compare/v1.24.1...v1.24.2) (2020-12-01)
+
+
+### Bug Fixes
+
+* restore command descriptions in README generation ([#268](https://github.com/oclif/dev-cli/issues/268)) ([e02ebe7](https://github.com/oclif/dev-cli/commit/e02ebe70539e2d812331dd74e10c079014f7ce67)), closes [#267](https://github.com/oclif/dev-cli/issues/267)
+
+
+
 ## [1.24.1](https://github.com/oclif/dev-cli/compare/v1.24.0...v1.24.1) (2020-11-20)
 
 
