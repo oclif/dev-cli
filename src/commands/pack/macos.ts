@@ -8,7 +8,7 @@ import * as Tarballs from '../../tarballs'
 type OclifConfig = {
   macos?: {
     identifier?: string;
-    sign?: string
+    sign?: string;
   }
 }
 
