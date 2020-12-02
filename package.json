@@ -19,7 +19,7 @@
     "lodash": "^4.17.11",
     "normalize-package-data": "^3.0.0",
     "qqjs": "^0.3.10",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@oclif/plugin-legacy": "^1.1.4",
