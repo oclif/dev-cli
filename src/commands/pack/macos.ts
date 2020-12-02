@@ -7,9 +7,9 @@ import * as Tarballs from '../../tarballs'
 
 type OclifConfig = {
   macos?: {
-    identifier?: string
-    sign?: string
-  }
+    identifier?: string;
+    sign?: string;
+  };
 }
 
 const scripts = {
@@ -110,9 +110,9 @@ export default class PackMacos extends Command {
     const c = config.pjson.oclif as OclifConfig
     if (!c.macos || !c.macos.identifier) this.error('package.json must have oclif.macos.identifier set')
     const macos = c.macos
-    if (!macos) throw new Error()
+    if (!macos) throw new Error('Missing oclif config for macos')
     const packageIdentifier = macos.identifier
-    if (packageIdentifier === undefined) throw new Error()
+    if (packageIdentifier === undefined) throw new Error('Missing oclif config for macos identifier')
     await Tarballs.build(buildConfig, {platform: 'darwin', pack: false})
     const dist = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     await qq.emptyDir(path.dirname(dist))
