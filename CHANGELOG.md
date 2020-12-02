@@ -1,3 +1,12 @@
+## [1.24.3](https://github.com/oclif/dev-cli/compare/v1.24.2...v1.24.3) (2020-12-02)
+
+
+### Reverts
+
+* Revert "chore(deps): bump fs-extra from 8.1.0 to 9.0.1 (#274)" (#275) ([dbdbd8b](https://github.com/oclif/dev-cli/commit/dbdbd8b05efba57a36de3b1bbc7fd0d505e92dd3)), closes [#274](https://github.com/oclif/dev-cli/issues/274) [#275](https://github.com/oclif/dev-cli/issues/275)
+
+
+
 ## [1.24.2](https://github.com/oclif/dev-cli/compare/v1.24.1...v1.24.2) (2020-12-01)
 
 
