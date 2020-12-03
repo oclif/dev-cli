@@ -203,11 +203,15 @@ USAGE
     if (!commandsDir) return
     let p = path.join(plugin.root, commandsDir, ...c.id.split(':'))
     const libRegex = new RegExp('^lib' + (path.sep === '\\' ? '\\\\' : path.sep))
+    let typescript
+    try {
+      typescript = require('typescript')
+    } catch {}
     if (fs.pathExistsSync(path.join(p, 'index.js'))) {
       p = path.join(p, 'index.js')
     } else if (fs.pathExistsSync(p + '.js')) {
       p += '.js'
-    } else if (plugin.pjson.devDependencies && plugin.pjson.devDependencies.typescript) {
+    } else if (typescript) {
       // check if non-compiled scripts are available
       const base = p.replace(plugin.root + path.sep, '')
       p = path.join(plugin.root, base.replace(libRegex, 'src' + path.sep))
@@ -218,7 +222,7 @@ USAGE
       } else return
     } else return
     p = p.replace(plugin.root + path.sep, '')
-    if (plugin.pjson.devDependencies && plugin.pjson.devDependencies.typescript) {
+    if (typescript) {
       p = p.replace(libRegex, 'src' + path.sep)
       p = p.replace(/\.js$/, '.ts')
     }
