@@ -1,7 +1,7 @@
 {
   "name": "@oclif/dev-cli",
   "description": "helpers for oclif CLIs",
-  "version": "1.24.3",
+  "version": "1.25.1",
   "author": "Jeff Dickey @jdxcode",
   "bin": {
     "oclif-dev": "./bin/run"
@@ -14,12 +14,13 @@
     "@oclif/plugin-help": "^3.2.0",
     "cli-ux": "^5.2.1",
     "debug": "^4.1.1",
+    "find-yarn-workspace-root": "^2.0.0",
     "fs-extra": "^8.1",
     "github-slugger": "^1.2.1",
     "lodash": "^4.17.11",
     "normalize-package-data": "^3.0.0",
     "qqjs": "^0.3.10",
-    "tslib": "^1.9.3"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@oclif/plugin-legacy": "^1.1.4",

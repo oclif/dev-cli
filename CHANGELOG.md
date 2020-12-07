@@ -1,3 +1,30 @@
+# [1.25.0](https://github.com/oclif/dev-cli/compare/v1.24.4...v1.25.0) (2020-12-02)
+
+
+### Features
+
+* add macos uninstaller ([#137](https://github.com/oclif/dev-cli/issues/137)) ([6e3b34b](https://github.com/oclif/dev-cli/commit/6e3b34bba96de037211fd9699b0a59a41fc2f654))
+
+
+
+## [1.24.4](https://github.com/oclif/dev-cli/compare/v1.24.3...v1.24.4) (2020-12-02)
+
+
+### Bug Fixes
+
+* delete the uninstall registry key ([#136](https://github.com/oclif/dev-cli/issues/136)) ([0949b0d](https://github.com/oclif/dev-cli/commit/0949b0d985ca49192118e5ebe92a49e7f89140ea))
+
+
+
+## [1.24.3](https://github.com/oclif/dev-cli/compare/v1.24.2...v1.24.3) (2020-12-02)
+
+
+### Reverts
+
+* Revert "chore(deps): bump fs-extra from 8.1.0 to 9.0.1 (#274)" (#275) ([dbdbd8b](https://github.com/oclif/dev-cli/commit/dbdbd8b05efba57a36de3b1bbc7fd0d505e92dd3)), closes [#274](https://github.com/oclif/dev-cli/issues/274) [#275](https://github.com/oclif/dev-cli/issues/275)
+
+
+
 ## [1.24.2](https://github.com/oclif/dev-cli/compare/v1.24.1...v1.24.2) (2020-12-01)
 
 
