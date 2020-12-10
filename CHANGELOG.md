@@ -1,3 +1,12 @@
+## [1.25.1](https://github.com/oclif/dev-cli/compare/v1.25.0...v1.25.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* find yarn.lock in a yarn workspace ([#156](https://github.com/oclif/dev-cli/issues/156)) ([fd59d36](https://github.com/oclif/dev-cli/commit/fd59d36b249afbfe4d6b25b56442be57eb98a9e4))
+
+
+
 # [1.25.0](https://github.com/oclif/dev-cli/compare/v1.24.4...v1.25.0) (2020-12-02)
 
 
