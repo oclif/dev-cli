@@ -1,6 +1,6 @@
 import * as CloudFront from 'aws-sdk/clients/cloudfront'
 import * as S3 from 'aws-sdk/clients/s3'
-import { CredentialProviderChain } from 'aws-sdk'
+import {CredentialProviderChain} from 'aws-sdk'
 import * as fs from 'fs-extra'
 import * as qq from 'qqjs'
 
@@ -37,7 +37,7 @@ const aws = {
   },
   get cloudfront() {
     cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)({
-      credentialProvider: new CredentialProviderChain()
+      credentialProvider: new CredentialProviderChain(),
     })
     return cache.cloudfront
   },
