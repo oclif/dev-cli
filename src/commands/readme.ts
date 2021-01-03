@@ -64,7 +64,7 @@ Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
   replaceTag(readme: string, tag: string, body: string): string {
     if (readme.includes(`<!-- ${tag} -->`)) {
       if (readme.includes(`<!-- ${tag}stop -->`)) {
-        readme = readme.replace(new RegExp(`<!-- ${tag} -->(.|\n)*<!-- ${tag}stop -->`, 'm'), `<!-- ${tag} -->`)
+        readme = readme.replace(new RegExp(`<!-- ${tag} -->(.|\n|\r)*<!-- ${tag}stop -->`, 'm'), `<!-- ${tag} -->`)
       }
       this.log(`replacing <!-- ${tag} --> in README.md`)
     }
