@@ -19,6 +19,7 @@ export namespace upload {
 }
 
 const cache: {s3?: S3; cloudfront?: CloudFront} = {}
+
 const aws = {
   get s3() {
     try {
