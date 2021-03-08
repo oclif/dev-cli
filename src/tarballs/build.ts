@@ -3,29 +3,61 @@ import * as Errors from '@oclif/errors'
 import * as findYarnWorkspaceRoot from 'find-yarn-workspace-root'
 import * as path from 'path'
 import * as qq from 'qqjs'
+import * as tar from 'tar'
+import * as fs from 'fs-extra'
+import streamPipeline = require('stream.pipeline-shim');
+import {promisify} from 'util'
+import {pool} from 'workerpool'
+
+const pipeline = promisify(streamPipeline)
 
 import {log} from '../log'
 
 import {writeBinScripts} from './bin'
 import {IConfig, IManifest} from './config'
-import {fetchNodeBinary} from './node'
+import {fetchNodeBinary, downloadSHASums} from './node'
 
-const pack = async (from: string, to: string) => {
-  const prevCwd = qq.cwd()
-  qq.cd(path.dirname(from))
-  await qq.mkdirp(path.dirname(to))
-  log(`packing tarball from ${qq.prettifyPaths(from)} to ${qq.prettifyPaths(to)}`)
-  await (to.endsWith('gz') ?
-    qq.x('tar', ['czf', to, path.basename(from)]) :
-    qq.x(`tar c ${path.basename(from)} | xz > ${to}`))
-  qq.cd(prevCwd)
+const gzipPool = pool(path.join(__dirname, './gzip-worker.js'))
+
+async function gzip(filePath: string, target: string) {
+  await gzipPool.exec('gzip', [filePath, target])
 }
 
-export async function build(c: IConfig, options: {
+function targetNodeLocation(target: any, config: IConfig) {
+  const workspace = config.workspace(target)
+  return path.join(workspace, 'bin', 'node')
+}
+
+const pack = async (from: string, to: string) => {
+  const toDir = path.dirname(to)
+  const fromBase = path.basename(from)
+
+  await qq.mkdirp(toDir)
+
+  log(`packing tarball from ${qq.prettifyPaths(from)} to ${qq.prettifyPaths(to)}`)
+
+  const tarStream = tar.c(
+    {
+      gzip: false,
+      cwd: path.dirname(from),
+    },
+    [fromBase],
+  )
+
+  await pipeline(tarStream, fs.createWriteStream(to))
+}
+
+function tarballBasePath(c: IConfig) {
+  const {config} = c
+  return c.dist(config.s3Key('versioned', '.tar.gz')).replace('.tar.gz', '.tar')
+}
+
+async function doBuild(c: IConfig, options: {
   platform?: string;
   pack?: boolean;
 } = {}) {
   const {xz, config} = c
+  const baseTarballPath = tarballBasePath(c)
   const prevCwd = qq.cwd()
   const packCLI = async () => {
     const stdout = await qq.x.stdout('npm', ['pack', '--unsafe-perm'], {cwd: c.root})
@@ -37,9 +69,10 @@ export async function build(c: IConfig, options: {
     tarball = path.basename(tarball)
     tarball = qq.join([c.workspace(), tarball])
     qq.cd(c.workspace())
-    await qq.x(`tar -xzf ${tarball}`)
-    // eslint-disable-next-line no-await-in-loop
-    for (const f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
+    await tar.x({
+      file: tarball,
+      stripComponents: 1,
+    })
     await qq.rm('package', tarball, 'bin/run.cmd')
   }
   const updatePJSON = async () => {
@@ -70,61 +103,38 @@ export async function build(c: IConfig, options: {
   const buildTarget = async (target: {platform: PlatformTypes; arch: ArchTypes}) => {
     const workspace = c.workspace(target)
     const key = config.s3Key('versioned', '.tar.gz', target)
+    const tarballPath = key.replace('tar.gz', 'tar')
+
     const base = path.basename(key)
+    const tarballDist = c.dist(tarballPath)
+    const nodePath = targetNodeLocation(target, c)
+    const workspaceParent = path.dirname(workspace)
+
     log(`building target ${base}`)
-    await qq.rm(workspace)
-    await qq.cp(c.workspace(), workspace)
-    await fetchNodeBinary({
-      nodeVersion: c.nodeVersion,
-      output: path.join(workspace, 'bin', 'node'),
-      platform: target.platform,
-      arch: target.arch,
-      tmp: qq.join(config.root, 'tmp'),
-    })
-    if (options.pack === false) return
-    await pack(workspace, c.dist(key))
-    if (xz) await pack(workspace, c.dist(config.s3Key('versioned', '.tar.xz', target)))
-    if (!c.updateConfig.s3.host) return
-    const rollout = (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout)
-    const manifest: IManifest = {
-      rollout: rollout === false ? undefined : rollout,
-      version: c.version,
-      channel: c.channel,
-      baseDir: config.s3Key('baseDir', target),
-      gz: config.s3Url(config.s3Key('versioned', '.tar.gz', target)),
-      xz: xz ? config.s3Url(config.s3Key('versioned', '.tar.xz', target)) : undefined,
-      sha256gz: await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.gz', target))),
-      sha256xz: xz ? await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.xz', target))) : undefined,
-      node: {
-        compatible: config.pjson.engines.node,
-        recommended: c.nodeVersion,
-      },
+    if (xz) {
+      const baseXZ = base.replace('.tar.gz', '.tar.xz')
+      log(`building target ${baseXZ}`)
     }
-    await qq.writeJSON(c.dist(config.s3Key('manifest', target)), manifest)
+
+    await qq.cp(baseTarballPath, tarballDist)
+
+    await tar.replace({
+      file: tarballDist,
+      cwd: workspaceParent,
+    }, [path.relative(workspaceParent, nodePath)])
+
+    if (options.pack === false) return
+    await compress(tarballDist, xz)
+    if (!c.updateConfig.s3.host) return
+    await writeManifest(target, c, config, xz)
   }
   const buildBaseTarball = async () => {
     if (options.pack === false) return
-    await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.gz')))
-    if (xz) await pack(c.workspace(), c.dist(config.s3Key('versioned', '.tar.xz')))
+    await pack(c.workspace(), baseTarballPath)
+    await compress(baseTarballPath, xz)
     if (!c.updateConfig.s3.host) {
       Errors.warn('No S3 bucket or host configured. CLI will not be able to update.')
-      return
     }
-    const manifest: IManifest = {
-      version: c.version,
-      baseDir: config.s3Key('baseDir'),
-      channel: config.channel,
-      gz: config.s3Url(config.s3Key('versioned', '.tar.gz')),
-      xz: config.s3Url(config.s3Key('versioned', '.tar.xz')),
-      sha256gz: await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.gz'))),
-      sha256xz: xz ? await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.xz'))) : undefined,
-      rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
-      node: {
-        compatible: config.pjson.engines.node,
-        recommended: c.nodeVersion,
-      },
-    }
-    await qq.writeJSON(c.dist(config.s3Key('manifest')), manifest)
   }
   log(`gathering workspace for ${config.bin} to ${c.workspace()}`)
   await extractCLI(await packCLI())
@@ -132,11 +142,83 @@ export async function build(c: IConfig, options: {
   await addDependencies()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
-  for (const target of c.targets) {
-    if (!options.platform || options.platform === target.platform) {
-      // eslint-disable-next-line no-await-in-loop
-      await buildTarget(target)
+  await writeManifest(undefined, c, config, xz)
+  await downloadNodeBinaries(c)
+  const targetsToBuild =
+    options.platform ?
+      c.targets.filter(t => options.platform === t.platform) :
+      c.targets
+  const buildPromises = targetsToBuild.map(buildTarget)
+  await Promise.all(buildPromises)
+  log('done building')
+
+  qq.cd(prevCwd)
+}
+
+export async function build(c: IConfig, options: {
+  platform?: string;
+  pack?: boolean;
+} = {}) {
+  try {
+    await doBuild(c, options)
+  } finally {
+    await gzipPool.terminate()
+  }
+}
+
+async function writeManifest(target: any, c: IConfig, config: IConfig['config'], xz: boolean) {
+  const rollout = (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout)
+  const gz = config.s3Key('versioned', '.tar.gz', target)
+
+  let manifest: IManifest = {
+    rollout: rollout === false ? undefined : rollout,
+    version: c.version,
+    channel: c.channel,
+    baseDir: config.s3Key('baseDir', target),
+    gz: config.s3Url(gz),
+    sha256gz: await qq.hash('sha256', c.dist(gz)),
+    node: {
+      compatible: config.pjson.engines.node,
+      recommended: c.nodeVersion,
+    },
+  }
+
+  if (xz) {
+    const s3XZ = config.s3Key('versioned', '.tar.xz', target)
+    manifest = {
+      ...manifest,
+      xz: config.s3Url(s3XZ),
+      sha256xz: await qq.hash('sha256', c.dist(s3XZ)),
     }
   }
-  qq.cd(prevCwd)
+
+  await qq.writeJSON(c.dist(config.s3Key('manifest', target)), manifest)
+}
+
+async function compress(tarballPath: string, xz: boolean) {
+  const gzpath = tarballPath + '.gz'
+  const gzipPromise = gzip(tarballPath, gzpath)
+  const promises: Promise<any>[] = [gzipPromise]
+
+  if (xz) {
+    promises.push(qq.x(`xz -T0 --compress --force --keep ${tarballPath}`))
+  }
+
+  await Promise.all(promises)
+}
+
+async function downloadNodeBinaries(config: IConfig) {
+  const shasums = await downloadSHASums(config.nodeVersion)
+  const promises = config.targets.map(async target => {
+    await fetchNodeBinary({
+      nodeVersion: config.nodeVersion,
+      output: targetNodeLocation(target, config),
+      platform: target.platform,
+      arch: target.arch,
+      tmp: qq.join(config.root, 'tmp'),
+      shasums,
+    })
+  })
+
+  await Promise.all(promises)
 }
