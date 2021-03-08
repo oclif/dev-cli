@@ -1,14 +1,17 @@
 /* eslint-disable no-useless-escape */
 import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
+import * as fs from 'fs-extra'
+import * as path from 'path'
 
 export async function writeBinScripts({config, baseWorkspace, nodeVersion}: {config: Config.IConfig; baseWorkspace: string; nodeVersion: string}) {
   const binPathEnvVar = config.scopedEnvVarKey('BINPATH')
   const redirectedEnvVar = config.scopedEnvVarKey('REDIRECTED')
   const clientHomeEnvVar = config.scopedEnvVarKey('OCLIF_CLIENT_HOME')
+  await qq.mkdirp(qq.join([baseWorkspace, 'bin']))
   const writeWin32 = async () => {
     const {bin} = config
-    await qq.write([baseWorkspace, 'bin', `${config.bin}.cmd`], `@echo off
+    await fs.writeFile(path.join(baseWorkspace, 'bin', `${config.bin}.cmd`), `@echo off
 setlocal enableextensions
 
 if not "%${redirectedEnvVar}%"=="1" if exist "%LOCALAPPDATA%\\${bin}\\client\\bin\\${bin}.cmd" (
@@ -34,8 +37,8 @@ if exist "%~dp0..\\bin\\node.exe" (
     // `)
   }
   const writeUnix = async () => {
-    const bin = qq.join([baseWorkspace, 'bin', config.bin])
-    await qq.write(bin, `#!/usr/bin/env bash
+    const bin = path.join(baseWorkspace, 'bin', config.bin)
+    await fs.writeFile(bin, `#!/usr/bin/env bash
 set -e
 echoerr() { echo "$@" 1>&2; }
 
