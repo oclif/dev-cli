@@ -228,7 +228,7 @@ export default class PackWin extends Command {
   private async checkForNSIS() {
     try {
       await which('makensis')
-    } catch (_err) {
+    } catch (error) {
       this.error('install makensis')
     }
   }
