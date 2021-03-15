@@ -15,7 +15,7 @@ const pipeline  = promisify(streamPipeline)
 
 async function checkFor7Zip() {
   try {
-    await qq.x('7z', {stdio: [0, null, 2]})
+    await qq.x('7z', {stdio: ['ignore', 'pipe', 'inherit']})
   } catch (error) {
     if (error.code === 127) oclifError('install 7-zip to package windows tarball')
     else throw error
