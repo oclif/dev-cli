@@ -23,7 +23,9 @@
     "tslib": "^2.0.3"
   },
   "devDependencies": {
+    "@oclif/nyc-config": "^1",
     "@oclif/plugin-legacy": "^1.1.4",
+    "@oclif/semantic-release": "^3",
     "@oclif/test": "^1.2.4",
     "@types/chai": "^4.1.7",
     "@types/execa": "^0.9.0",
@@ -42,6 +44,8 @@
     "eslint-config-oclif-typescript": "^0.2.0",
     "globby": "^11.0.1",
     "mocha": "^8.2.1",
+    "nyc": "^13",
+    "semantic-release": "17",
     "ts-node": "^9.0.0",
     "typescript": "3.8.3"
   },

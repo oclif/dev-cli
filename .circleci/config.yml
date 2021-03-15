@@ -1,41 +1,69 @@
 ---
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@4.2.0
+  aws-cli: circleci/aws-cli@1.4.0
 jobs:
-  node-12: &test
-    docker:
-      - image: oclif/nsis:12.0.0-16
+  test-node: &test
+    parameters:
+      node-version:
+        type: string
+        description: Version of node.js to install (e.g. 10, 12, 14)
     working_directory: ~/cli
     environment:
       NYC: "yarn exec nyc -- --nycrc-path node_modules/@oclif/nyc-config/.nycrc"
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-      - restore_cache: &restore_cache
+      - node/install: &install_node
+          install-yarn: true
+          node-version: << parameters.node-version >>
+      - run: &configure_yarn
+          name: "Configure yarn cache"
+          command: |
+            echo "--install.cache-folder" >> .yarnrc
+            echo "--install.prefer-offline" >> .yarnrc
+            echo "--install.frozen-lockfile" >> .yarnrc
+            echo "yarn-offline-mirror $(pwd)/.yarn-offline-mirror" >> .yarnrc
+            echo "cache-folder $(pwd)/.yarn-cache" >> .yarnrc
+      - run: &setup_cache_key_file
+          name: "Setup Cache Key File"
+          command: |
+            echo "node: $(node --version)" >> .circleci-cache-key
+            echo "yarn: $(yarn --version)" >> .circleci-cache-key
+            echo ".yarnrc: {{checksum .yarnrc}}" >> .circle-ci-cache-key
+      - restore_cache:
           keys:
-            - v6-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
-            - v6-yarn-{{checksum ".circleci/config.yml"}}
+            - v1-{{checksum ".circle-ci-cache-key"}}
+      - node/install-packages: &install_packages
+          cache-version: v1-{{checksum ".circleci-cache-key"}}-{{checksum ".circleci/config.yml"}}
+          pkg-manager: yarn
+          cache-path: .yarn-cache
+          include-branch-in-cache-key: false
+          override-ci-command: yarn install --frozen-lockfile --prefer-offline
+      - save_cache:
+          key: v1-{{checksum ".circle-ci-cache-key"}}
+          paths:
+            - .yarn-cache
+            - .yarn-offline-mirror
       - run: 'echo "Node: `node --version`"'
-      - run: yarn
-      - run: .circleci/loadgpg
-      - run: yarn add -D nyc@13 @oclif/nyc-config@1
+      # - run: .circleci/loadgpg
       - run: ./node_modules/.bin/tsc
       - run: ./bin/run --version
       - run: ./bin/run --help
       - run: |
           $NYC yarn test
           curl -s https://codecov.io/bash | bash
-  node-10:
-    <<: *test
-    docker:
-      - image: chadian/nsis:10-2
   release:
     <<: *test
     steps:
-      - add_ssh_keys
       - checkout
+      - node/install: *install_node
+      - run: *configure_yarn
+      - run: *setup_cache_key_file
+      - node/install-packages: *install_packages
       - run: .circleci/loadgpg
-      - restore_cache: *restore_cache
-      - run: yarn global add @oclif/semantic-release@3 semantic-release@17
-      - run: yarn --frozen-lockfile
       - run: ./bin/run pack
       - run: ./bin/run pack:deb
       - run: ./bin/run pack:win
@@ -43,27 +71,21 @@ jobs:
       - run: ./bin/run publish:deb
       - run: ./bin/run publish:win
       - run: |
-          export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
-          semantic-release -e @oclif/semantic-release
-      - run: yarn add -D nyc@13 @oclif/nyc-config@1
-      - save_cache:
-          key: v6-yarn-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
-          paths:
-            - ~/cli/node_modules
-            - ~/cli/tmp/cache
-            - /usr/local/share/.cache/yarn
-            - /usr/local/share/.config/yarn
-
+          yarn semantic-release -e @oclif/semantic-release
 workflows:
-  version: 2
-  "@oclif/dev-cli":
+  test:
     jobs:
-      - node-12
-      - node-10
+      - test-node:
+          matrix:
+            parameters:
+              node-version:
+                - "10"
+                - "12"
+                - "14"
       - release:
+          node-version: "14"
           context: org-global
           filters:
             branches: {only: master}
           requires:
-            - node-12
-            - node-10
+            - test-node
