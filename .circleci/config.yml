@@ -20,6 +20,7 @@ jobs:
           command: |
             mkdir -p .yarn
             echo "--install.cache-path $(pwd)/.yarn/cache" >> .yarnrc
+            echo "--install.prefer-offline" >> .yarnrc
             echo "yarn-offline-mirror $(pwd)/.yarn/offline-mirror" >> .yarnrc
       - node/install: &install_node
           install-yarn: true
