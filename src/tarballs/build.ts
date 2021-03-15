@@ -135,6 +135,23 @@ async function doBuild(c: IConfig, options: {
     if (!c.updateConfig.s3.host) {
       Errors.warn('No S3 bucket or host configured. CLI will not be able to update.')
     }
+
+    const manifest: IManifest = {
+      version: c.version,
+      baseDir: config.s3Key('baseDir'),
+      channel: config.channel,
+      gz: config.s3Url(config.s3Key('versioned', '.tar.gz')),
+      xz: config.s3Url(config.s3Key('versioned', '.tar.xz')),
+      sha256gz: await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.gz'))),
+      sha256xz: xz ? await qq.hash('sha256', c.dist(config.s3Key('versioned', '.tar.xz'))) : undefined,
+      rollout: (typeof c.updateConfig.autoupdate === 'object' && c.updateConfig.autoupdate.rollout) as number,
+      node: {
+        compatible: config.pjson.engines.node,
+        recommended: c.nodeVersion,
+      },
+    }
+
+    await qq.writeJSON(c.dist(config.s3Key('manifest')), manifest)
   }
   log(`gathering workspace for ${config.bin} to ${c.workspace()}`)
   await extractCLI(await packCLI())
