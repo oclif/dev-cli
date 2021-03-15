@@ -33,6 +33,7 @@ jobs:
             echo "yarnrc: $(sha256sum .yarnrc)" >> .circleci-cache-key
             echo ".circleci/config.yml: $(sha256sum .circleci/config.yml)" >> .circleci-cache-key
       - node/install-packages: &install_node_packages
+          cache-path: ".yarn"
           cache-version: &cache_key |
             {{checksum ".circleci-cache-key"}}
           pkg-manager: yarn
