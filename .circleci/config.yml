@@ -1,7 +1,13 @@
 ---
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@4.2.0
 jobs:
-  node-12: &test
+  test-node: &test
+    parameters:
+      node-version:
+        type: string
+        description: "node.js version to install"
     docker:
       - image: oclif/nsis:12.0.0-16
     working_directory: ~/cli
@@ -9,12 +15,30 @@ jobs:
       NYC: "yarn exec nyc -- --nycrc-path node_modules/@oclif/nyc-config/.nycrc"
     steps:
       - checkout
-      - restore_cache: &restore_cache
-          keys:
-            - v6-yarn-{{checksum ".circleci/config.yml"}}-{{ checksum "yarn.lock"}}
-            - v6-yarn-{{checksum ".circleci/config.yml"}}
+      - run: &setup_yarn
+          name: Setup Yarn
+          command: |
+            mkdir -p .yarn
+            echo "--install.cache-path $(pwd)/.yarn/cache" >> .yarnrc
+            echo "--install.prefer-offline" >> .yarnrc
+            echo "yarn-offline-mirror $(pwd)/.yarn/offline-mirror" >> .yarnrc
+      - node/install: &install_node
+          install-yarn: true
+          node-version: << parameters.node-version >>
+      - run: &create_cache_key_file
+          name: "Create Cache Key File"
+          command: |
+            echo "node: $(node --version)" >> .circleci-cache-key
+            echo "yarn: $(yarn --version)" >> .circleci-cache-key
+            echo "yarnrc: $(sha256sum .yarnrc)" >> .circleci-cache-key
+            echo ".circleci/config.yml: $(sha256sum .circleci/config.yml)" >> .circleci-cache-key
+      - node/install-packages: &install_node_packages
+          cache-path: ".yarn"
+          cache-version: &cache_key |
+            {{checksum ".circleci-cache-key"}}
+          pkg-manager: yarn
+          include-branch-in-cache-key: false
       - run: 'echo "Node: `node --version`"'
-      - run: yarn
       - run: .circleci/loadgpg
       - run: yarn add -D nyc@13 @oclif/nyc-config@1
       - run: ./node_modules/.bin/tsc
@@ -23,17 +47,16 @@ jobs:
       - run: |
           $NYC yarn test
           curl -s https://codecov.io/bash | bash
-  node-10:
-    <<: *test
-    docker:
-      - image: chadian/nsis:10-2
   release:
     <<: *test
     steps:
       - add_ssh_keys
       - checkout
+      - run: *setup_yarn
+      - node/install: *install_node
+      - run: *create_cache_key_file
+      - node/install-packages: *install_node_packages
       - run: .circleci/loadgpg
-      - restore_cache: *restore_cache
       - run: yarn global add @oclif/semantic-release@3 semantic-release@17
       - run: yarn --frozen-lockfile
       - run: ./bin/run pack
@@ -55,15 +78,20 @@ jobs:
             - /usr/local/share/.config/yarn
 
 workflows:
-  version: 2
-  "@oclif/dev-cli":
+  version: 2.1
+  build:
     jobs:
-      - node-12
-      - node-10
+      - test-node:
+          matrix:
+            parameters:
+              node-version:
+                - "10"
+                - "12"
+                - "14"
       - release:
+          node-version: "14"
           context: org-global
           filters:
             branches: {only: master}
           requires:
-            - node-12
-            - node-10
+            - test-node
