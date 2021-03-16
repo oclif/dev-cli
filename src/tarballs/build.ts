@@ -68,6 +68,7 @@ async function doBuild(c: IConfig, options: {
     await tar.x({
       file: tarball,
       stripComponents: 1,
+      cwd: c.workspace()
     })
     await qq.mkdirp(path.dirname(baseTarballPath))
     await qq.mv(tarball, baseTarballPath)
