@@ -101,7 +101,7 @@ async function extract7Zip(path: string, cacheDir: string) {
   await qq.x(`7z x -bd -y '${path}' -o${cacheDir} > /dev/null`)
 }
 
-async function cacheNode({url, cacheFileName, sha, downloadFileName, cacheDir, files}: CacheNodeOptions) {
+async function cacheNode({url, cacheFileName, sha, downloadFileName, files}: CacheNodeOptions) {
   const stream = await getDownloadResponseStream(url)
   const tmpDir = await promisify(tmp.dir)()
   await qq.mkdirp(tmpDir)
@@ -120,15 +120,16 @@ async function cacheNode({url, cacheFileName, sha, downloadFileName, cacheDir, f
       throw new Error(`node.js download SHASUM mismatch: expected ${url} to have shasum of ${sha}, but got ${tarballSha}`)
     }
 
-    if (url.endsWith('7z')) {
-      const ztmpdir = await promisify(tmp.dir)()
+    const ztmpdir = await promisify(tmp.dir)()
 
+    if (url.endsWith('7z')) {
       await qq.mkdirp(ztmpdir)
       await extract7Zip(tmpFile, ztmpdir)
 
       await qq.mv(path.join(ztmpdir, path.basename(tmpFile, '.7z'), 'node.exe'), cacheFileName)
     } else {
-      await tar.extract({file: tmpFile, cwd: cacheDir}, files)
+      await tar.extract({file: tmpFile, cwd: ztmpdir, stripComponents: 1}, files)
+      await qq.mv(path.join(ztmpdir, 'bin', 'node'), cacheFileName)
     }
   } finally {
     cacheWriteStream.close()
