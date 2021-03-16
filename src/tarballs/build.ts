@@ -129,11 +129,12 @@ async function doBuild(c: IConfig, options: {
     await writeManifest(target, c, config, xz)
   }
   const buildBaseTarball = async () => {
-    if (options.pack === false) return
     await pack(c.workspace(), baseTarballPath)
+    if (options.pack === false) return
     await compress(baseTarballPath, xz)
     if (!c.updateConfig.s3.host) {
       Errors.warn('No S3 bucket or host configured. CLI will not be able to update.')
+      return
     }
 
     const manifest: IManifest = {
