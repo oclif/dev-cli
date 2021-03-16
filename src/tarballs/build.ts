@@ -68,7 +68,7 @@ async function doBuild(c: IConfig, options: {
     await tar.x({
       file: tarball,
       stripComponents: 1,
-      cwd: c.workspace()
+      cwd: c.workspace(),
     })
     await qq.mkdirp(path.dirname(baseTarballPath))
     await qq.mv(tarball, baseTarballPath)
@@ -109,20 +109,27 @@ async function doBuild(c: IConfig, options: {
     const nodePath = targetNodeLocation(target, c)
     const workspaceParent = path.dirname(workspace)
 
+    await qq.cp(baseTarballPath, tarballDist)
+    await tar.replace({
+      file: tarballDist,
+      cwd: workspaceParent,
+    }, [path.relative(workspaceParent, nodePath)])
+
+    if (options.pack === false) {
+      await tar.x({
+        file: tarballDist,
+        cwd: workspace,
+        stripComponents: 1,
+      })
+      return
+    }
+
     log(`building target ${base}`)
     if (xz) {
       const baseXZ = base.replace('.tar.gz', '.tar.xz')
       log(`building target ${baseXZ}`)
     }
 
-    await qq.cp(baseTarballPath, tarballDist)
-
-    await tar.replace({
-      file: tarballDist,
-      cwd: workspaceParent,
-    }, [path.relative(workspaceParent, nodePath)])
-
-    if (options.pack === false) return
     await compress(tarballDist, xz)
     if (!c.updateConfig.s3.host) return
     await writeManifest(target, c, config, xz)
@@ -159,7 +166,6 @@ async function doBuild(c: IConfig, options: {
   await addDependencies()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
   await buildBaseTarball()
-  await writeManifest(undefined, c, config, xz)
   await downloadNodeBinaries(c)
   const targetsToBuild =
     options.platform ?

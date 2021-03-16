@@ -37,7 +37,7 @@ if exist "%~dp0..\\bin\\node.exe" (
     // `)
   }
   const writeUnix = async () => {
-    const bin = path.join(baseWorkspace, 'bin', config.bin)
+    const bin = qq.join([baseWorkspace, 'bin', config.bin])
     await fs.writeFile(bin, `#!/usr/bin/env bash
 set -e
 echoerr() { echo "$@" 1>&2; }
