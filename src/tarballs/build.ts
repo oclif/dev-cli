@@ -65,15 +65,13 @@ async function doBuild(c: IConfig, options: {
   }
   const extractCLI = async (tarball: string) => {
     await qq.emptyDir(c.workspace())
-    await qq.mv(tarball, c.workspace())
-    tarball = path.basename(tarball)
-    tarball = qq.join([c.workspace(), tarball])
-    qq.cd(c.workspace())
     await tar.x({
       file: tarball,
       stripComponents: 1,
     })
-    await qq.rm('package', tarball, 'bin/run.cmd')
+    await qq.mkdirp(path.dirname(baseTarballPath))
+    await qq.mv(tarball, baseTarballPath)
+    // await qq.rm('package', tarball, 'bin/run.cmd')
   }
   const updatePJSON = async () => {
     qq.cd(c.workspace())
