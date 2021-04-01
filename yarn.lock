@@ -287,10 +287,10 @@
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-7.0.12.tgz#18412939ae45b225bd38715a25c1040cbad80f42"
   integrity sha512-fo0MWpVPSUrnZZhp9wyu+hhI3VJ9+Jhs+PWrokBTg3d2ryNPDOAWF1csIhQuYWBTn7KdZzXpRgpX2o6cwOlPWg==
 
-"@types/supports-color@^5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@types/supports-color/-/supports-color-5.3.0.tgz#eb6a52e9531fb3ebcd401cec774d1bdfb571f793"
-  integrity sha512-WxwTXnHTIsk7srax1icjLgX+6w1MUAJbhyCpRP/45paEElsPDQUJZDgr1UpKuL2S3Tb+ZyX9MjWwmcSD4bUoOQ==
+"@types/supports-color@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@types/supports-color/-/supports-color-7.2.1.tgz#58a6efe82d9eca92cf316b16112fcd2675ffa6c0"
+  integrity sha512-glb1BXM/pchMWTt9kg67CceKqyAW3NGBviNPKXN84JJhk3shqVpyi5d5MM4MWYoZHHk/Ioct7Yt1TNqQORiIAw==
 
 "@types/write-json-file@^3.2.1":
   version "3.2.1"
