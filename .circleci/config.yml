@@ -44,9 +44,6 @@ jobs:
       - run: ./node_modules/.bin/tsc
       - run: ./bin/run --version
       - run: ./bin/run --help
-      - run: |
-          $NYC yarn test
-          curl -s https://codecov.io/bash | bash
   release:
     <<: *test
     steps:
