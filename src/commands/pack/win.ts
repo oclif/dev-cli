@@ -1,6 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import * as Config from '@oclif/config'
 import * as qq from 'qqjs'
+import which = require('which')
 
 import * as Tarballs from '../../tarballs'
 
@@ -226,11 +227,9 @@ export default class PackWin extends Command {
 
   private async checkForNSIS() {
     try {
-      await qq.x('makensis', {stdio: [0, null, 2]})
+      await which('makensis')
     } catch (error) {
-      if (error.code === 1) return
-      if (error.code === 127) this.error('install makensis')
-      else throw error
+      this.error('install makensis')
     }
   }
 }
