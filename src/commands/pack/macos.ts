@@ -12,6 +12,13 @@ type OclifConfig = {
   };
 }
 
+const noBundleConfiguration = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array/>
+</plist>
+`
+
 const scripts = {
   preinstall: (config: Config.IConfig) => `#!/usr/bin/env bash
 sudo rm -rf /usr/local/lib/${config.dirname}
@@ -115,20 +122,27 @@ export default class PackMacos extends Command {
     await Tarballs.build(buildConfig, {platform: 'darwin', pack: false})
     const dist = buildConfig.dist(`macos/${config.bin}-v${buildConfig.version}.pkg`)
     await qq.emptyDir(path.dirname(dist))
+    const noBundleConfigurationPath = qq.join(buildConfig.tmp, 'macos/no-bundle.plist')
     const scriptsDir = qq.join(buildConfig.tmp, 'macos/scripts')
     const rootDir = buildConfig.workspace({platform: 'darwin', arch: 'x64'})
+    const writeNoBundleConfiguration = async () => {
+      await qq.write(noBundleConfigurationPath, noBundleConfiguration)
+      await qq.chmod(noBundleConfigurationPath, 0o755)
+    }
     const writeScript = async (script: 'preinstall' | 'postinstall' | 'uninstall') => {
       const path = script === 'uninstall' ? [rootDir, 'bin'] : [scriptsDir]
       path.push(script)
       await qq.write(path, scripts[script](config))
       await qq.chmod(path, 0o755)
     }
+    await writeNoBundleConfiguration();
     await writeScript('preinstall')
     await writeScript('postinstall')
     await writeScript('uninstall')
     /* eslint-disable array-element-newline */
     const args = [
       '--root', rootDir,
+      '--component-plist', noBundleConfigurationPath,
       '--identifier', packageIdentifier,
       '--version', buildConfig.version,
       '--install-location', `/usr/local/lib/${config.dirname}`,
