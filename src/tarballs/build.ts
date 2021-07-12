@@ -1,6 +1,7 @@
 import {ArchTypes, PlatformTypes} from '@oclif/config'
 import * as Errors from '@oclif/errors'
 import * as findYarnWorkspaceRoot from 'find-yarn-workspace-root'
+import {getPackages} from '@manypkg/get-packages'
 import * as path from 'path'
 import * as qq from 'qqjs'
 
@@ -49,6 +50,13 @@ export async function build(c: IConfig, options: {
     pjson.oclif.update = pjson.oclif.update || {}
     pjson.oclif.update.s3 = pjson.oclif.update.s3 || {}
     pjson.oclif.update.s3.bucket = c.s3Config.bucket
+    const {packages} = await getPackages(c.root)
+    for (const workspacePackage of packages) {
+      const name = workspacePackage.packageJson.name
+      if (pjson.dependencies[name]) {
+        pjson.dependencies[name] = 'file:' + path.relative(c.workspace(), workspacePackage.dir)
+      }
+    }
     await qq.writeJSON('package.json', pjson)
   }
   const addDependencies = async () => {
