@@ -50,7 +50,7 @@ export async function build(c: IConfig, options: {
     pjson.oclif.update = pjson.oclif.update || {}
     pjson.oclif.update.s3 = pjson.oclif.update.s3 || {}
     pjson.oclif.update.s3.bucket = c.s3Config.bucket
-    const {packages} = await getPackages(c.root)
+    const { packages } = await getPackages(c.root)
     for (const workspacePackage of packages) {
       const name = workspacePackage.packageJson.name
       if (pjson.dependencies[name]) {
