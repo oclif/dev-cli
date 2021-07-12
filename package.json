@@ -1,5 +1,5 @@
 {
-  "name": "daryl-oclif-dev-cli",
+  "name": "@oclif/dev-cli",
   "description": "helpers for oclif CLIs",
   "version": "1.26.0",
   "author": "Jeff Dickey @jdxcode",
@@ -24,6 +24,7 @@
     "tslib": "^2.0.3"
   },
   "devDependencies": {
+    "@changesets/types": "^4.0.0",
     "@oclif/plugin-legacy": "^1.1.4",
     "@oclif/test": "^1.2.4",
     "@types/chai": "^4.1.7",
