@@ -37,7 +37,7 @@ export async function build(c: IConfig, options: {
     tarball = path.basename(tarball)
     tarball = qq.join([c.workspace(), tarball])
     qq.cd(c.workspace())
-    await qq.x(`tar -xzf ${tarball}`)
+    await qq.x(`tar -xzf "${tarball}"`)
     // eslint-disable-next-line no-await-in-loop
     for (const f of await qq.ls('package', {fullpath: true})) await qq.mv(f, '.')
     await qq.rm('package', tarball, 'bin/run.cmd')
