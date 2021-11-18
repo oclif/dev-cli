@@ -25,7 +25,7 @@ The readme must have any of the following tags inside of it for it to be replace
 Customize the code URL prefix by setting oclif.repositoryPrefix in package.json.
 `
 
-  static flags = {
+  static flags: flags.Input<any> = {
     dir: flags.string({description: 'output directory for multi docs', default: 'docs', required: true}),
     multi: flags.boolean({description: 'create a different markdown page for each topic'}),
   }
