@@ -23,9 +23,11 @@ jobs:
             echo "--install.prefer-offline" >> .yarnrc
             echo "yarn-offline-mirror $(pwd)/.yarn/offline-mirror" >> .yarnrc
       - node/install: &install_node
-          install-yarn: true
-          yarn-version: 1.22.15
           node-version: << parameters.node-version >>
+      - run:
+          name: Yarn Install
+          command: |
+            npm install yarn -g
       - run: &create_cache_key_file
           name: "Create Cache Key File"
           command: |
