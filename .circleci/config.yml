@@ -56,6 +56,10 @@ jobs:
       - node/install: *install_node
       - run: *create_cache_key_file
       - node/install-packages: *install_node_packages
+      - run:
+          name: Yarn Install
+          command: |
+            npm install yarn -g
       - run: .circleci/loadgpg
       - run: yarn global add @oclif/semantic-release@3 semantic-release@17
       - run: yarn --frozen-lockfile
