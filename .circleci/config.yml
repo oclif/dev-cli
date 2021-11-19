@@ -1,7 +1,7 @@
 ---
 version: 2.1
 orbs:
-  node: circleci/node@4.2.0
+  node: circleci/node@4.7.0
 jobs:
   test-node: &test
     parameters:
@@ -23,8 +23,11 @@ jobs:
             echo "--install.prefer-offline" >> .yarnrc
             echo "yarn-offline-mirror $(pwd)/.yarn/offline-mirror" >> .yarnrc
       - node/install: &install_node
-          install-yarn: true
           node-version: << parameters.node-version >>
+      - run:
+          name: Yarn Install
+          command: |
+            npm install yarn -g
       - run: &create_cache_key_file
           name: "Create Cache Key File"
           command: |
@@ -82,9 +85,9 @@ workflows:
           matrix:
             parameters:
               node-version:
-                - "10"
                 - "12"
                 - "14"
+                - "16"
       - release:
           node-version: "14"
           context: org-global
