@@ -90,7 +90,7 @@ workflows:
                 - "16"
       - release:
           node-version: "14"
-          context: org-global
+          context: SF-CLI-RELEASE-PROCESS
           filters:
             branches: {only: master}
           requires:
