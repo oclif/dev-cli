@@ -66,9 +66,9 @@ jobs:
       - run: ./bin/run pack
       - run: ./bin/run pack:deb
       - run: ./bin/run pack:win
-      - run: ./bin/run publish
-      - run: ./bin/run publish:deb
-      - run: ./bin/run publish:win
+ #     - run: ./bin/run publish
+ #     - run: ./bin/run publish:deb
+ #     - run: ./bin/run publish:win
       - run: |
           export PATH=/usr/local/share/.config/yarn/global/node_modules/.bin:$PATH
           semantic-release -e @oclif/semantic-release
