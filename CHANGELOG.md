@@ -1,3 +1,21 @@
+## [1.26.1](https://github.com/oclif/dev-cli/compare/v1.26.0...v1.26.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* bump deps ([#423](https://github.com/oclif/dev-cli/issues/423)) ([8a90ff2](https://github.com/oclif/dev-cli/commit/8a90ff2002faa0dd9f1381d04001f703509b5114))
+
+
+
+# [1.26.0](https://github.com/oclif/dev-cli/compare/v1.25.1...v1.26.0) (2020-12-10)
+
+
+### Features
+
+* adding region, sslEnabled and s3ForcePathStyle through env vars ([#280](https://github.com/oclif/dev-cli/issues/280)) ([9a31738](https://github.com/oclif/dev-cli/commit/9a317382e198a0c04c039f9432ec9f13f918624a))
+
+
+
 ## [1.25.1](https://github.com/oclif/dev-cli/compare/v1.25.0...v1.25.1) (2020-12-02)
 
 
