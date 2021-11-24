@@ -1,3 +1,12 @@
+## [1.26.3](https://github.com/oclif/dev-cli/compare/v1.26.2...v1.26.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* bump more deps ([#437](https://github.com/oclif/dev-cli/issues/437)) ([adc0b19](https://github.com/oclif/dev-cli/commit/adc0b19ec4d032f91d16b6b0d6a471b80400ebbb))
+
+
+
 ## [1.26.2](https://github.com/oclif/dev-cli/compare/v1.26.1...v1.26.2) (2021-11-24)
 
 
