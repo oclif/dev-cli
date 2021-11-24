@@ -1,3 +1,12 @@
+## [1.26.2](https://github.com/oclif/dev-cli/compare/v1.26.1...v1.26.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* remove deps ([#434](https://github.com/oclif/dev-cli/issues/434)) ([915df62](https://github.com/oclif/dev-cli/commit/915df6260e7209bd3311160881183ee4e371f0e9))
+
+
+
 ## [1.26.1](https://github.com/oclif/dev-cli/compare/v1.26.0...v1.26.1) (2021-11-22)
 
 
