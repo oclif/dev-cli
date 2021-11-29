@@ -1,3 +1,12 @@
+## [1.26.5](https://github.com/oclif/dev-cli/compare/v1.26.4...v1.26.5) (2021-11-29)
+
+
+### Bug Fixes
+
+* lodash.template all gone ([#441](https://github.com/oclif/dev-cli/issues/441)) ([8c63403](https://github.com/oclif/dev-cli/commit/8c6340390fd7af5c45345adb4ecf83762399470c))
+
+
+
 ## [1.26.4](https://github.com/oclif/dev-cli/compare/v1.26.3...v1.26.4) (2021-11-29)
 
 
