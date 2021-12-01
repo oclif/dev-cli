@@ -334,6 +334,18 @@
     is-wsl "^2.1.1"
     tslib "^2.0.0"
 
+"@oclif/config@^1.18.1":
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.18.1.tgz#81207d3682fa967bcd6981954fcfe414a29dcc77"
+  integrity sha512-twRJO5RRl3CCDaAASb6LiynfFQl/SbkWWOQy1l0kJZSMPysEhz+fk3BKfmlCCm451Btkp4UezHUwI1JtH+/zYg==
+  dependencies:
+    "@oclif/errors" "^1.3.3"
+    "@oclif/parser" "^3.8.0"
+    debug "^4.1.1"
+    globby "^11.0.1"
+    is-wsl "^2.1.1"
+    tslib "^2.0.0"
+
 "@oclif/errors@^1.2.2", "@oclif/errors@^1.3.3", "@oclif/errors@^1.3.5":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@oclif/errors/-/errors-1.3.5.tgz#a1e9694dbeccab10fe2fe15acb7113991bed636c"
@@ -350,7 +362,7 @@
   resolved "https://registry.yarnpkg.com/@oclif/linewrap/-/linewrap-1.0.0.tgz#aedcb64b479d4db7be24196384897b5000901d91"
   integrity sha512-Ups2dShK52xXa8w6iBWLgcjPJWjais6KPJQq3gQ/88AY6BXoTX+MIGFPrWQO1KLMiQfoTpcLnUwloN4brrVUHw==
 
-"@oclif/parser@^3.8.6":
+"@oclif/parser@^3.8.0", "@oclif/parser@^3.8.6":
   version "3.8.6"
   resolved "https://registry.yarnpkg.com/@oclif/parser/-/parser-3.8.6.tgz#d5a108af9c708a051cc6b1d27d47359d75f41236"
   integrity sha512-tXb0NKgSgNxmf6baN6naK+CCwOueaFk93FG9u202U7mTBHUKsioOUlw1SG/iPi9aJM3WE4pHLXmty59pci0OEw==
@@ -359,6 +371,22 @@
     "@oclif/linewrap" "^1.0.0"
     chalk "^4.1.0"
     tslib "^2.0.0"
+
+"@oclif/plugin-help@^3.2.10":
+  version "3.2.10"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-3.2.10.tgz#1843ac05f8cd139b575ee8b1dfc34bb500110e68"
+  integrity sha512-U3Jk01MTnqnd9druulNSn6nTjPEE1Rr6PWhD4rJ6Z+NjLFTKhp3S1kutWDXJQd7CQ6m8tHd1AYgsIjiR+36bSw==
+  dependencies:
+    "@oclif/command" "^1.8.6"
+    "@oclif/config" "^1.18.1"
+    "@oclif/errors" "^1.3.5"
+    chalk "^4.1.2"
+    indent-string "^4.0.0"
+    lodash "^4.17.21"
+    string-width "^4.2.0"
+    strip-ansi "^6.0.0"
+    widest-line "^3.1.0"
+    wrap-ansi "^6.2.0"
 
 "@oclif/plugin-help@^3.2.8":
   version "3.2.8"
@@ -376,14 +404,14 @@
     widest-line "^3.1.0"
     wrap-ansi "^4.0.0"
 
-"@oclif/plugin-legacy@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-legacy/-/plugin-legacy-1.2.2.tgz#292a31eb1fb58160503781fe3da59621382c4b72"
-  integrity sha512-uPE8xesEEH2hXby6ujslSproYXl2wHmOPn+ZYAzraA1JWXq1uhHMqSWSD6tyY7h+hww60B1mLC0S7mHJovmGMg==
+"@oclif/plugin-legacy@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-legacy/-/plugin-legacy-1.2.3.tgz#3d6deb69307f566326304901578d86aa154eccb9"
+  integrity sha512-mtvd+eua6/JNSnLxC2Cu3HYF0rhClgfVUxZtVDbWVIfTvvHepGehLc8mpa/uPIB4XJ3O8P/YEADBtjfOjXFDwg==
   dependencies:
     "@heroku-cli/command" "^8.5.0"
     "@oclif/color" "^0.1.2"
-    "@oclif/command" "^1.8.4"
+    "@oclif/command" "^1.8.6"
     ansi-escapes "^4.3.1"
     debug "^4.1.0"
     semver "^7.3.2"
@@ -3763,6 +3791,15 @@ wrap-ansi@^4.0.0:
     ansi-styles "^3.2.0"
     string-width "^2.1.1"
     strip-ansi "^4.0.0"
+
+wrap-ansi@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
+  integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
