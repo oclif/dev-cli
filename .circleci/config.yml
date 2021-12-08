@@ -96,6 +96,6 @@ workflows:
           node-version: "14"
           context: SF-CLI-RELEASE-PROCESS
           filters:
-            branches: {only: master}
+            branches: {only: main}
           requires:
             - test-node
