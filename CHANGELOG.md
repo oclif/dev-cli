@@ -1,3 +1,13 @@
+## [1.26.9](https://github.com/oclif/dev-cli/compare/v1.26.8...v1.26.9) (2021-12-09)
+
+
+### Bug Fixes
+
+* add release branches ([c53b572](https://github.com/oclif/dev-cli/commit/c53b572faff81cfb996441345a989f023caa5c05))
+* nump deps ([#454](https://github.com/oclif/dev-cli/issues/454)) ([4fd0538](https://github.com/oclif/dev-cli/commit/4fd0538a0ddb47aaec0feb88baac31be4720a356))
+
+
+
 ## [1.26.8](https://github.com/oclif/dev-cli/compare/v1.26.7...v1.26.8) (2021-12-06)
 
 
