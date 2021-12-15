@@ -1,3 +1,12 @@
+## [1.26.10](https://github.com/oclif/dev-cli/compare/v1.26.9...v1.26.10) (2021-12-15)
+
+
+### Bug Fixes
+
+* remove transient dep on lodash.template ([#457](https://github.com/oclif/dev-cli/issues/457)) ([f84acd8](https://github.com/oclif/dev-cli/commit/f84acd8afbd5a225f925153e5b8fe18be1d63a07))
+
+
+
 ## [1.26.9](https://github.com/oclif/dev-cli/compare/v1.26.8...v1.26.9) (2021-12-09)
 
 
