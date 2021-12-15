@@ -36,7 +36,7 @@
     "aws-sdk": "^2.443.0",
     "chai": "^4.2.0",
     "conventional-changelog-cli": "^2.0.17",
-    "eslint": "^7.3.1",
+    "eslint": "^8.4.1",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.2.0",
     "globby": "^11.0.1",
