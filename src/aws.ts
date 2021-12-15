@@ -1,5 +1,6 @@
 import * as CloudFront from 'aws-sdk/clients/cloudfront'
 import * as S3 from 'aws-sdk/clients/s3'
+import {CredentialProviderChain} from 'aws-sdk'
 import * as fs from 'fs-extra'
 import * as qq from 'qqjs'
 
@@ -18,21 +19,12 @@ export namespace upload {
 }
 
 const cache: {s3?: S3; cloudfront?: CloudFront} = {}
+
 const aws = {
-  get creds() {
-    const creds = {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      sessionToken: process.env.AWS_SESSION_TOKEN,
-    }
-    if (!creds.accessKeyId) throw new Error('AWS_ACCESS_KEY_ID not set')
-    if (!creds.secretAccessKey) throw new Error('AWS_SECRET_ACCESS_KEY not set')
-    return creds
-  },
   get s3() {
     try {
       cache.s3 = cache.s3 || new (require('aws-sdk/clients/s3') as typeof S3)({
-        ...this.creds,
+        credentialProvider: new CredentialProviderChain(),
         region: process.env.AWS_REGION,
         sslEnabled: process.env.AWS_SSL_ENABLED === undefined ? undefined : process.env.AWS_SSL_ENABLED === 'true',
         s3ForcePathStyle: process.env.AWS_S3_FORCE_PATH_STYLE === undefined ? undefined : process.env.AWS_S3_FORCE_PATH_STYLE === 'true',
@@ -45,7 +37,9 @@ const aws = {
     }
   },
   get cloudfront() {
-    cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)(this.creds)
+    cache.cloudfront = cache.cloudfront || new (require('aws-sdk/clients/cloudfront') as typeof CloudFront)({
+      credentialProvider: new CredentialProviderChain(),
+    })
     return cache.cloudfront
   },
 }
