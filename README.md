@@ -1,6 +1,8 @@
 @oclif/dev-cli
 ===============
 
+**This library has been replaced by [oclif](https://github.com/oclif) and is now in maintenance mode. We will only consider PRs that address security concerns.**
+
 helpers for oclif CLIs
 
 [![Version](https://img.shields.io/npm/v/@oclif/dev-cli.svg)](https://npmjs.org/package/@oclif/dev-cli)
