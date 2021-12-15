@@ -1422,10 +1422,10 @@ eslint-config-oclif-typescript@^0.2.0:
     eslint-plugin-node "^7.0.1"
     eslint-plugin-unicorn "^6.0.1"
 
-eslint-config-oclif@^3.1.0:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-oclif/-/eslint-config-oclif-3.1.2.tgz#d68bdcc3c3a7f548572ccc3582f7f345abef609d"
-  integrity sha512-66i2mWHb4luJHqJSUO5o9bTYQyH4yuItEikBghUixQB1tFpe/j3mKoRMncxGm2LDGcVIbgK7iLXWO9Ta7buIpg==
+eslint-config-oclif@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-oclif/-/eslint-config-oclif-4.0.0.tgz#90a07587f7be7c92ae3ce750ae11cf1e864239eb"
+  integrity sha512-5tkUQeC33rHAhJxaGeBGYIflDLumeV2qD/4XLBdXhB/6F/+Jnwdce9wYHSvkx0JUqUQShpQv8JEVkBp/zzD7hg==
   dependencies:
     eslint-config-xo-space "^0.27.0"
     eslint-plugin-mocha "^9.0.0"
