@@ -24,6 +24,7 @@ const pack = async (from: string, to: string) => {
 export async function build(c: IConfig, options: {
   platform?: string;
   pack?: boolean;
+  input?: string
 } = {}) {
   const {xz, config} = c
   const prevCwd = qq.cwd()
@@ -127,7 +128,7 @@ export async function build(c: IConfig, options: {
     await qq.writeJSON(c.dist(config.s3Key('manifest')), manifest)
   }
   log(`gathering workspace for ${config.bin} to ${c.workspace()}`)
-  await extractCLI(await packCLI())
+  await extractCLI(options.input ? options.input : await packCLI())
   await updatePJSON()
   await addDependencies()
   await writeBinScripts({config, baseWorkspace: c.workspace(), nodeVersion: c.nodeVersion})
